@@ -98,6 +98,7 @@ body.cursor-ready .cursor-dot, body.cursor-ready .cursor-ring { opacity: 1; }
 }
 .icon-btn:hover { background: var(--inset); }
 .icon-btn.off { opacity: .45; }
+.icon-btn.active { color: var(--green); border-color: var(--green); }
 
 .main { flex: 1; min-width: 0; padding: 40px clamp(18px, 4vw, 60px) 80px; }
 .container { max-width: 900px; margin: 0 auto; }
@@ -106,6 +107,26 @@ body.cursor-ready .cursor-dot, body.cursor-ready .cursor-ring { opacity: 1; }
 .hero h1 { margin: 0; font-family: var(--serif); font-weight: 700; font-size: clamp(26px, 5vw, 42px); line-height: 1.12; letter-spacing: -.3px; }
 .hero h1 em { font-style: normal; color: var(--gold); }
 .hero .sub { margin: 8px 0 0; color: var(--muted); font-size: 14px; }
+
+/* Notification banner */
+.notif-banner {
+    display: flex; align-items: center; gap: 14px;
+    background: linear-gradient(90deg, rgba(124,197,150,.15), rgba(124,197,150,.05));
+    border: 1px solid rgba(124,197,150,.4); border-left: 4px solid var(--green);
+    border-radius: 12px; padding: 14px 18px; margin-bottom: 22px;
+    animation: slideDown .4s ease both;
+}
+@keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+.notif-banner .n-icon { font-size: 22px; flex-shrink: 0; }
+.notif-banner .n-body { flex: 1; min-width: 0; }
+.notif-banner .n-title { font-weight: 600; font-size: 15px; color: var(--green); margin-bottom: 2px; }
+.notif-banner .n-text { font-size: 13.5px; color: var(--text); }
+.notif-banner .n-close {
+    background: none; border: none; color: var(--muted); cursor: pointer;
+    font-size: 18px; width: 32px; height: 32px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.notif-banner .n-close:hover { background: rgba(255,255,255,.08); color: var(--text); }
 
 .search-wrap { position: sticky; top: 8px; z-index: 10; margin-bottom: 22px; }
 .search-input {
@@ -305,6 +326,94 @@ body.cursor-ready .cursor-dot, body.cursor-ready .cursor-ring { opacity: 1; }
 .schedule-table tr:hover td { background: var(--panel-2); }
 .schedule-table .num { font-family: var(--mono); font-size: 13px; color: var(--muted); width: 40px; text-align: center; }
 
+/* Учебники */
+.textbook-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 18px; margin-bottom: 12px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-left: 3px solid var(--c, var(--gold)); border-radius: 10px;
+    text-decoration: none; color: var(--text);
+    transition: transform .15s ease, box-shadow .2s ease, background .15s;
+}
+.textbook-item:hover { transform: translateX(4px); box-shadow: 0 6px 16px rgba(0,0,0,.15); }
+.textbook-item[data-subject="algebra"]   { --c: var(--algebra); }
+.textbook-item[data-subject="geometry"]  { --c: var(--geometry); }
+.textbook-item[data-subject="russian"]   { --c: var(--russian); }
+.textbook-item[data-subject="english"]   { --c: var(--english); }
+.textbook-item[data-subject="history"]   { --c: var(--history); }
+.textbook-item[data-subject="geography"] { --c: var(--geography); }
+.textbook-item[data-subject="physics"]   { --c: var(--physics); }
+.textbook-item[data-subject="biology"]   { --c: var(--biology); }
+.textbook-item .tb-icon {
+    width: 42px; height: 42px; border-radius: 10px; flex-shrink: 0;
+    background: var(--panel-2); color: var(--c);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 20px;
+}
+.textbook-item .tb-body { flex: 1; min-width: 0; }
+.textbook-item .tb-title { font-weight: 600; font-size: 15.5px; margin-bottom: 3px; font-family: var(--serif); }
+.textbook-item .tb-subject { font-size: 12.5px; color: var(--muted); }
+.textbook-item .tb-arrow { font-size: 18px; color: var(--muted); flex-shrink: 0; }
+
+/* Калькулятор дробей */
+.calc-panel {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 14px; padding: 22px;
+    box-shadow: 0 12px 24px rgba(0,0,0,.12); margin-bottom: 22px;
+}
+.calc-input-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+.calc-input {
+    flex: 1; min-width: 200px;
+    padding: 14px 18px; background: var(--inset); border: 1px solid var(--border);
+    border-radius: 10px; color: var(--text); font-family: var(--mono); font-size: 17px;
+    transition: border-color .15s, box-shadow .15s;
+}
+.calc-input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(217,165,91,.15); }
+.calc-buttons { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.calc-op {
+    width: 42px; height: 42px;
+    background: var(--panel-2); border: 1px solid var(--border); color: var(--text);
+    border-radius: 9px; cursor: pointer; font-size: 18px; font-weight: 600;
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: background .15s, transform .1s;
+}
+.calc-op:hover { background: var(--inset); }
+.calc-op:active { transform: scale(.94); }
+.calc-btn {
+    flex: 1; min-width: 140px;
+    background: var(--gold); border: none; color: #1a1408;
+    padding: 14px 22px; border-radius: 10px;
+    font: inherit; font-size: 15px; font-weight: 700;
+    cursor: pointer; transition: transform .1s, box-shadow .15s;
+}
+.calc-btn:hover { box-shadow: 0 6px 16px rgba(217,165,91,.35); }
+.calc-btn:active { transform: scale(.97); }
+.calc-btn.clear-btn {
+    background: var(--panel-2); color: var(--text); border: 1px solid var(--border);
+    flex: 0 1 auto; min-width: auto; padding: 14px 20px; font-weight: 500;
+}
+.calc-result {
+    background: var(--inset); border-radius: 10px; padding: 20px;
+    margin-top: 16px; display: none;
+}
+.calc-result.visible { display: block; }
+.calc-result.error { border-left: 4px solid var(--red); }
+.calc-result h3 {
+    margin: 0 0 14px; font-family: var(--serif); font-size: 20px;
+    color: var(--gold);
+}
+.calc-steps {
+    font-family: var(--mono); font-size: 15px; line-height: 2;
+    color: var(--text); white-space: pre-wrap; word-break: break-word;
+}
+.calc-steps .step { padding: 4px 0; border-bottom: 1px dashed var(--border); }
+.calc-steps .step:last-child { border-bottom: none; }
+.calc-steps .final {
+    font-size: 22px; font-weight: 700; color: var(--green);
+    font-family: var(--serif); padding-top: 8px;
+}
+.calc-hint { color: var(--muted); font-size: 13px; margin: 0 0 10px; }
+
 .glossary-item { padding: 14px 16px; margin-bottom: 10px; background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--c, var(--gold)); border-radius: 10px; }
 .glossary-item[data-subject="algebra"] { --c: var(--algebra); }
 .glossary-item[data-subject="russian"] { --c: var(--russian); }
@@ -335,7 +444,7 @@ body.cursor-ready .cursor-dot, body.cursor-ready .cursor-ring { opacity: 1; }
 .lightbox-close { position: absolute; top: 20px; right: 20px; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3); color: #fff; font-size: 20px; cursor: pointer; display: none; align-items: center; justify-content: center; }
 .lightbox.open .lightbox-close { display: flex; }
 
-.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--gold); color: #1a1408; padding: 12px 22px; border-radius: 30px; font-weight: 600; font-size: 14px; box-shadow: 0 8px 20px rgba(0,0,0,.25); opacity: 0; transition: transform .3s ease, opacity .3s ease; z-index: 200; pointer-events: none; }
+.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--gold); color: #1a1408; padding: 12px 22px; border-radius: 30px; font-weight: 600; font-size: 14px; box-shadow: 0 8px 20px rgba(0,0,0,.25); opacity: 0; transition: transform .3s ease, opacity .3s ease; z-index: 200; pointer-events: none; max-width: calc(100vw - 40px); text-align: center; }
 .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
 @media (max-width: 800px) {
@@ -383,12 +492,25 @@ body.cursor-ready .cursor-dot, body.cursor-ready .cursor-ring { opacity: 1; }
     .flashcard-face.back { font-size: 13px; }
     .schedule-table { font-size: 13.5px; }
     .schedule-table th, .schedule-table td { padding: 9px 10px; }
+    .calc-panel { padding: 16px 14px; }
+    .calc-input { font-size: 15px; padding: 12px 14px; }
+    .calc-btn { padding: 12px 18px; font-size: 14.5px; }
+    .calc-steps { font-size: 13.5px; line-height: 1.9; }
+    .calc-steps .final { font-size: 19px; }
+    .textbook-item { padding: 14px 14px; }
+    .textbook-item .tb-icon { width: 38px; height: 38px; font-size: 18px; }
+    .textbook-item .tb-title { font-size: 14.5px; }
+    .notif-banner { padding: 12px 14px; gap: 10px; }
+    .notif-banner .n-icon { font-size: 18px; }
+    .notif-banner .n-title { font-size: 14px; }
+    .notif-banner .n-text { font-size: 12.5px; }
 }
 @media (max-width: 400px) {
     .hero h1 { font-size: 22px; }
     .card h3 { font-size: 16px; }
     .sentence .t { font-size: 14.5px; }
     .expr { font-size: 11.5px; }
+    .calc-op { width: 38px; height: 38px; font-size: 16px; }
 }
 @media print {
     body * { visibility: hidden; }
@@ -523,247 +645,174 @@ const scheduleData = [
     { day: 'Суббота', index: 6, lessons: [] }
 ];
 
+/* ========== УЧЕБНИКИ ========== */
+const textbooksData = [
+    { subject: 'algebra',   icon: '📐', title: 'Алгебра 7 класс — Макарычев Ю.Н.', sub: 'Российская электронная школа · уроки и задания', url: 'https://resh.edu.ru/subject/13/7/' },
+    { subject: 'geometry',  icon: '📏', title: 'Геометрия 7–9 класс — Атанасян Л.С.', sub: 'Российская электронная школа', url: 'https://resh.edu.ru/subject/14/7/' },
+    { subject: 'russian',   icon: '📖', title: 'Русский язык 7 класс — Ладыженская Т.А.', sub: 'Российская электронная школа', url: 'https://resh.edu.ru/subject/11/7/' },
+    { subject: 'english',   icon: '🇬🇧', title: 'Английский язык 7 класс — Spotlight / Афанасьева', sub: 'Российская электронная школа', url: 'https://resh.edu.ru/subject/15/7/' },
+    { subject: 'history',   icon: '🏛️', title: 'История России и Всеобщая история 7 класс', sub: 'Российская электронная школа', url: 'https://resh.edu.ru/subject/3/7/' },
+    { subject: 'geography', icon: '🌍', title: 'География 7 класс — Коринская В.А.', sub: 'Российская электронная школа', url: 'https://resh.edu.ru/subject/4/7/' },
+    { subject: 'physics',   icon: '⚛️', title: 'Физика 7 класс — Перышкин А.В.', sub: 'Российская электронная школа', url: 'https://resh.edu.ru/subject/5/7/' },
+    { subject: 'biology',   icon: '🌱', title: 'Биология 7 класс — Пасечник В.В.', sub: 'Российская электронная школа', url: 'https://resh.edu.ru/subject/6/7/' },
+    { subject: 'algebra',   icon: '📚', title: 'ЯКласс — все предметы 7 класс', sub: 'Теория и тренировочные задания', url: 'https://www.yaklass.ru/' },
+    { subject: 'algebra',   icon: '🎓', title: 'ИнтернетУрок — библиотека видеоуроков', sub: 'Бесплатные видеоуроки по всем предметам', url: 'https://interneturok.ru/' }
+];
+
 const geometryQA = [
     { q: 'Сколько прямых можно провести через две точки?',
       a: 'Через любые две точки можно провести прямую, и притом только одну.' },
     { q: 'Сколько общих точек могут иметь две прямые?',
-      a: 'Две прямые могут иметь либо <b>одну общую точку</b> (пересекаться), либо <b>не иметь общих точек</b> (быть параллельными), либо <b>совпадать</b> (иметь бесконечно много общих точек).' },
+      a: 'Две прямые могут иметь либо <b>одну общую точку</b> (пересекаться), либо <b>не иметь общих точек</b> (быть параллельными), либо <b>совпадать</b>.' },
     { q: 'Объясните, что такое отрезок.',
-      a: 'Отрезок — это часть прямой, которая состоит из всех точек этой прямой, лежащих между двумя данными её точками (концами отрезка).' },
+      a: 'Отрезок — это часть прямой, которая состоит из всех точек этой прямой, лежащих между двумя данными её точками.' },
     { q: 'Объясните, что такое луч. Как обозначаются лучи?',
-      a: 'Луч (или полупрямая) — это часть прямой, состоящая из всех точек этой прямой, лежащих по одну сторону от данной её точки (начала луча). Лучи обозначаются двумя буквами: первой пишется начало луча, второй — любая точка на луче (например, луч <b>OA</b>).' },
-    { q: 'Какая фигура называется углом? Объясните, что такое вершина и стороны угла.',
-      a: 'Угол — это геометрическая фигура, состоящая из точки (<b>вершины угла</b>) и двух различных лучей, исходящих из этой точки (<b>сторон угла</b>).' },
+      a: 'Луч (полупрямая) — часть прямой, состоящая из всех точек этой прямой, лежащих по одну сторону от данной её точки. Лучи обозначаются двумя буквами: первой — начало, второй — любая точка на луче.' },
+    { q: 'Какая фигура называется углом? Что такое вершина и стороны угла?',
+      a: 'Угол — фигура, состоящая из точки (<b>вершины</b>) и двух различных лучей, исходящих из этой точки (<b>сторон</b>).' },
     { q: 'Какой угол называется развёрнутым?',
-      a: 'Развёрнутый угол — это угол, стороны которого являются двумя дополнительными лучами одной и той же прямой. Его градусная мера равна <b>180°</b>.' },
+      a: 'Развёрнутый угол — угол, стороны которого являются двумя дополнительными лучами одной прямой. Его градусная мера равна <b>180°</b>.' },
     { q: 'Какие фигуры называются равными?',
-      a: 'Две геометрические фигуры называются равными, если их можно совместить наложением.' },
-    { q: 'Объясните, как сравнить два отрезка.',
-      a: 'Чтобы сравнить два отрезка, можно наложить один на другой так, чтобы один из их концов совпал. Если совпадут и вторые концы — отрезки равны. Либо измерить их длины и сравнить числа.' },
+      a: 'Две фигуры называются равными, если их можно совместить наложением.' },
+    { q: 'Как сравнить два отрезка?',
+      a: 'Наложить один на другой так, чтобы один из концов совпал. Если совпадут вторые концы — отрезки равны. Либо измерить длины и сравнить числа.' },
     { q: 'Какая точка называется серединой отрезка?',
-      a: 'Серединой отрезка называется точка, которая делит этот отрезок на два равных отрезка.' },
-    { q: 'Объясните, как сравнить два угла.',
-      a: 'Чтобы сравнить два угла, нужно наложить один угол на другой так, чтобы сторона одного угла совместилась со стороной другого, а две другие оказались по одну сторону от совместившихся сторон. Если они совместятся — углы равны. Либо сравнить их градусные меры.' },
+      a: 'Точка, которая делит отрезок на два равных отрезка.' },
+    { q: 'Как сравнить два угла?',
+      a: 'Наложить один угол на другой так, чтобы сторона одного совместилась со стороной другого, а две другие оказались по одну сторону. Если совместятся — углы равны.' },
     { q: 'Какой луч называется биссектрисой угла?',
-      a: 'Биссектрисой угла называется луч, который исходит из вершины угла и делит его на два равных угла.' },
-    { q: 'Точка C делит отрезок AB на два отрезка. Как найти длину отрезка AB, если известны длины отрезков AC и CB?',
-      a: 'Длина отрезка <b>AB</b> равна сумме длин отрезков <b>AC</b> и <b>CB</b>: <b>AB = AC + CB</b>.' },
+      a: 'Луч, выходящий из вершины угла и делящий его на два равных угла.' },
+    { q: 'Как найти длину AB, если AC и CB известны?',
+      a: 'Длина отрезка <b>AB = AC + CB</b>.' },
     { q: 'Какими инструментами пользуются для измерения расстояний?',
-      a: 'Для измерения расстояний используют масштабную линейку, рулетку, циркуль-измеритель (а также нивелир, теодолит и т.д.).' },
+      a: 'Масштабная линейка, рулетка, циркуль-измеритель, нивелир, теодолит.' },
     { q: 'Что такое градусная мера угла?',
-      a: 'Градусная мера угла — это положительное число, которое показывает, сколько раз градус (1/180 часть развёрнутого угла) и его части укладываются в данном угле.' },
-    { q: 'Луч OC делит угол AOB на два угла. Как найти градусную меру угла AOB, если известны градусные меры углов AOC и COB?',
-      a: 'Градусная мера угла <b>AOB</b> равна сумме градусных мер углов <b>AOC</b> и <b>COB</b>: <b>∠AOB = ∠AOC + ∠COB</b>.' },
+      a: 'Положительное число, которое показывает, сколько раз градус (1/180 часть развёрнутого угла) и его части укладываются в данном угле.' },
+    { q: 'Как найти градусную меру ∠AOB, если известны ∠AOC и ∠COB?',
+      a: '<b>∠AOB = ∠AOC + ∠COB</b>.' },
     { q: 'Какой угол называется острым? прямым? тупым?',
-      a: '<b>Острый</b> — угол, градусная мера которого меньше 90°.<br><b>Прямой</b> — угол, градусная мера которого равна 90°.<br><b>Тупой</b> — угол, градусная мера которого больше 90°, но меньше 180°.' },
-    { q: 'Какие углы называются смежными? Чему равна сумма смежных углов?',
-      a: 'Смежными называются два угла, у которых одна сторона общая, а две другие стороны являются продолжениями одна другой. Сумма смежных углов равна <b>180°</b>.' },
-    { q: 'Какие углы называются вертикальными? Каким свойством обладают вертикальные углы?',
-      a: 'Вертикальными называются пары углов, образованные при пересечении двух прямых, у которых стороны одного угла являются продолжениями сторон другого. <b>Свойство:</b> вертикальные углы равны.' },
+      a: '<b>Острый</b> — меньше 90°.<br><b>Прямой</b> — равен 90°.<br><b>Тупой</b> — больше 90°, но меньше 180°.' },
+    { q: 'Какие углы называются смежными? Чему равна их сумма?',
+      a: 'Смежные углы — два угла, у которых одна сторона общая, а две другие — продолжения одна другой. Сумма = <b>180°</b>.' },
+    { q: 'Какие углы называются вертикальными? Свойство вертикальных углов?',
+      a: 'Вертикальные углы — пары углов при пересечении двух прямых, у которых стороны одного — продолжения сторон другого. <b>Свойство:</b> вертикальные углы равны.' },
     { q: 'Какие прямые называются перпендикулярными?',
-      a: 'Две прямые называются перпендикулярными, если они пересекаются под прямым углом (90°).' },
-    { q: 'Объясните, почему две прямые, перпендикулярные к третьей, не пересекаются.',
-      a: 'Если две прямые перпендикулярны к третьей, то при пересечении с ней они образуют прямые углы (по 90°). Внутренние односторонние углы при этом в сумме дают 180° (или накрест лежащие углы равны по 90°). По признаку параллельности прямых такие прямые параллельны, а параллельные прямые не пересекаются.' },
+      a: 'Две прямые, пересекающиеся под прямым углом (90°).' },
+    { q: 'Почему две прямые, перпендикулярные к третьей, не пересекаются?',
+      a: 'При пересечении с третьей они образуют прямые углы (по 90°). По признаку параллельности такие прямые параллельны, а параллельные не пересекаются.' },
     { q: 'Какие приборы применяют для построения прямых углов на местности?',
-      a: 'Для построения прямых углов на местности применяют специальные приборы: экер (полевой инструмент), теодолит, астролябию, нивелир.' }
+      a: 'Экер, теодолит, астролябия, нивелир.' }
 ];
 
 const glossaryData = [
-    // ========== АЛГЕБРА ==========
-    { term: 'Числовое выражение', definition: 'Запись, составленная из чисел, знаков арифметических действий и скобок, указывающих на порядок выполнения действий.', subject: 'algebra' },
-    { term: 'Значение выражения', definition: 'Число, получаемое в результате выполнения всех указанных действий в числовом выражении.', subject: 'algebra' },
-    { term: 'Буквенное (алгебраическое) выражение', definition: 'Выражение, содержащее буквы (переменные).', subject: 'algebra' },
-    { term: 'Переменная', definition: 'Буква, входящая в состав алгебраического выражения, которой можно придавать различные числовые значения.', subject: 'algebra' },
-    { term: 'Допустимые значения переменной', definition: 'Значения переменных, при которых алгебраическое выражение имеет числовое значение.', subject: 'algebra' },
-    { term: 'Тождество', definition: 'Равенство, верное при любых значениях входящих в него переменных.', subject: 'algebra' },
+    { term: 'Числовое выражение', definition: 'Запись из чисел, знаков арифметических действий и скобок.', subject: 'algebra' },
+    { term: 'Переменная', definition: 'Буква, которой можно придавать различные числовые значения.', subject: 'algebra' },
+    { term: 'Тождество', definition: 'Равенство, верное при любых значениях переменных.', subject: 'algebra' },
     { term: 'Уравнение', definition: 'Равенство, содержащее переменную.', subject: 'algebra' },
     { term: 'Корень уравнения', definition: 'Значение переменной, при котором уравнение обращается в верное равенство.', subject: 'algebra' },
-    { term: 'Линейное уравнение с одной переменной', definition: 'Уравнение вида ax = b, где x — переменная, a и b — некоторые числа.', subject: 'algebra' },
-    { term: 'Среднее арифметическое', definition: 'Сумма чисел, делённая на их количество.', subject: 'algebra' },
-    { term: 'Координатная прямая', definition: 'Прямая с выбранными на ней началом отсчёта, единичным отрезком и направлением.', subject: 'algebra' },
-    { term: 'Координата точки', definition: 'Число, показывающее положение точки на прямой.', subject: 'algebra' },
-    { term: 'Противоположные числа', definition: 'Два числа, отличающиеся друг от друга только знаками.', subject: 'algebra' },
-    { term: 'Целые числа', definition: 'Натуральные числа, противоположные им числа и 0.', subject: 'algebra' },
-    { term: 'Степень с натуральным показателем', definition: 'Степенью числа a с натуральным показателем n (n > 1) называют произведение n множителей, каждый из которых равен a. Степенью числа a с показателем 1 называют само это число.', subject: 'algebra' },
-    { term: 'Свойства степени', definition: 'При умножении степеней с одинаковыми основаниями показатели складываются: aⁿ · aᵐ = aⁿ⁺ᵐ. При делении — вычитаются: aⁿ : aᵐ = aⁿ⁻ᵐ. При возведении степени в степень — перемножаются: (aⁿ)ᵐ = aⁿᵐ.', subject: 'algebra' },
-    { term: 'Одночлен', definition: 'Выражение, представляющее собой произведение чисел, переменных и их степеней. Также одночленами считают числа, переменные и их степени. Например: 7, 2⁵, x, x⁴.', subject: 'algebra' },
-    { term: 'Стандартный вид одночлена', definition: 'Запись одночлена, при которой на первом месте стоит числовой множитель, а затем — степени различных переменных. Например: -6b⁴c².', subject: 'algebra' },
-    { term: 'Коэффициент одночлена', definition: 'Числовой множитель одночлена, записанного в стандартном виде. Например, коэффициент одночлена -6b⁴c² равен -6.', subject: 'algebra' },
-    { term: 'Степень одночлена', definition: 'Сумма показателей степеней всех переменных, входящих в одночлен. Если одночлен не содержит переменных и является числом, отличным от нуля, то его степень считают равной нулю.', subject: 'algebra' },
-    { term: 'Умножение одночленов', definition: 'При умножении одночленов перемножают их числовые множители, а показатели степеней с одинаковыми основаниями складывают. Полученный одночлен обычно представляют в стандартном виде.', subject: 'algebra' },
-    { term: 'Возведение одночлена в степень', definition: 'При возведении одночлена в степень каждый множитель возводят в эту степень, а показатели степеней переменных умножают на показатель степени.', subject: 'algebra' },
-    { term: 'Многочлен', definition: 'Выражение, которое является суммой нескольких одночленов. Например: 2a + 3b, x² - 4xy + y².', subject: 'algebra' },
-    { term: 'Двучлен', definition: 'Многочлен, состоящий из двух членов.', subject: 'algebra' },
-    { term: 'Трехчлен', definition: 'Многочлен, состоящий из трех членов.', subject: 'algebra' },
-    { term: 'Подобные члены многочлена', definition: 'Подобные одночлены, из которых составлен многочлен.', subject: 'algebra' },
-    { term: 'Многочлен стандартного вида', definition: 'Многочлен, состоящий из одночленов стандартного вида, среди которых нет подобных.', subject: 'algebra' },
-    { term: 'Степень многочлена стандартного вида', definition: 'Наибольшая из степеней одночленов, из которых этот многочлен составлен.', subject: 'algebra' },
-    { term: 'Формулы сокращённого умножения', definition: 'Тождества, которые используются для упрощения вычислений и преобразования выражений: квадрат суммы (a + b)² = a² + 2ab + b²; квадрат разности (a - b)² = a² - 2ab + b²; разность квадратов a² - b² = (a - b)(a + b); куб суммы (a + b)³ = a³ + 3a²b + 3ab² + b³; куб разности (a - b)³ = a³ - 3a²b + 3ab² - b³.', subject: 'algebra' },
-    { term: 'Функция', definition: 'Правило, с помощью которого по каждому значению независимой переменной из множества X можно найти единственное значение зависимой переменной из множества Y.', subject: 'algebra' },
-    { term: 'Область определения функции', definition: 'Все значения аргумента образуют множество, которое называют областью определения функции.', subject: 'algebra' },
-    { term: 'Область значений функции', definition: 'Все значения зависимой переменной образуют множество, которое называют областью значений функции.', subject: 'algebra' },
-    { term: 'График функции', definition: 'Геометрическая фигура, состоящая из всех тех и только тех точек координатной плоскости, абсциссы которых равны значениям аргумента, а ординаты — соответствующим значениям функции.', subject: 'algebra' },
-    { term: 'Прямая пропорциональность', definition: 'Функция вида y = kx, где x — независимая переменная, y — зависимая переменная, k — угловой коэффициент, не равный нулю. График — прямая, проходящая через начало координат.', subject: 'algebra' },
-    { term: 'Линейная функция', definition: 'Функция вида y = kx + b, где x — независимая переменная, y — зависимая переменная, k — угловой коэффициент, не равный нулю, b — свободное число. График — прямая.', subject: 'algebra' },
-    { term: 'Уравнение с двумя переменными', definition: 'Равенство, содержащее две переменные.', subject: 'algebra' },
-    { term: 'Решение уравнения с двумя переменными', definition: 'Пара значений, обращающая уравнение в верное равенство.', subject: 'algebra' },
+    { term: 'Степень с натуральным показателем', definition: 'Произведение n множителей, каждый из которых равен a.', subject: 'algebra' },
+    { term: 'Свойства степени', definition: 'aⁿ·aᵐ = aⁿ⁺ᵐ; aⁿ:aᵐ = aⁿ⁻ᵐ; (aⁿ)ᵐ = aⁿᵐ.', subject: 'algebra' },
+    { term: 'Одночлен', definition: 'Произведение чисел, переменных и их степеней.', subject: 'algebra' },
+    { term: 'Стандартный вид одночлена', definition: 'Запись, где на первом месте числовой множитель, затем — степени разных переменных.', subject: 'algebra' },
+    { term: 'Коэффициент', definition: 'Числовой множитель одночлена в стандартном виде.', subject: 'algebra' },
+    { term: 'Степень одночлена', definition: 'Сумма показателей степеней всех переменных.', subject: 'algebra' },
+    { term: 'Многочлен', definition: 'Сумма нескольких одночленов.', subject: 'algebra' },
+    { term: 'Многочлен стандартного вида', definition: 'Многочлен из одночленов стандартного вида, среди которых нет подобных.', subject: 'algebra' },
+    { term: 'Формулы сокращённого умножения', definition: '(a+b)² = a²+2ab+b²; (a-b)² = a²-2ab+b²; a²-b² = (a-b)(a+b); (a+b)³ = a³+3a²b+3ab²+b³.', subject: 'algebra' },
+    { term: 'Функция', definition: 'Правило, по которому каждому значению аргумента соответствует единственное значение функции.', subject: 'algebra' },
+    { term: 'Прямая пропорциональность', definition: 'Функция вида y = kx. График — прямая через начало координат.', subject: 'algebra' },
+    { term: 'Линейная функция', definition: 'Функция вида y = kx + b. График — прямая.', subject: 'algebra' },
 
-    // ========== ГЕОМЕТРИЯ ==========
-    { term: 'Точка', definition: 'Первичное понятие геометрии, не имеющее размеров.', subject: 'geometry' },
-    { term: 'Прямая', definition: 'Первичное понятие геометрии, неограниченная линия.', subject: 'geometry' },
-    { term: 'Плоскость', definition: 'Первичное понятие геометрии, неограниченная поверхность.', subject: 'geometry' },
-    { term: 'Отрезок', definition: 'Часть прямой, состоящая из всех точек этой прямой, лежащих между двумя данными её точками.', subject: 'geometry' },
-    { term: 'Концы отрезка', definition: 'Точки, ограничивающие отрезок.', subject: 'geometry' },
-    { term: 'Середина отрезка', definition: 'Точка отрезка, делящая его пополам.', subject: 'geometry' },
-    { term: 'Длина отрезка', definition: 'Количество единиц измерения длины, вмещающихся между двумя концами отрезка.', subject: 'geometry' },
-    { term: 'Луч', definition: 'Часть прямой, состоящая из всех точек этой прямой, лежащих по одну сторону от данной её точки.', subject: 'geometry' },
-    { term: 'Угол', definition: 'Фигура, состоящая из точки (вершины) и двух различных лучей, исходящих из этой точки (сторон).', subject: 'geometry' },
-    { term: 'Вершина угла', definition: 'Общее начало лучей, образующих угол.', subject: 'geometry' },
-    { term: 'Стороны угла', definition: 'Лучи, образующие угол.', subject: 'geometry' },
+    { term: 'Отрезок', definition: 'Часть прямой между двумя её точками.', subject: 'geometry' },
+    { term: 'Середина отрезка', definition: 'Точка, делящая отрезок пополам.', subject: 'geometry' },
+    { term: 'Луч', definition: 'Часть прямой, лежащая по одну сторону от данной точки.', subject: 'geometry' },
+    { term: 'Угол', definition: 'Фигура из точки (вершины) и двух лучей (сторон).', subject: 'geometry' },
     { term: 'Развёрнутый угол', definition: 'Угол, стороны которого — два дополнительных луча одной прямой. Равен 180°.', subject: 'geometry' },
-    { term: 'Прямой угол', definition: 'Угол, градусная мера которого равна 90°.', subject: 'geometry' },
-    { term: 'Острый угол', definition: 'Угол, градусная мера которого меньше 90°.', subject: 'geometry' },
-    { term: 'Тупой угол', definition: 'Угол, градусная мера которого больше 90°, но меньше 180°.', subject: 'geometry' },
-    { term: 'Равные фигуры', definition: 'Фигуры, которые совпадают при наложении друг на друга.', subject: 'geometry' },
-    { term: 'Биссектриса угла', definition: 'Луч, выходящий из вершины угла и делящий его пополам.', subject: 'geometry' },
-    { term: 'Градус', definition: 'Единица измерения углов, равная 1/180 части развёрнутого угла.', subject: 'geometry' },
-    { term: 'Градусная мера угла', definition: 'Количество единиц измерения углов, вмещающихся между сторонами угла.', subject: 'geometry' },
-    { term: 'Смежные углы', definition: 'Два угла, у которых одна сторона общая, а две другие образуют прямую линию. Сумма = 180°.', subject: 'geometry' },
-    { term: 'Вертикальные углы', definition: 'Два угла, у которых стороны одного являются продолжением сторон другого. Вертикальные углы равны.', subject: 'geometry' },
-    { term: 'Перпендикулярные прямые', definition: 'Две пересекающиеся прямые, образующие четыре прямых угла (90°).', subject: 'geometry' },
-    { term: 'Параллельные прямые', definition: 'Прямые, лежащие в одной плоскости и не имеющие общих точек.', subject: 'geometry' },
+    { term: 'Прямой угол', definition: 'Угол, равный 90°.', subject: 'geometry' },
+    { term: 'Острый угол', definition: 'Угол меньше 90°.', subject: 'geometry' },
+    { term: 'Тупой угол', definition: 'Угол больше 90°, но меньше 180°.', subject: 'geometry' },
+    { term: 'Биссектриса угла', definition: 'Луч, делящий угол пополам.', subject: 'geometry' },
+    { term: 'Градус', definition: '1/180 часть развёрнутого угла.', subject: 'geometry' },
+    { term: 'Смежные углы', definition: 'Одна сторона общая, две другие образуют прямую. Сумма = 180°.', subject: 'geometry' },
+    { term: 'Вертикальные углы', definition: 'Стороны одного — продолжения сторон другого. Равны.', subject: 'geometry' },
+    { term: 'Перпендикулярные прямые', definition: 'Пересекаются под прямым углом.', subject: 'geometry' },
+    { term: 'Параллельные прямые', definition: 'Лежат в одной плоскости и не имеют общих точек.', subject: 'geometry' },
     { term: 'Аксиома', definition: 'Утверждение, принятое без доказательства.', subject: 'geometry' },
-    { term: 'Теорема', definition: 'Утверждение, которое доказывается на основе аксиом и ранее доказанных теорем.', subject: 'geometry' },
-    { term: 'Треугольник', definition: 'Фигура, состоящая из трёх точек, соединённых между собой отрезками.', subject: 'geometry' },
-    { term: 'Периметр треугольника', definition: 'Сумма длин всех сторон треугольника.', subject: 'geometry' },
-    { term: 'Медиана треугольника', definition: 'Отрезок, соединяющий вершину треугольника с серединой противоположной стороны.', subject: 'geometry' },
-    { term: 'Биссектриса треугольника', definition: 'Отрезок биссектрисы угла треугольника, соединяющий вершину с точкой на противоположной стороне.', subject: 'geometry' },
-    { term: 'Высота треугольника', definition: 'Перпендикуляр, проведённый из вершины треугольника к прямой, содержащей противоположную сторону.', subject: 'geometry' },
+    { term: 'Теорема', definition: 'Утверждение, доказываемое на основе аксиом.', subject: 'geometry' },
+    { term: 'Треугольник', definition: 'Фигура из трёх точек и трёх отрезков.', subject: 'geometry' },
+    { term: 'Медиана', definition: 'Отрезок, соединяющий вершину с серединой противоположной стороны.', subject: 'geometry' },
+    { term: 'Биссектриса треугольника', definition: 'Отрезок биссектрисы угла от вершины до противоположной стороны.', subject: 'geometry' },
+    { term: 'Высота треугольника', definition: 'Перпендикуляр из вершины к прямой, содержащей противоположную сторону.', subject: 'geometry' },
 
-    // ========== РУССКИЙ ЯЗЫК ==========
-    { term: 'Причастие', definition: 'Особая форма глагола, которая обозначает признак предмета по действию и отвечает на вопросы какой? какая? какое? какие?', subject: 'russian' },
+    { term: 'Причастие', definition: 'Особая форма глагола, обозначающая признак по действию.', subject: 'russian' },
     { term: 'Причастный оборот', definition: 'Причастие с зависимыми словами.', subject: 'russian' },
-    { term: 'Действительное причастие', definition: 'Причастие, обозначающее признак предмета, который сам совершает действие.', subject: 'russian' },
-    { term: 'Страдательное причастие', definition: 'Причастие, обозначающее признак предмета, который испытывает на себе действие со стороны другого предмета.', subject: 'russian' },
-    { term: 'Деепричастие', definition: 'Особая форма глагола, которая обозначает добавочное действие при основном действии, выраженном глаголом.', subject: 'russian' },
+    { term: 'Деепричастие', definition: 'Особая форма глагола, обозначающая добавочное действие.', subject: 'russian' },
     { term: 'Деепричастный оборот', definition: 'Деепричастие с зависимыми словами.', subject: 'russian' },
-    { term: 'Наречие', definition: 'Самостоятельная часть речи, которая обозначает признак действия, признак признака или признак предмета.', subject: 'russian' },
-    { term: 'Категория состояния', definition: 'Часть речи, которая обозначает состояние живых существ, природы, окружающей среды.', subject: 'russian' },
-    { term: 'Предлог', definition: 'Служебная часть речи, которая выражает зависимость существительных, числительных и местоимений от других слов в словосочетании и предложении.', subject: 'russian' },
-    { term: 'Союз', definition: 'Служебная часть речи, которая связывает однородные члены, простые предложения в составе сложного, а также предложения в тексте.', subject: 'russian' },
-    { term: 'Частица', definition: 'Служебная часть речи, которая вносит в предложение различные оттенки значения или служит для образования форм слова.', subject: 'russian' },
-    { term: 'Междометие', definition: 'Особая часть речи, которая выражает, но не называет различные чувства и побуждения.', subject: 'russian' },
+    { term: 'Наречие', definition: 'Часть речи, обозначающая признак действия, признак признака или предмета.', subject: 'russian' },
+    { term: 'Предлог', definition: 'Служебная часть речи, выражающая зависимость слов.', subject: 'russian' },
+    { term: 'Союз', definition: 'Служебная часть речи, связывающая однородные члены и предложения.', subject: 'russian' },
+    { term: 'Частица', definition: 'Служебная часть речи, вносящая оттенки значения.', subject: 'russian' },
+    { term: 'Междометие', definition: 'Часть речи, выражающая чувства и побуждения, но не называющая их.', subject: 'russian' },
 
-    // ========== ИСТОРИЯ ==========
-    { term: 'Новое время', definition: 'Период в истории, характеризующийся переходом от ремесленного к заводскому производству и изменением социального состава общества. Приблизительные рамки XV – XIX век.', subject: 'history' },
-    { term: 'Великие географические открытия', definition: 'Период в истории, когда европейские исследователи стали активно изучать другие страны с целью колонизации и торговли, XV-XVII века.', subject: 'history' },
-    { term: 'Абсолютизм', definition: 'Форма правления, при которой верховная власть принадлежит одному лицу — монарху.', subject: 'history' },
-    { term: 'Парламент', definition: 'Представительный и законодательный орган, полностью или частично выборный.', subject: 'history' },
-    { term: 'Монополия', definition: 'Исключительное право на производство или торговлю.', subject: 'history' },
-    { term: 'Мануфактура', definition: 'Предприятие, основанное на разделении труда и ручной ремесленной технике.', subject: 'history' },
-    { term: 'Утопия', definition: 'Представление об идеальном устройстве общества.', subject: 'history' },
-    { term: 'Реформация', definition: 'Движение за переустройство церкви, которое привело к расколу католической церкви.', subject: 'history' },
-    { term: 'Протестанты', definition: 'Последователи Реформации.', subject: 'history' },
-    { term: 'Пуритане', definition: 'Английские протестанты.', subject: 'history' },
-    { term: 'Промышленный переворот', definition: 'Процесс перехода производства от мануфактурного к машинному.', subject: 'history' },
+    { term: 'Новое время', definition: 'Период XV–XIX веков. Переход от ремесла к заводам.', subject: 'history' },
+    { term: 'Абсолютизм', definition: 'Форма правления, при которой вся власть у монарха.', subject: 'history' },
+    { term: 'Мануфактура', definition: 'Предприятие с разделением ручного труда.', subject: 'history' },
+    { term: 'Промышленный переворот', definition: 'Переход от мануфактуры к машинному производству.', subject: 'history' },
     { term: 'Конституция', definition: 'Основной закон государства.', subject: 'history' },
-    { term: 'Земский собор', definition: 'Съезд представителей от разных сословий с целью принятия важных для страны решений.', subject: 'history' },
-    { term: 'Смутное время', definition: 'Период в истории России (1604-1618 гг.), характеризующийся глубоким кризисом государства.', subject: 'history' },
-    { term: 'Поместье', definition: 'Земельное владение, выдаваемое царем дворянину на условиях военной службы.', subject: 'history' },
-    { term: 'Пожилое', definition: 'Пошлина, выплачиваемая крестьянином феодалу при переходе от одного владельца к другому.', subject: 'history' },
+    { term: 'Смутное время', definition: 'Период 1604–1618 в России. Глубокий кризис государства.', subject: 'history' },
     { term: 'Вече', definition: 'Народное собрание в древней Руси.', subject: 'history' },
-    { term: 'Князь', definition: 'Глава государства в древней Руси.', subject: 'history' },
-    { term: 'Дружина', definition: 'Отряд воинов при князе.', subject: 'history' },
 
-    // ========== ГЕОГРАФИЯ ==========
-    { term: 'Литосфера', definition: 'Включает земную кору с верхним слоем мантии. Состоит из литосферных плит (7 крупных), разделённых разломами.', subject: 'geography' },
-    { term: 'Сейсмический пояс', definition: 'Пограничные области между литосферными плитами (области вулканической активности и землетрясений).', subject: 'geography' },
+    { term: 'Литосфера', definition: 'Земная кора с верхним слоем мантии.', subject: 'geography' },
     { term: 'Рельеф', definition: 'Неровности земной поверхности.', subject: 'geography' },
     { term: 'Климат', definition: 'Многолетний режим погоды.', subject: 'geography' },
-    { term: 'Климатообразующие факторы', definition: 'Количество солнечного тепла, движение воздушных масс, характер земной поверхности.', subject: 'geography' },
-    { term: 'Климатический пояс', definition: 'Крупный участок земной поверхности, характеризующийся определённым климатом. Основной признак — преобладающие воздушные массы.', subject: 'geography' },
-    { term: 'Гидросфера', definition: 'Водная оболочка Земли.', subject: 'geography' },
-    { term: 'Океанические течения', definition: 'Тёплые и холодные потоки воды в океане.', subject: 'geography' },
-    { term: 'Широтная поясность', definition: 'Смена природных зон от экватора к полюсам по мере уменьшения солнечного тепла и неравномерного увлажнения.', subject: 'geography' },
-    { term: 'Высотная поясность', definition: 'Чередование природных зон в горах. Чем выше гора и ближе к экватору, тем больше природных зон.', subject: 'geography' },
-    { term: 'Естественный прирост', definition: 'Разница между числом родившихся и умерших.', subject: 'geography' },
-    { term: 'Плотность населения', definition: 'Количество людей на 1 квадратный километр площади.', subject: 'geography' },
-    { term: 'Расы', definition: 'Большие группы людей со сходными внешними признаками. Выделяют экваториальную, европеоидную и монголоидную.', subject: 'geography' },
-    { term: 'Вулкан', definition: 'Геологическое образование, возникающее над каналами и трещинами в земной коре, по которым на поверхность извергается лава.', subject: 'geography' },
-    { term: 'Гейзер', definition: 'Горячий источник, периодически выбрасывающий фонтаны горячей воды и пара.', subject: 'geography' },
-    { term: 'Атмосферное давление', definition: 'Сила, с которой воздух давит на земную поверхность.', subject: 'geography' },
-    { term: 'Ветер', definition: 'Движение воздушных масс из области высокого давления в область низкого.', subject: 'geography' },
-    { term: 'Бриз', definition: 'Ветер, меняющий своё направление дважды в сутки: днём дует с моря на сушу, ночью — с суши на море.', subject: 'geography' },
-    { term: 'Муссон', definition: 'Ветер, меняющий своё направление дважды в год: летом дует с океана на материк, зимой — с материка на океан.', subject: 'geography' },
-    { term: 'Бассейн реки', definition: 'Территория, с которой река собирает воду.', subject: 'geography' },
-    { term: 'Исток реки', definition: 'Место, где река берёт начало.', subject: 'geography' },
-    { term: 'Устье реки', definition: 'Место, где река впадает в море, озеро или другую реку.', subject: 'geography' },
-    { term: 'Половодье', definition: 'Ежегодно повторяющийся подъём уровня воды в реке в определённый сезон.', subject: 'geography' },
+    { term: 'Климатический пояс', definition: 'Крупный участок с определённым климатом.', subject: 'geography' },
+    { term: 'Широтная поясность', definition: 'Смена природных зон от экватора к полюсам.', subject: 'geography' },
+    { term: 'Высотная поясность', definition: 'Чередование природных зон в горах.', subject: 'geography' },
+    { term: 'Естественный прирост', definition: 'Разница между родившимися и умершими.', subject: 'geography' },
+    { term: 'Плотность населения', definition: 'Количество людей на 1 км².', subject: 'geography' },
+    { term: 'Атмосферное давление', definition: 'Сила, с которой воздух давит на поверхность.', subject: 'geography' },
+    { term: 'Ветер', definition: 'Движение воздушных масс из области высокого давления в низкое.', subject: 'geography' },
+    { term: 'Бриз', definition: 'Ветер, меняющий направление дважды в сутки.', subject: 'geography' },
+    { term: 'Муссон', definition: 'Ветер, меняющий направление дважды в год.', subject: 'geography' },
 
-    // ========== ФИЗИКА ==========
-    { term: 'Механическое движение', definition: 'Изменение с течением времени положения тела относительно других тел.', subject: 'physics' },
+    { term: 'Механическое движение', definition: 'Изменение положения тела относительно других тел.', subject: 'physics' },
     { term: 'Траектория', definition: 'Линия, по которой движется тело.', subject: 'physics' },
-    { term: 'Путь', definition: 'Длина траектории, по которой движется тело в течение некоторого промежутка времени.', subject: 'physics' },
-    { term: 'Скорость', definition: 'Величина, равная отношению пути ко времени, за которое этот путь пройден. v = S/t.', subject: 'physics' },
-    { term: 'Равномерное движение', definition: 'Движение тела, при котором тело за любые равные промежутки времени проходит равные пути.', subject: 'physics' },
-    { term: 'Неравномерное движение', definition: 'Движение тела, при котором тело за любые равные промежутки времени проходит разные пути.', subject: 'physics' },
-    { term: 'Инерция', definition: 'Явление сохранения скорости тела при отсутствии действия на него других тел.', subject: 'physics' },
-    { term: 'Инертность', definition: 'Свойство тел по-разному изменять свою скорость при взаимодействии.', subject: 'physics' },
-    { term: 'Масса тела', definition: 'Физическая величина, являющаяся мерой инертности тела.', subject: 'physics' },
-    { term: 'Плотность', definition: 'Физическая величина, равная отношению массы тела к его объёму. ρ = m/V.', subject: 'physics' },
-    { term: 'Деформация', definition: 'Любое изменение формы и размера тела.', subject: 'physics' },
+    { term: 'Путь', definition: 'Длина траектории.', subject: 'physics' },
+    { term: 'Скорость', definition: 'v = S/t.', subject: 'physics' },
+    { term: 'Инерция', definition: 'Сохранение скорости тела при отсутствии внешних сил.', subject: 'physics' },
+    { term: 'Масса', definition: 'Мера инертности тела.', subject: 'physics' },
+    { term: 'Плотность', definition: 'ρ = m/V.', subject: 'physics' },
     { term: 'Сила', definition: 'Мера взаимодействия тел.', subject: 'physics' },
-    { term: 'Сила тяжести', definition: 'Сила, с которой Земля притягивает к себе тело.', subject: 'physics' },
-    { term: 'Всемирное тяготение', definition: 'Притяжение всех тел Вселенной друг к другу.', subject: 'physics' },
-    { term: 'Сила упругости', definition: 'Сила, возникающая при деформации тела и стремящаяся вернуть его в исходное состояние.', subject: 'physics' },
-    { term: 'Сила трения', definition: 'Сила, возникающая при соприкосновении поверхностей тел и препятствующая их относительному перемещению.', subject: 'physics' },
-    { term: 'Вес тела', definition: 'Сила, с которой тело вследствие притяжения к Земле действует на опору или подвес.', subject: 'physics' },
-    { term: 'Давление', definition: 'Физическая величина, равная отношению силы, действующей перпендикулярно поверхности, к площади этой поверхности. p = F/S.', subject: 'physics' },
-    { term: 'Закон Паскаля', definition: 'Давление, производимое на жидкость или газ, передаётся в любую точку без изменений во всех направлениях.', subject: 'physics' },
-    { term: 'Атмосферное давление', definition: 'Давление, оказываемое атмосферой Земли на все находящиеся в ней предметы.', subject: 'physics' },
-    { term: 'Цена деления', definition: 'Разность значений двух ближайших штрихов шкалы, делённая на число делений между ними.', subject: 'physics' },
-    { term: 'Погрешность измерения', definition: 'Равна половине цены деления шкалы измерительного прибора.', subject: 'physics' },
+    { term: 'Сила тяжести', definition: 'Сила притяжения тела к Земле.', subject: 'physics' },
+    { term: 'Сила упругости', definition: 'Сила при деформации, стремящаяся вернуть исходное состояние.', subject: 'physics' },
+    { term: 'Сила трения', definition: 'Сила, препятствующая относительному перемещению.', subject: 'physics' },
+    { term: 'Вес тела', definition: 'Сила, с которой тело действует на опору или подвес.', subject: 'physics' },
+    { term: 'Давление', definition: 'p = F/S.', subject: 'physics' },
+    { term: 'Закон Паскаля', definition: 'Давление на жидкость или газ передаётся во все точки без изменений.', subject: 'physics' },
 
-    // ========== БИОЛОГИЯ ==========
     { term: 'Систематика', definition: 'Наука о многообразии и классификации организмов.', subject: 'biology' },
     { term: 'Вид', definition: 'Исходная единица систематики.', subject: 'biology' },
     { term: 'Бактерии', definition: 'Доядерные организмы.', subject: 'biology' },
     { term: 'Грибы', definition: 'Царство живой природы.', subject: 'biology' },
     { term: 'Лишайники', definition: 'Комплексные симбиотические организмы.', subject: 'biology' },
-    { term: 'Водоросли', definition: 'Наиболее древние низшие растения. Одноклеточные и многоклеточные.', subject: 'biology' },
-    { term: 'Риниофиты', definition: 'Первые наземные высшие растения. Появление тканей.', subject: 'biology' },
-    { term: 'Мхи', definition: 'Группа высших растений, имеющих стебель и листья, но не имеющих корней.', subject: 'biology' },
-    { term: 'Папоротники', definition: 'Группа высших споровых растений, имеющих корни, стебель и листья.', subject: 'biology' },
-    { term: 'Голосеменные', definition: 'Группа семенных растений, у которых семена не защищены плодом.', subject: 'biology' },
-    { term: 'Покрытосеменные', definition: 'Группа семенных растений, у которых семена защищены плодом.', subject: 'biology' },
-    { term: 'Рефлекс', definition: 'Ответная реакция организма на раздражение, осуществляемая нервной системой.', subject: 'biology' },
-    { term: 'Нейрон', definition: 'Нервная клетка, основная структурная и функциональная единица нервной системы.', subject: 'biology' },
-    { term: 'Гормоны', definition: 'Биологически активные вещества, вырабатываемые железами внутренней секреции.', subject: 'biology' },
-    { term: 'Гуморальная регуляция', definition: 'Регуляция жизнедеятельности организма через жидкие среды (кровь, лимфу, тканевую жидкость).', subject: 'biology' },
-    { term: 'Нейрогуморальная регуляция', definition: 'Совместная регуляция процессов жизнедеятельности организма нервной системой и гормонами.', subject: 'biology' },
-    { term: 'Биоценоз', definition: 'Сообщество живых организмов, населяющих определённую территорию.', subject: 'biology' },
-    { term: 'Биогеоценоз', definition: 'Взаимосвязанная совокупность живых организмов и условий среды на определённой территории.', subject: 'biology' },
-    { term: 'Экосистема', definition: 'Совокупность живых организмов и среды их обитания, связанных обменом веществ и энергии.', subject: 'biology' },
-    { term: 'Царство', definition: 'Крупная систематическая единица, объединяющая организмы по общим признакам.', subject: 'biology' },
-    { term: 'Класс', definition: 'Систематическая единица, объединяющая отряды (или порядки) живых организмов.', subject: 'biology' },
-    { term: 'Отряд', definition: 'Систематическая единица, объединяющая семейства живых организмов.', subject: 'biology' },
-    { term: 'Семейство', definition: 'Систематическая единица, объединяющая роды живых организмов.', subject: 'biology' },
-    { term: 'Род', definition: 'Систематическая единица, объединяющая виды живых организмов.', subject: 'biology' },
+    { term: 'Мхи', definition: 'Высшие растения со стеблем и листьями, без корней.', subject: 'biology' },
+    { term: 'Папоротники', definition: 'Высшие споровые растения с корнями, стеблем и листьями.', subject: 'biology' },
+    { term: 'Голосеменные', definition: 'Семенные растения, семена не защищены плодом.', subject: 'biology' },
+    { term: 'Покрытосеменные', definition: 'Семенные растения, семена защищены плодом.', subject: 'biology' },
+    { term: 'Рефлекс', definition: 'Ответная реакция организма на раздражение.', subject: 'biology' },
+    { term: 'Нейрон', definition: 'Нервная клетка.', subject: 'biology' },
+    { term: 'Гормоны', definition: 'Биологически активные вещества желёз внутренней секреции.', subject: 'biology' },
+    { term: 'Биоценоз', definition: 'Сообщество живых организмов на определённой территории.', subject: 'biology' },
+    { term: 'Экосистема', definition: 'Совокупность организмов и среды их обитания.', subject: 'biology' },
 
-    // ========== АНГЛИЙСКИЙ ЯЗЫК ==========
-    { term: 'Possessive case', definition: 'Притяжательный падеж существительных. Dog\'s house — дом собаки (ед.ч.), Dogs\' house — дом собак (мн.ч.).', subject: 'english' },
-    { term: 'Present Simple', definition: 'Действие происходит постоянно: S + V(s). S + don\'t/doesn\'t + V. Do/does + S + V?', subject: 'english' },
-    { term: 'Present Continuous', definition: 'Действие происходит сейчас, в момент речи: S + am/is/are + Ving.', subject: 'english' },
-    { term: 'Present Perfect', definition: 'Действие произошло недавно, когда — неважно, результат перед нами: S + have/has + V3(ed).', subject: 'english' },
-    { term: 'Past Simple', definition: 'Действие произошло (началось и закончилось) в прошлом: S + V2(ed). S + didn\'t + V. Did + S + V?', subject: 'english' },
-    { term: 'Past Continuous', definition: 'Действие длилось в определённый момент в прошлом: S + was/were + Ving.', subject: 'english' },
-    { term: 'Future Simple', definition: 'Действие произойдёт в будущем: S + will + V. S + won\'t + V. Will + S + V?', subject: 'english' },
-    { term: 'Passive Voice', definition: 'Страдательный залог, действие совершается над предметом. Present Simple Passive: S + am/is/are + V3. Past Simple Passive: S + was/were + V3.', subject: 'english' },
-    { term: 'Much', definition: 'Гораздо, намного (сравнительная степень): much safer — гораздо безопаснее.', subject: 'english' },
-    { term: 'Another', definition: 'Другой, ещё один. Could you give me another piece of cake?', subject: 'english' },
-    { term: 'Other', definition: 'Другие, все остальные. I like reading, but my friend has other interests.', subject: 'english' },
-    { term: 'The other', definition: 'Другой, один из двух. You are wearing one shoe, where is the other?', subject: 'english' },
-    { term: 'The others', definition: 'Другие (определённые), подразумевается существительное. You\'ve got 3 books, where are the others?', subject: 'english' }
+    { term: 'Present Simple', definition: 'Постоянное действие: S + V(s). Отрицание: don\'t/doesn\'t + V.', subject: 'english' },
+    { term: 'Present Continuous', definition: 'Действие сейчас: S + am/is/are + Ving.', subject: 'english' },
+    { term: 'Present Perfect', definition: 'Недавнее действие, важен результат: S + have/has + V3.', subject: 'english' },
+    { term: 'Past Simple', definition: 'Действие в прошлом: S + V2(ed). Отрицание: didn\'t + V.', subject: 'english' },
+    { term: 'Past Continuous', definition: 'Длительное действие в прошлом: S + was/were + Ving.', subject: 'english' },
+    { term: 'Future Simple', definition: 'Действие в будущем: S + will + V.', subject: 'english' },
+    { term: 'Passive Voice', definition: 'Страдательный залог: am/is/are/was/were + V3.', subject: 'english' },
+    { term: 'Possessive case', definition: 'Притяжательный падеж: dog\'s (ед.ч.), dogs\' (мн.ч.).', subject: 'english' }
 ];
 
 const flashcardsData = [
@@ -789,7 +838,8 @@ const flashcardsData = [
 
 const SUBJECTS = {
     all: { name: 'Все предметы' }, bookmarks: { name: 'Избранное' },
-    schedule: { name: 'Расписание' }, glossary: { name: 'Словарь' },
+    schedule: { name: 'Расписание' }, textbooks: { name: 'Учебники' },
+    calculator: { name: 'Калькулятор дробей' }, glossary: { name: 'Словарь' },
     flashcards: { name: 'Флеш-карточки' }, creator: { name: 'Мастерская' },
     algebra: { name: 'Алгебра' }, geometry: { name: 'Геометрия — определения' },
     russian: { name: 'Русский язык' }, history: { name: 'История' },
@@ -812,6 +862,8 @@ const LS = {
 const THEME_KEY = 'rdz_theme';
 const SOUND_KEY = 'rdz_sound';
 const BOOKMARKS_KEY = 'rdz_bookmarks';
+const HW_HASH_KEY = 'rdz_hw_hash';
+const HW_NOTIF_DISMISSED = 'rdz_hw_notif_dismissed';
 const STORAGE_KEY_NOTE = 'rdz_viewed_notes_v2';
 const STORAGE_KEY_REPORTAGE = 'rdz_viewed_reportages_v2';
 
@@ -836,11 +888,11 @@ function fracify(str) {
 function escapeHtml(str) {
     return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
-function showToast(msg) {
+function showToast(msg, ms) {
     const t = document.getElementById('toast');
     t.textContent = msg; t.classList.add('show');
     clearTimeout(showToast._t);
-    showToast._t = setTimeout(() => t.classList.remove('show'), 1800);
+    showToast._t = setTimeout(() => t.classList.remove('show'), ms || 1800);
 }
 
 let audioCtx = null;
@@ -872,10 +924,10 @@ function initCursor() {
     }
     loop();
     document.addEventListener('mouseover', e => {
-        if (e.target.closest('a, button, .chip, .nav-btn, .card-btn, .flashcard, input, .day, summary')) ring.classList.add('hover');
+        if (e.target.closest('a, button, .chip, .nav-btn, .card-btn, .flashcard, input, .day, summary, .textbook-item, .calc-op, .calc-btn')) ring.classList.add('hover');
     });
     document.addEventListener('mouseout', e => {
-        if (e.target.closest('a, button, .chip, .nav-btn, .card-btn, .flashcard, input, .day, summary')) ring.classList.remove('hover');
+        if (e.target.closest('a, button, .chip, .nav-btn, .card-btn, .flashcard, input, .day, summary, .textbook-item, .calc-op, .calc-btn')) ring.classList.remove('hover');
     });
     document.addEventListener('mousedown', () => ring.classList.add('clicking'));
     document.addEventListener('mouseup', () => ring.classList.remove('clicking'));
@@ -907,6 +959,121 @@ function matchesSearch(item, q) {
     return hay.includes(lower);
 }
 
+/* ==========================================================
+   УВЕДОМЛЕНИЯ О НОВОМ ДЗ
+   ========================================================== */
+function hashCode(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        const chr = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + chr;
+        hash |= 0;
+    }
+    return hash.toString(36);
+}
+const CURRENT_HW_HASH = hashCode(JSON.stringify(homeworkData));
+
+function checkHwUpdates() {
+    const stored = LS.get(HW_HASH_KEY, null);
+    if (stored === null) {
+        LS.set(HW_HASH_KEY, CURRENT_HW_HASH);
+        LS.set(HW_NOTIF_DISMISSED, false);
+        return false;
+    }
+    if (stored !== CURRENT_HW_HASH) {
+        LS.set(HW_HASH_KEY, CURRENT_HW_HASH);
+        LS.set(HW_NOTIF_DISMISSED, false);
+        return true;
+    }
+    return false;
+}
+
+function showHwBanner() {
+    const dismissed = LS.get(HW_NOTIF_DISMISSED, false);
+    if (dismissed) return;
+    const root = document.getElementById('content');
+    const banner = document.createElement('div');
+    banner.className = 'notif-banner';
+    banner.innerHTML = `
+        <span class="n-icon">🔔</span>
+        <div class="n-body">
+            <div class="n-title">Появилось новое домашнее задание!</div>
+            <div class="n-text">Автор добавил свежие решения. Загляните в раздел «Все предметы».</div>
+        </div>
+        <button class="n-close" aria-label="Закрыть">✕</button>
+    `;
+    banner.querySelector('.n-close').onclick = () => {
+        banner.style.transition = 'opacity .25s ease, transform .25s ease';
+        banner.style.opacity = '0';
+        banner.style.transform = 'translateY(-10px)';
+        setTimeout(() => banner.remove(), 250);
+        LS.set(HW_NOTIF_DISMISSED, true);
+    };
+    root.insertBefore(banner, root.firstChild);
+}
+
+function sendSystemNotification() {
+    if (!('Notification' in window)) return;
+    if (Notification.permission !== 'granted') return;
+    try {
+        new Notification('РДЗ — новое ДЗ', {
+            body: 'Появилось новое решение домашней работы. Открой сайт, чтобы посмотреть.',
+            icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">📚</text></svg>',
+            tag: 'rdz-hw-update'
+        });
+    } catch (e) { console.warn('Notification error:', e); }
+}
+
+async function toggleNotifications() {
+    if (!('Notification' in window)) {
+        showToast('❌ Браузер не поддерживает уведомления');
+        return;
+    }
+    if (Notification.permission === 'granted') {
+        showToast('🔔 Уведомления включены. Проверить можно в настройках браузера.');
+        return;
+    }
+    if (Notification.permission === 'denied') {
+        showToast('🚫 Уведомления заблокированы. Разрешите их в настройках браузера для этого сайта.');
+        return;
+    }
+    try {
+        const perm = await Notification.requestPermission();
+        if (perm === 'granted') {
+            showToast('✅ Уведомления включены!');
+            updateNotifBtn();
+            new Notification('РДЗ — уведомления включены', {
+                body: 'Теперь вы узнаете о новых решениях домашней работы.',
+                icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">📚</text></svg>'
+            });
+        } else {
+            showToast('Уведомления не разрешены');
+        }
+    } catch (e) { showToast('Не удалось запросить разрешение'); }
+}
+
+function updateNotifBtn() {
+    const btn = document.getElementById('notifBtn');
+    if (!btn) return;
+    if (!('Notification' in window)) { btn.classList.add('off'); btn.title = 'Уведомления не поддерживаются'; return; }
+    if (Notification.permission === 'granted') {
+        btn.classList.remove('off'); btn.classList.add('active');
+        btn.title = 'Уведомления включены';
+        btn.textContent = '🔔';
+    } else if (Notification.permission === 'denied') {
+        btn.classList.add('off'); btn.classList.remove('active');
+        btn.title = 'Уведомления заблокированы';
+        btn.textContent = '🔕';
+    } else {
+        btn.classList.remove('off', 'active');
+        btn.title = 'Включить уведомления о новом ДЗ';
+        btn.textContent = '🔔';
+    }
+}
+
+/* ==========================================================
+   ТВОРЧЕСКАЯ МАСТЕРСКАЯ
+   ========================================================== */
 const GIST_URL = 'https://gist.githubusercontent.com/netpuzyaka/4f05e09a64a8a6fc5de6555019d390d5/raw/ddb1f90ea2c7c9d73515065a57057155973ac477/creative-works.json';
 let creativeWorks = { note: [], reportage: [] };
 async function loadCreativeWorks() {
@@ -995,13 +1162,16 @@ function updateCreatorStats() {
         <span><span class="dot-green"></span> Репортажи: ${rV} / ${rT}</span>`;
 }
 
+/* ==========================================================
+   САЙДБАР
+   ========================================================== */
 function buildSidebar() {
     const sb = document.getElementById('sidebar');
     Array.from(sb.children).forEach(c => { if (!c.classList.contains('brand')) c.remove(); });
     const mainLabel = document.createElement('div');
     mainLabel.className = 'nav-label'; mainLabel.textContent = 'Разделы';
     sb.appendChild(mainLabel);
-    ['all','bookmarks','schedule','glossary','flashcards','creator'].forEach(k => sb.appendChild(makeNavBtn(k)));
+    ['all','bookmarks','schedule','textbooks','calculator','glossary','flashcards','creator'].forEach(k => sb.appendChild(makeNavBtn(k)));
     const subjLabel = document.createElement('div');
     subjLabel.className = 'nav-label'; subjLabel.textContent = 'Предметы';
     sb.appendChild(subjLabel);
@@ -1010,15 +1180,18 @@ function buildSidebar() {
     foot.className = 'sidebar-foot';
     foot.innerHTML = `
         <button class="icon-btn" id="themeBtn" title="Сменить тему">${document.body.dataset.theme === 'light' ? '🌙' : '☀️'}</button>
+        <button class="icon-btn" id="notifBtn" title="Уведомления">🔔</button>
         <button class="icon-btn sound ${soundEnabled ? '' : 'off'}" id="soundBtn" title="Звук кликов">🔊</button>`;
     sb.appendChild(foot);
     document.getElementById('themeBtn').onclick = toggleTheme;
+    document.getElementById('notifBtn').onclick = toggleNotifications;
     document.getElementById('soundBtn').onclick = () => {
         soundEnabled = !soundEnabled; LS.set(SOUND_KEY, soundEnabled);
         document.getElementById('soundBtn').classList.toggle('off', !soundEnabled);
         if (soundEnabled) playClick();
         showToast(soundEnabled ? '🔊 Звук включён' : '🔇 Звук выключен');
     };
+    updateNotifBtn();
 }
 function makeNavBtn(key) {
     const btn = document.createElement('button');
@@ -1028,12 +1201,14 @@ function makeNavBtn(key) {
     if (key === 'all') count = homeworkData.length;
     else if (key === 'bookmarks') count = bookmarks.length;
     else if (key === 'schedule') count = scheduleData.reduce((s,d) => s + d.lessons.length, 0);
+    else if (key === 'textbooks') count = textbooksData.length;
+    else if (key === 'calculator') count = '±×÷';
     else if (key === 'glossary') count = glossaryData.length;
     else if (key === 'flashcards') count = flashcardsData.length;
     else if (key === 'creator') count = (creativeWorks.note||[]).length + (creativeWorks.reportage||[]).length;
     else if (key === 'geometry') count = geometryQA.length;
     else count = homeworkData.filter(i => i.subject === key).length;
-    const colors = { all:'var(--gold)', bookmarks:'var(--gold)', schedule:'var(--blue)', glossary:'var(--purple)', flashcards:'var(--green)', creator:'var(--creator)', geometry:'var(--geometry)' };
+    const colors = { all:'var(--gold)', bookmarks:'var(--gold)', schedule:'var(--blue)', textbooks:'var(--purple)', calculator:'var(--gold)', glossary:'var(--purple)', flashcards:'var(--green)', creator:'var(--creator)', geometry:'var(--geometry)' };
     btn.style.setProperty('--c', colors[key] || `var(--${key})`);
     btn.innerHTML = `<span class="dot"></span>${SUBJECTS[key].name}<span class="count">${count}</span>`;
     btn.onclick = () => {
@@ -1045,6 +1220,9 @@ function makeNavBtn(key) {
     return btn;
 }
 
+/* ==========================================================
+   РЕНДЕР
+   ========================================================== */
 function renderContent() {
     const root = document.getElementById('content');
     root.innerHTML = '';
@@ -1054,6 +1232,8 @@ function renderContent() {
         root.appendChild(buildSearchBar());
     }
     if (currentSubject === 'schedule') return renderSchedule(root);
+    if (currentSubject === 'textbooks') return renderTextbooks(root);
+    if (currentSubject === 'calculator') return renderCalculator(root);
     if (currentSubject === 'glossary') return renderGlossary(root);
     if (currentSubject === 'flashcards') return renderFlashcards(root);
     if (currentSubject === 'creator') return renderCreator(root);
@@ -1061,6 +1241,11 @@ function renderContent() {
     if (currentSubject === 'geometry') return renderGeometry(root);
 
     if (currentSubject === 'all') {
+        // Проверка обновлений ДЗ
+        if (checkHwUpdates()) {
+            showHwBanner();
+            sendSystemNotification();
+        }
         root.appendChild(renderCalendar());
         renderDateTasks(root);
     } else {
@@ -1258,6 +1443,7 @@ function renderBookmarks(root) {
     }
     items.forEach((it, i) => root.appendChild(buildCard(it, i)));
 }
+
 function renderSchedule(root) {
     const hero = document.createElement('div'); hero.className = 'hero';
     hero.innerHTML = `<p class="eyebrow">Расписание</p><h1>Уроки на неделю</h1>`;
@@ -1275,6 +1461,223 @@ function renderSchedule(root) {
         root.appendChild(div);
     });
 }
+
+/* УЧЕБНИКИ */
+function renderTextbooks(root) {
+    const hero = document.createElement('div'); hero.className = 'hero';
+    hero.innerHTML = `<p class="eyebrow">Учебники</p>
+        <h1>Онлайн-учебники и <em>уроки</em></h1>
+        <p class="sub">Ссылки на бесплатные материалы по всем предметам · ${textbooksData.length} ресурсов</p>`;
+    root.appendChild(hero);
+    textbooksData.forEach(t => {
+        const a = document.createElement('a');
+        a.className = 'textbook-item';
+        a.dataset.subject = t.subject;
+        a.href = t.url;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.innerHTML = `
+            <span class="tb-icon">${t.icon}</span>
+            <span class="tb-body">
+                <div class="tb-title">${escapeHtml(t.title)}</div>
+                <div class="tb-subject">${escapeHtml(t.sub)}</div>
+            </span>
+            <span class="tb-arrow">↗</span>
+        `;
+        root.appendChild(a);
+    });
+}
+
+/* КАЛЬКУЛЯТОР ДРОБЕЙ */
+function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { [a, b] = [b, a % b]; } return a || 1; }
+
+function parseFractionStr(s) {
+    s = s.trim();
+    if (/^-?\d+$/.test(s)) return { num: parseInt(s, 10), den: 1 };
+    const m = s.match(/^(-?\d+)\s*\/\s*(\d+)$/);
+    if (m) {
+        const num = parseInt(m[1], 10), den = parseInt(m[2], 10);
+        if (den === 0) return null;
+        return { num, den };
+    }
+    return null;
+}
+
+function fractionToString(num, den) {
+    if (den === 1) return String(num);
+    return `${num}/${den}`;
+}
+
+function fracSpan(num, den) {
+    if (den === 1) return `<span>${num}</span>`;
+    const sign = (num < 0) ? '−' : '';
+    return `${sign}<span class="frac"><span class="num">${Math.abs(num)}</span><span class="den">${den}</span></span>`;
+}
+
+function renderCalculator(root) {
+    const hero = document.createElement('div'); hero.className = 'hero';
+    hero.innerHTML = `<p class="eyebrow">Калькулятор</p>
+        <h1>Калькулятор <em>дробей</em></h1>
+        <p class="sub">Введите пример вида <code>1/5 + 2/3</code> и получите ответ с решением по шагам</p>`;
+    root.appendChild(hero);
+
+    const panel = document.createElement('div');
+    panel.className = 'calc-panel';
+    panel.innerHTML = `
+        <p class="calc-hint">Поддерживаются операции <b>+ − × ÷</b> и целые числа. Например: <code>-1/5 * 3/7</code>, <code>2 + 1/3</code>, <code>5/6 : 2/9</code>.</p>
+        <div class="calc-input-row">
+            <input type="text" class="calc-input" id="calcInput" placeholder="Например: 1/5 + 2/3" autocomplete="off" spellcheck="false">
+        </div>
+        <div class="calc-buttons">
+            <button class="calc-op" data-op="+">+</button>
+            <button class="calc-op" data-op="-">−</button>
+            <button class="calc-op" data-op="*">×</button>
+            <button class="calc-op" data-op="/">÷</button>
+            <button class="calc-op" data-op="/">/</button>
+            <button class="calc-op" data-op="(">(</button>
+            <button class="calc-op" data-op=")">)</button>
+            <button class="calc-btn clear-btn" id="calcClear">Очистить</button>
+        </div>
+        <button class="calc-btn" id="calcGo" style="width:100%;">Посчитать</button>
+        <div class="calc-result" id="calcResult"></div>
+    `;
+    root.appendChild(panel);
+
+    setTimeout(() => {
+        const input = document.getElementById('calcInput');
+        const result = document.getElementById('calcResult');
+        const goBtn = document.getElementById('calcGo');
+        const clearBtn = document.getElementById('calcClear');
+
+        document.querySelectorAll('.calc-op').forEach(b => {
+            b.onclick = () => {
+                input.value += b.dataset.op;
+                input.focus();
+            };
+        });
+        clearBtn.onclick = () => { input.value = ''; result.classList.remove('visible', 'error'); input.focus(); };
+        goBtn.onclick = () => calculate(input.value);
+        input.addEventListener('keydown', e => { if (e.key === 'Enter') calculate(input.value); });
+    }, 0);
+
+    function calculate(expr) {
+        const result = document.getElementById('calcResult');
+        result.classList.remove('error');
+
+        if (!expr.trim()) {
+            result.classList.add('visible', 'error');
+            result.innerHTML = `<h3>Пустой ввод</h3><div class="calc-steps">Введите пример, например <b>1/5 + 2/3</b>.</div>`;
+            return;
+        }
+
+        // Простой парсер: a/b op c/d (одна операция)
+        // Регулярка: сначала дробь или число, потом оп, потом ещё
+        const cleaned = expr.replace(/×/g, '*').replace(/÷/g, '/').replace(/−/g, '-').replace(/\s+/g, ' ').trim();
+        const m = cleaned.match(/^(-?\d+(?:\s*\/\s*\d+)?)\s*([+\-*\/])\s*(-?\d+(?:\s*\/\s*\d+)?)$/);
+
+        if (!m) {
+            result.classList.add('visible', 'error');
+            result.innerHTML = `<h3>Не понял пример</h3>
+                <div class="calc-steps">Попробуйте формат: <b>1/5 + 2/3</b>, <b>-2/7 * 3/5</b>, <b>4 - 1/2</b>.<br>Одна операция за раз.</div>`;
+            return;
+        }
+
+        const a = parseFractionStr(m[1]);
+        const c = parseFractionStr(m[3]);
+        const op = m[2];
+
+        if (!a || !c) {
+            result.classList.add('visible', 'error');
+            result.innerHTML = `<h3>Ошибка в дроби</h3><div class="calc-steps">Знаменатель не может быть нулём.</div>`;
+            return;
+        }
+
+        const steps = [];
+        steps.push(`<div class="step">Дано: <b>${fractionToString(a.num, a.den)}</b> ${opHtml(op)} <b>${fractionToString(c.num, c.den)}</b></div>`);
+
+        let num, den;
+        if (op === '+') {
+            num = a.num * c.den + c.num * a.den;
+            den = a.den * c.den;
+            steps.push(`<div class="step">Общий знаменатель: <b>${a.den} · ${c.den} = ${den}</b></div>`);
+            steps.push(`<div class="step">Числитель: <b>${a.num} · ${c.den} + ${c.num} · ${a.den} = ${num}</b></div>`);
+        } else if (op === '-') {
+            num = a.num * c.den - c.num * a.den;
+            den = a.den * c.den;
+            steps.push(`<div class="step">Общий знаменатель: <b>${a.den} · ${c.den} = ${den}</b></div>`);
+            steps.push(`<div class="step">Числитель: <b>${a.num} · ${c.den} − ${c.num} · ${a.den} = ${num}</b></div>`);
+        } else if (op === '*') {
+            num = a.num * c.num;
+            den = a.den * c.den;
+            steps.push(`<div class="step">Числители: <b>${a.num} · ${c.num} = ${num}</b></div>`);
+            steps.push(`<div class="step">Знаменатели: <b>${a.den} · ${c.den} = ${den}</b></div>`);
+        } else if (op === '/') {
+            if (c.num === 0) {
+                result.classList.add('visible', 'error');
+                result.innerHTML = `<h3>Деление на ноль</h3><div class="calc-steps">На ноль делить нельзя.</div>`;
+                return;
+            }
+            num = a.num * c.den;
+            den = a.den * c.num;
+            steps.push(`<div class="step">Умножаем на обратную дробь: <b>${fractionToString(a.num, a.den)} · ${fractionToString(c.den, c.num)}</b></div>`);
+            steps.push(`<div class="step">Числитель: <b>${a.num} · ${c.den} = ${num}</b></div>`);
+            steps.push(`<div class="step">Знаменатель: <b>${a.den} · ${c.num} = ${den}</b></div>`);
+        }
+
+        steps.push(`<div class="step">Получилось: <b>${num}/${den}</b></div>`);
+
+        // Сокращение
+        const g = gcd(num, den);
+        if (g > 1) {
+            steps.push(`<div class="step">НОД(${Math.abs(num)}, ${den}) = <b>${g}</b> — сокращаем:</div>`);
+            num = num / g; den = den / g;
+            steps.push(`<div class="step">После сокращения: <b>${num}/${den}</b></div>`);
+        } else {
+            steps.push(`<div class="step">Дробь несократима (НОД = 1).</div>`);
+        }
+
+        if (den < 0) { num = -num; den = -den; }
+
+        // Выделение целой части
+        let mixed = '';
+        if (Math.abs(num) >= den && den !== 1) {
+            const sign = num < 0 ? '−' : '';
+            const absNum = Math.abs(num);
+            const whole = Math.floor(absNum / den);
+            const rem = absNum % den;
+            if (rem === 0) {
+                mixed = `${sign}${whole}`;
+            } else {
+                mixed = `${sign}${whole} ${rem}/${den}`;
+            }
+            steps.push(`<div class="step">Смешанное число: <b>${mixed}</b></div>`);
+        }
+
+        const decimal = (num / den).toFixed(6).replace(/\.?0+$/, '');
+
+        const finalStr = den === 1 ? String(num) : `${num}/${den}`;
+        const finalHTML = den === 1
+            ? `<div class="final">Ответ: ${num}</div>`
+            : `<div class="final">Ответ: ${finalStr}${mixed && mixed !== finalStr ? ' (или ' + mixed + ')' : ''}</div>
+               <div class="final" style="font-size:16px;color:var(--muted);font-weight:500;">≈ ${decimal}</div>`;
+
+        result.classList.add('visible');
+        result.innerHTML = `
+            <h3>Решение по шагам</h3>
+            <div class="calc-steps">${steps.join('')}</div>
+            ${finalHTML}
+        `;
+    }
+
+    function opHtml(op) {
+        if (op === '+') return '+';
+        if (op === '-') return '−';
+        if (op === '*') return '×';
+        if (op === '/') return '÷';
+        return op;
+    }
+}
+
 function renderGlossary(root) {
     const hero = document.createElement('div'); hero.className = 'hero';
     hero.innerHTML = `<p class="eyebrow">Словарь</p><h1>Термины по предметам</h1>
@@ -1338,25 +1741,21 @@ function renderCreator(root) {
     root.appendChild(panel);
     updateCreatorStats();
 }
-
 function renderGeometry(root) {
     const hero = document.createElement('div'); hero.className = 'hero';
     hero.innerHTML = `<p class="eyebrow">Геометрия</p>
         <h1>Определения и <em>вопросы</em></h1>
         <p class="sub">${geometryQA.length} ${plural(geometryQA.length,'вопрос','вопроса','вопросов')} · нажми на вопрос, чтобы увидеть ответ</p>`;
     root.appendChild(hero);
-
     const searchWrap = document.createElement('div');
     searchWrap.className = 'search-wrap';
     searchWrap.innerHTML = `<input type="text" class="search-input" id="geoSearch" placeholder="Поиск по вопросам…">
         <button class="search-clear" id="geoSearchClear" aria-label="Очистить">✕</button>`;
     root.appendChild(searchWrap);
-
     const list = document.createElement('div');
     list.className = 'qa-list';
     list.id = 'qaList';
     root.appendChild(list);
-
     function renderList(query) {
         list.innerHTML = '';
         const q = (query || '').toLowerCase().trim();
@@ -1382,9 +1781,7 @@ function renderGeometry(root) {
             list.appendChild(p);
         }
     }
-
     renderList('');
-
     setTimeout(() => {
         const inp = document.getElementById('geoSearch');
         const clr = document.getElementById('geoSearchClear');
@@ -1413,7 +1810,7 @@ lb.onclick = e => { if (e.target === lb || e.target.classList.contains('lightbox
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
 document.addEventListener('click', e => {
-    if (e.target.closest('button, .chip, .nav-btn, .card-btn, .flashcard, .day:not(.disabled)')) playClick();
+    if (e.target.closest('button, .chip, .nav-btn, .card-btn, .flashcard, .day:not(.disabled), .calc-op, .calc-btn')) playClick();
 });
 
 (async () => {
