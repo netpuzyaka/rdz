@@ -4,678 +4,390 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#14161a">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="mobile-web-app-capable" content="yes">
 <title>РДЗ — Решённое домашнее задание</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&family=Lora:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root {
-    --bg: #14161a;
-    --panel: #1c1f25;
-    --panel-2: #23272e;
-    --inset: #101216;
-    --border: #2d323b;
-    --text: #e9e6e0;
-    --muted: #979ba5;
-    --gold: #d9a55b;
-
-    --algebra: #7aa7e0;
-    --russian: #e08a8a;
-    --history: #d9a55b;
-    --geography: #86bf97;
-    --english: #c9a3e6;
-
-    --orange: #eb9a5c;
-    --green: #7cc596;
-    --purple: #bba3e6;
-    --red: #e47c7c;
-    --blue: #6ec2d9;
-    --creator: #e8b96a;
-
+    --bg: #14161a; --panel: #1c1f25; --panel-2: #23272e; --inset: #101216;
+    --border: #2d323b; --text: #e9e6e0; --muted: #979ba5; --gold: #d9a55b;
+    --algebra: #7aa7e0; --russian: #e08a8a; --history: #d9a55b; --geography: #86bf97;
+    --english: #c9a3e6; --orange: #eb9a5c; --green: #7cc596; --purple: #bba3e6;
+    --red: #e47c7c; --blue: #6ec2d9; --creator: #e8b96a;
     --serif: 'Playfair Display', Georgia, serif;
     --text-serif: 'Lora', Georgia, serif;
     --ui: 'Golos Text', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-    --mono: 'JetBrains Mono', Consolas, 'Courier New', monospace;
+    --mono: 'JetBrains Mono', Consolas, monospace;
+}
+[data-theme="light"] {
+    --bg: #f4f1ea; --panel: #ffffff; --panel-2: #f0ece3; --inset: #e8e4da;
+    --border: #d8d2c4; --text: #2a2620; --muted: #7a7466; --gold: #b8832f;
+    --orange: #d17a2d; --green: #4a9c6a; --purple: #8b6bc0; --red: #c95a5a;
+    --blue: #3b9bb5; --creator: #c48d2e; --algebra: #4a7fc0; --russian: #c46a6a;
+    --history: #b8832f; --geography: #5c9c72; --english: #a37fc4;
+}
+[data-theme="light"] body {
+    background-image:
+        radial-gradient(1100px 600px at 80% -10%, rgba(184,131,47,.06), transparent 65%),
+        radial-gradient(900px 500px at -10% 110%, rgba(74,127,192,.05), transparent 65%);
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body {
-    margin: 0;
-    font-family: var(--ui);
-    color: var(--text);
-    line-height: 1.55;
-    -webkit-font-smoothing: antialiased;
-    -webkit-tap-highlight-color: transparent;
-    overscroll-behavior-y: none;
+    margin: 0; font-family: var(--ui); color: var(--text); line-height: 1.55;
+    -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent;
     background-color: var(--bg);
     background-image:
         url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .045 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
         radial-gradient(1100px 600px at 80% -10%, rgba(217,165,91,.07), transparent 65%),
         radial-gradient(900px 500px at -10% 110%, rgba(122,167,224,.05), transparent 65%);
     background-attachment: scroll, fixed, fixed;
+    transition: background-color .3s ease, color .3s ease;
 }
 ::selection { background: var(--gold); color: #1a1408; }
 ::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-thumb { background: #353b45; border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: #454c58; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+@media (hover: hover) and (pointer: fine) {
+    body.custom-cursor { cursor: none; }
+    body.custom-cursor a, body.custom-cursor button, body.custom-cursor .chip,
+    body.custom-cursor .nav-btn, body.custom-cursor input { cursor: none; }
+}
+.cursor-dot, .cursor-ring {
+    position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%); opacity: 0; transition: opacity .2s ease; will-change: transform;
+}
+.cursor-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+.cursor-ring {
+    width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--gold);
+    transition: opacity .2s ease, width .18s ease, height .18s ease, border-color .18s ease;
+}
+.cursor-ring.hover { width: 48px; height: 48px; border-color: var(--green); background: rgba(124,197,150,.08); }
+.cursor-ring.clicking { width: 24px; height: 24px; }
+body.cursor-ready .cursor-dot, body.cursor-ready .cursor-ring { opacity: 1; }
 
 .layout { display: flex; min-height: 100vh; min-height: 100dvh; }
-
-/* ================= Sidebar ================= */
 .sidebar {
-    width: 250px; flex-shrink: 0;
-    background: linear-gradient(180deg, #1a1d23, #16181d);
-    border-right: 1px solid var(--border);
-    box-shadow: 8px 0 24px rgba(0,0,0,.35), inset -1px 0 0 rgba(255,255,255,.03);
-    padding: 28px 14px;
-    position: sticky; top: 0; height: 100vh; height: 100dvh;
-    display: flex; flex-direction: column; gap: 4px;
-    z-index: 2;
+    width: 250px; flex-shrink: 0; background: var(--panel); border-right: 1px solid var(--border);
+    padding: 24px 14px; position: sticky; top: 0; height: 100vh; height: 100dvh;
+    display: flex; flex-direction: column; gap: 3px; z-index: 2; overflow-y: auto;
+    transition: background .3s ease, border-color .3s ease;
 }
-.brand { padding: 0 12px 22px; margin-bottom: 14px; border-bottom: 1px solid var(--border); }
-.brand b { display: block; font-family: var(--serif); font-size: 30px; font-weight: 700; letter-spacing: 1px; line-height: 1.1; }
+.sidebar::-webkit-scrollbar { width: 6px; }
+.brand { padding: 0 12px 18px; margin-bottom: 12px; border-bottom: 1px solid var(--border); }
+.brand b { display: block; font-family: var(--serif); font-size: 28px; font-weight: 700; letter-spacing: 1px; line-height: 1.1; }
 .brand b i { font-style: normal; color: var(--gold); }
-.brand span { display: block; margin-top: 4px; font-size: 12.5px; color: var(--muted); letter-spacing: .3px; }
-
-.nav-label { padding: 0 14px; margin: 6px 0 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 1.6px; color: #6d727c; }
+.brand span { display: block; margin-top: 4px; font-size: 12px; color: var(--muted); }
+.nav-label { padding: 0 14px; margin: 8px 0 4px; font-size: 10.5px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); }
 .nav-btn {
-    display: flex; align-items: center; gap: 12px;
-    width: 100%; background: none; border: none; color: var(--muted);
-    font: inherit; font-size: 15px; font-weight: 500; text-align: left;
-    padding: 11px 14px; border-radius: 10px; cursor: pointer;
-    transition: transform .12s ease, background .15s ease, color .15s ease;
-    min-height: 44px;
+    display: flex; align-items: center; gap: 10px; width: 100%; background: none; border: none;
+    color: var(--muted); font: inherit; font-size: 14.5px; font-weight: 500; text-align: left;
+    padding: 9px 12px; border-radius: 8px; cursor: pointer; transition: background .15s, color .15s; min-height: 40px;
 }
-.nav-btn .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--c, var(--gold)); box-shadow: 0 0 0 3px rgba(255,255,255,.04); flex-shrink: 0; }
-.nav-btn .count { margin-left: auto; font-size: 12px; color: #6d727c; font-variant-numeric: tabular-nums; }
-.nav-btn:hover:not(.active) { background: rgba(255,255,255,.04); color: var(--text); transform: translateX(3px); }
-.nav-btn.active {
-    background: var(--inset); color: var(--text);
-    box-shadow: inset 0 3px 8px rgba(0,0,0,.55), inset 0 -1px 0 rgba(255,255,255,.05);
+.nav-btn .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c, var(--gold)); flex-shrink: 0; }
+.nav-btn .count { margin-left: auto; font-size: 11.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.nav-btn:hover:not(.active) { background: var(--panel-2); color: var(--text); }
+.nav-btn.active { background: var(--inset); color: var(--text); font-weight: 600; }
+.sidebar-foot { margin-top: auto; padding: 12px 8px 0; display: flex; gap: 6px; flex-wrap: wrap; }
+.icon-btn {
+    width: 38px; height: 38px; border-radius: 9px; background: var(--panel-2); border: 1px solid var(--border);
+    color: var(--text); cursor: pointer; font-size: 16px; display: inline-flex; align-items: center;
+    justify-content: center; transition: background .15s;
 }
-.nav-btn.active .count { color: var(--muted); }
-.sidebar-foot { margin-top: auto; padding: 14px; font-size: 12px; color: #6d727c; }
+.icon-btn:hover { background: var(--inset); }
+.icon-btn.off { opacity: .45; }
 
-/* ================= Main ================= */
-.main { flex: 1; min-width: 0; padding: 48px clamp(18px, 4vw, 64px) 80px; }
+.main { flex: 1; min-width: 0; padding: 40px clamp(18px, 4vw, 60px) 80px; }
 .container { max-width: 900px; margin: 0 auto; }
-
-.hero { margin-bottom: 26px; animation: fade .5s ease both; }
-.eyebrow { margin: 0 0 8px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); }
-.hero h1 { margin: 0; font-family: var(--serif); font-weight: 700; font-size: clamp(26px, 5vw, 46px); line-height: 1.12; letter-spacing: -.3px; }
+.hero { margin-bottom: 22px; }
+.eyebrow { margin: 0 0 6px; font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.8px; color: var(--gold); }
+.hero h1 { margin: 0; font-family: var(--serif); font-weight: 700; font-size: clamp(26px, 5vw, 42px); line-height: 1.12; letter-spacing: -.3px; }
 .hero h1 em { font-style: normal; color: var(--gold); }
-.hero .sub { margin: 10px 0 0; color: var(--muted); font-size: clamp(14px, 1.6vw, 15px); }
+.hero .sub { margin: 8px 0 0; color: var(--muted); font-size: 14px; }
 
-.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; }
-.chip {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--panel-2); border: 1px solid var(--border); color: var(--text);
-    border-radius: 999px; padding: 8px 16px 8px 14px; font: inherit; font-size: 14px; font-weight: 500; cursor: pointer;
-    box-shadow: 0 2px 0 #0e1013, inset 0 1px 0 rgba(255,255,255,.05);
-    transition: transform .1s ease, box-shadow .1s ease;
-    min-height: 40px;
+.search-wrap { position: sticky; top: 8px; z-index: 10; margin-bottom: 22px; }
+.search-input {
+    width: 100%; padding: 13px 18px 13px 44px; background: var(--panel); border: 1px solid var(--border);
+    border-radius: 12px; color: var(--text); font: inherit; font-size: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08); transition: border-color .15s, box-shadow .15s;
 }
-.chip i { width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
-.chip:hover { transform: translateY(-1px); box-shadow: 0 3px 0 #0e1013, inset 0 1px 0 rgba(255,255,255,.07); }
-.chip:active { transform: translateY(2px); box-shadow: 0 0 0 #0e1013, inset 0 2px 4px rgba(0,0,0,.4); }
+.search-input:focus { outline: none; border-color: var(--gold); box-shadow: 0 2px 8px rgba(217,165,91,.2); }
+.search-wrap::before { content: '🔍'; position: absolute; left: 16px; top: 50%; transform: translateY(-50%); font-size: 15px; pointer-events: none; }
+.search-clear {
+    position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none;
+    color: var(--muted); cursor: pointer; font-size: 16px; width: 28px; height: 28px;
+    border-radius: 50%; display: none; align-items: center; justify-content: center;
+}
+.search-clear.visible { display: flex; }
+.search-clear:hover { background: var(--panel-2); color: var(--text); }
+.page-enter { animation: pageIn .35s ease both; }
+@keyframes pageIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-/* ================= Calendar ================= */
 .calendar {
-    background: var(--panel); border: 1px solid var(--border);
-    border-radius: 14px; padding: 20px; margin-bottom: 34px; max-width: 440px;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 2px 4px rgba(0,0,0,.35), 0 16px 32px rgba(0,0,0,.35);
-    animation: fade .5s ease both;
+    background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 18px;
+    margin-bottom: 30px; max-width: 440px; box-shadow: 0 12px 24px rgba(0,0,0,.15);
+    transition: background .3s ease, border-color .3s ease;
 }
-.cal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
-.cal-head h2 { margin: 0; font-family: var(--serif); font-size: 20px; font-weight: 600; }
+.cal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.cal-head h2 { margin: 0; font-family: var(--serif); font-size: 19px; font-weight: 600; }
 .cal-head button {
-    width: 40px; height: 40px; background: var(--panel-2); border: 1px solid var(--border); color: var(--text);
-    border-radius: 9px; cursor: pointer; font-size: 16px;
-    box-shadow: 0 3px 0 #0e1013, inset 0 1px 0 rgba(255,255,255,.07);
-    transition: transform .1s ease, box-shadow .1s ease;
-    display: inline-flex; align-items: center; justify-content: center;
+    width: 38px; height: 38px; background: var(--panel-2); border: 1px solid var(--border); color: var(--text);
+    border-radius: 9px; cursor: pointer; font-size: 15px; display: inline-flex; align-items: center; justify-content: center;
+    transition: background .15s;
 }
-.cal-head button:hover { transform: translateY(-1px); box-shadow: 0 4px 0 #0e1013, inset 0 1px 0 rgba(255,255,255,.1); }
-.cal-head button:active { transform: translateY(3px); box-shadow: 0 0 0 #0e1013, inset 0 2px 4px rgba(0,0,0,.4); }
-.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; }
-.day-name { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: #6d727c; padding: 4px 0 6px; }
-.day { position: relative; padding: 9px 0; border-radius: 9px; font-size: 14px; font-weight: 500; user-select: none; min-height: 40px; display: flex; align-items: center; justify-content: center; }
+.cal-head button:hover { background: var(--inset); }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; text-align: center; }
+.day-name { font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); padding: 4px 0 6px; }
+.day { position: relative; padding: 9px 0; border-radius: 8px; font-size: 14px; font-weight: 500; user-select: none; min-height: 38px; display: flex; align-items: center; justify-content: center; }
 .day.empty { visibility: hidden; }
-.day.disabled { color: #4a4f58; }
-.day:not(.empty):not(.disabled) {
-    cursor: pointer; background: var(--panel-2);
-    box-shadow: 0 3px 0 #0e1013, 0 5px 8px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.07);
-    transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
-}
-.day:not(.empty):not(.disabled):hover { background: #2c313a; transform: translateY(-2px); box-shadow: 0 5px 0 #0e1013, 0 9px 14px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.1); }
-.day:not(.empty):not(.disabled):active { transform: translateY(2px); box-shadow: 0 1px 0 #0e1013, inset 0 2px 4px rgba(0,0,0,.4); }
+.day.disabled { color: var(--border); }
+.day:not(.empty):not(.disabled) { cursor: pointer; background: var(--panel-2); transition: background .15s, transform .12s; }
+.day:not(.empty):not(.disabled):hover { background: var(--inset); }
 .day.today { outline: 1px solid var(--gold); outline-offset: -1px; }
-.day.has-hw::after { content: ''; position: absolute; left: 50%; bottom: 4px; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: var(--green); }
-.day.selected:not(.disabled) {
-    background: var(--gold); color: #1a1408; font-weight: 700;
-    box-shadow: 0 3px 0 #8f6a31, 0 7px 14px rgba(217,165,91,.28), inset 0 1px 0 rgba(255,255,255,.35);
-}
-.day.selected:not(.disabled):hover { background: #e3b56f; }
+.day.has-hw::after { content: ''; position: absolute; left: 50%; bottom: 3px; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: var(--green); }
+.day.selected:not(.disabled) { background: var(--gold); color: #1a1408; font-weight: 700; }
 .day.selected.has-hw::after { background: #1a1408; }
-.legend { margin-top: 14px; font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.legend { margin-top: 12px; font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
 .legend i { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
 
-/* ================= Cards ================= */
 .card {
-    position: relative; isolation: isolate;
-    padding: 24px 26px 22px; margin-bottom: 26px;
-    animation: fade .55s ease both; animation-delay: calc(var(--i, 0) * 80ms);
-    scroll-margin-top: 24px;
+    position: relative; padding: 22px 24px 20px; margin-bottom: 20px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-left: 4px solid var(--c, var(--gold)); border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.06); transition: background .3s ease, border-color .3s ease, box-shadow .2s ease;
 }
-@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
-
-.card::before {
-    content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-    border-radius: 14px;
-    background: linear-gradient(180deg, #20242b, var(--panel) 40%);
-    border: 1px solid var(--border);
-    border-top-color: rgba(255,255,255,.10);
-    border-left: 4px solid var(--c, var(--gold));
-    transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
-    transition: transform .18s ease-out, box-shadow .25s ease;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 1px 2px rgba(0,0,0,.35), 0 8px 14px rgba(0,0,0,.30), 0 20px 36px rgba(0,0,0,.28);
-}
-.card:hover::before {
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 2px 4px rgba(0,0,0,.35), 0 14px 24px rgba(0,0,0,.35), 0 32px 54px rgba(0,0,0,.35);
-}
+.card:hover { box-shadow: 0 6px 16px rgba(0,0,0,.12); }
 .card[data-subject="algebra"]   { --c: var(--algebra); }
 .card[data-subject="russian"]   { --c: var(--russian); }
 .card[data-subject="history"]   { --c: var(--history); }
 .card[data-subject="geography"] { --c: var(--geography); }
 .card[data-subject="english"]   { --c: var(--english); }
 .card[data-subject="creator"]   { --c: var(--creator); }
-
-.card-head { margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
-.tag { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--c); flex-wrap: wrap; }
+.card-head { margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.tag { display: inline-flex; align-items: center; gap: 7px; font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.3px; color: var(--c); flex-wrap: wrap; }
 .tag i { width: 7px; height: 7px; border-radius: 50%; background: var(--c); flex-shrink: 0; }
-.tag small { color: var(--muted); font-weight: 500; text-transform: none; letter-spacing: 0; font-size: 12.5px; }
-.card h3 { margin: 6px 0 0; font-family: var(--serif); font-size: clamp(18px, 3vw, 22px); font-weight: 600; line-height: 1.3; }
-
-.inset { background: var(--inset); border-radius: 10px; box-shadow: inset 0 3px 9px rgba(0,0,0,.55), inset 0 -1px 0 rgba(255,255,255,.04); }
-
-/* Алгебра */
-.math-body { padding: 8px 20px; margin-bottom: 14px; }
-.problem { padding: 14px 0; border-bottom: 1px dashed #2a2f37; }
-.problem:last-child { border-bottom: none; }
-.problem-num { display: inline-block; margin-bottom: 8px; font-family: var(--serif); font-size: 17px; font-weight: 700; color: var(--c); }
-.problem-row { display: flex; gap: 10px; padding: 5px 0; align-items: baseline; }
-.part { flex: 0 0 auto; min-width: 24px; height: 24px; display: inline-grid; place-items: center; border-radius: 6px; background: var(--panel-2); font-family: var(--mono); font-size: 13px; color: var(--muted); }
-.expr { font-family: var(--mono); font-size: 14.5px; line-height: 1.9; color: #dcd9d2; word-break: break-word; overflow-wrap: anywhere; }
-.expr sup { font-size: .72em; color: var(--orange); font-weight: 700; }
-
-/* Обыкновенные дроби */
-.frac {
-    display: inline-flex;
-    flex-direction: column;
-    vertical-align: middle;
-    text-align: center;
-    margin: 0 3px;
-    font-size: .82em;
-    line-height: 1.15;
-    position: relative;
-    top: -.08em;
-    color: #dcd9d2;
+.tag small { color: var(--muted); font-weight: 500; text-transform: none; letter-spacing: 0; font-size: 12px; }
+.card h3 { margin: 6px 0 0; font-family: var(--serif); font-size: clamp(17px, 3vw, 21px); font-weight: 600; line-height: 1.3; }
+.card-actions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border); }
+.card-btn {
+    display: inline-flex; align-items: center; gap: 6px; background: var(--panel-2); border: 1px solid var(--border);
+    color: var(--text); border-radius: 7px; padding: 7px 12px; font: inherit; font-size: 12.5px; font-weight: 500;
+    cursor: pointer; transition: background .15s, border-color .15s, transform .1s;
 }
+.card-btn:hover { background: var(--inset); }
+.card-btn:active { transform: scale(.97); }
+.card-btn.active { color: var(--gold); border-color: var(--gold); }
+.inset { background: var(--inset); border-radius: 10px; padding: 12px 16px; margin-bottom: 12px; }
+.math-body .problem { padding: 12px 0; border-bottom: 1px dashed var(--border); }
+.math-body .problem:last-child { border-bottom: none; }
+.problem-num { display: block; margin-bottom: 6px; font-family: var(--serif); font-size: 16px; font-weight: 700; color: var(--c); }
+.problem-row { display: flex; gap: 10px; padding: 4px 0; align-items: baseline; }
+.part { flex: 0 0 auto; min-width: 22px; height: 22px; display: inline-grid; place-items: center; border-radius: 5px; background: var(--panel); font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.expr { font-family: var(--mono); font-size: 14px; line-height: 1.9; word-break: break-word; }
+.expr sup { font-size: .7em; color: var(--orange); font-weight: 700; }
+.frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 3px; font-size: .82em; line-height: 1.15; }
 .frac .num { padding: 0 5px 2px; border-bottom: 1.5px solid currentColor; }
 .frac .den { padding: 2px 5px 0; }
-
-/* Русский */
-.rus-body { padding: 10px 22px; margin-bottom: 14px; }
-.sentence { display: flex; gap: 12px; padding: 14px 0; border-bottom: 1px dashed #2a2f37; align-items: baseline; }
+.sentence { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px dashed var(--border); align-items: baseline; }
 .sentence:last-child { border-bottom: none; }
 .sentence .n { flex: 0 0 26px; font-family: var(--serif); font-weight: 700; color: var(--c); text-align: right; }
-.sentence .t { font-family: var(--text-serif); font-size: clamp(16px, 2.2vw, 18px); line-height: 2.8; word-break: break-word; }
+.sentence .t { font-family: var(--text-serif); font-size: clamp(15px, 2vw, 17px); line-height: 2.6; word-break: break-word; }
 .inserted-letter { color: var(--orange); font-weight: 700; font-size: 1.12em; }
-
-/* Приставка */
-.prefix {
-    position: relative;
-    display: inline-block;
-    padding: 0 3px;
-    color: var(--blue);
-    font-weight: 600;
-}
-.prefix::after {
-    content: '';
-    position: absolute;
-    top: -0.42em;
-    left: 1px;
-    right: 1px;
-    height: 0.42em;
-    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 40' preserveAspectRatio='none'><path d='M 5 38 L 5 8 L 95 8' fill='none' stroke='%236ec2d9' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/></svg>") no-repeat center / 100% 100%;
-    pointer-events: none;
-}
-
-/* Суффикс */
-.suffix {
-    position: relative;
-    display: inline-block;
-    padding: 0 3px;
-    color: var(--green);
-    font-weight: 600;
-}
-.suffix::after {
-    content: '';
-    position: absolute;
-    top: -0.48em;
-    left: 1px;
-    right: 1px;
-    height: 0.42em;
-    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 40' preserveAspectRatio='none'><polyline points='3,37 50,5 97,37' fill='none' stroke='%237cc596' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/></svg>") no-repeat center / 100% 100%;
-    pointer-events: none;
-}
-
-/* Окончание */
-.ending {
-    position: relative;
-    display: inline-block;
-    padding: 0 4px;
-    color: var(--purple);
-    font-weight: 600;
-}
-.ending::after {
-    content: '';
-    position: absolute;
-    top: -0.08em;
-    left: 2px;
-    right: 2px;
-    bottom: -0.08em;
-    border: 2px solid var(--purple);
-    border-radius: 3px;
-    pointer-events: none;
-}
-
-/* Корень */
-.root-arc { position: relative; display: inline-block; padding: 0 2px; margin: 0 2px; }
-.root-arc::after {
-    content: ''; position: absolute; top: -.25em; left: -3px; right: -3px; height: .5em;
-    border: 2px solid var(--red); border-bottom: none;
-    border-radius: 50% 50% 0 0 / 100% 100% 0 0; pointer-events: none;
-}
-.legend-rus { display: flex; flex-wrap: wrap; gap: 10px 18px; margin: 0 2px 16px; font-size: 13px; color: var(--muted); align-items: center; }
+.prefix, .suffix, .ending, .root-arc { position: relative; display: inline-block; padding: 0 3px; }
+.prefix { color: var(--blue); font-weight: 600; }
+.prefix::after { content: ''; position: absolute; top: -0.42em; left: 1px; right: 1px; height: 0.42em; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 40' preserveAspectRatio='none'><path d='M 5 38 L 5 8 L 95 8' fill='none' stroke='%236ec2d9' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/></svg>") no-repeat center / 100% 100%; pointer-events: none; }
+.suffix { color: var(--green); font-weight: 600; }
+.suffix::after { content: ''; position: absolute; top: -0.48em; left: 1px; right: 1px; height: 0.42em; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 40' preserveAspectRatio='none'><polyline points='3,37 50,5 97,37' fill='none' stroke='%237cc596' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/></svg>") no-repeat center / 100% 100%; pointer-events: none; }
+.ending { color: var(--purple); font-weight: 600; }
+.ending::after { content: ''; position: absolute; top: -0.08em; left: 2px; right: 2px; bottom: -0.08em; border: 2px solid var(--purple); border-radius: 3px; pointer-events: none; }
+.root-arc { padding: 0 2px; margin: 0 2px; }
+.root-arc::after { content: ''; position: absolute; top: -.25em; left: -3px; right: -3px; height: .5em; border: 2px solid var(--red); border-bottom: none; border-radius: 50% 50% 0 0 / 100% 100% 0 0; pointer-events: none; }
+.legend-rus { display: flex; flex-wrap: wrap; gap: 8px 14px; margin: 0 0 12px; font-size: 12px; color: var(--muted); }
 .legend-rus b { font-weight: 600; }
+.eng-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.eng-table th, .eng-table td { border: 1px solid var(--border); padding: 10px 14px; text-align: left; }
+.eng-table th { background: var(--panel-2); color: var(--gold); font-size: 11.5px; text-transform: uppercase; letter-spacing: 1px; }
+.eng-table td:first-child { color: var(--english); font-weight: 600; }
+.task-image { display: block; max-width: 100%; height: auto; margin: 0 auto 12px; cursor: zoom-in; border-radius: 10px; border: 1px solid var(--border); }
+.image-caption { text-align: center; color: var(--muted); font-size: 12px; margin: 0 0 12px; font-style: italic; }
+.note { margin: 8px 0 0; font-size: 12.5px; color: var(--muted); word-break: break-all; }
+.note a { color: var(--gold); }
+.empty-text { color: var(--muted); padding: 40px 0; text-align: center; }
 
-/* Английский язык */
-.eng-body { padding: 10px 20px; margin-bottom: 14px; font-size: clamp(15px, 2vw, 16.5px); line-height: 1.7; }
-.eng-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-    font-family: var(--text-serif);
-    font-size: 16px;
-    background: var(--panel-2);
-    border-radius: 8px;
-    overflow: hidden;
-}
-.eng-table th, .eng-table td {
-    border: 1px solid var(--border);
-    padding: 12px 16px;
-    text-align: left;
-}
-.eng-table th {
-    background-color: var(--panel-2);
-    color: var(--gold);
-    font-family: var(--ui);
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 12px;
-    letter-spacing: 1px;
-}
-.eng-table td:first-child { color: var(--english); font-weight: 600; width: 40%; }
-.eng-table tr:hover { background-color: rgba(255,255,255,.03); }
-
-/* ================= Творческая мастерская ================= */
-.creator-panel {
-    background: var(--panel); border: 1px solid var(--border);
-    border-radius: 14px; padding: 24px;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 2px 4px rgba(0,0,0,.35), 0 16px 32px rgba(0,0,0,.35);
-    margin-bottom: 34px;
-    animation: fade .5s ease both;
-}
-.creator-buttons {
-    display: flex; gap: 12px; flex-wrap: wrap;
-    margin-bottom: 20px;
-}
+.creator-panel { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 22px; box-shadow: 0 12px 24px rgba(0,0,0,.12); margin-bottom: 30px; }
+.creator-buttons { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
 .creator-btn {
-    flex: 1; min-width: 160px;
-    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    flex: 1; min-width: 140px; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
     background: var(--panel-2); border: 1px solid var(--border); color: var(--text);
-    border-radius: 10px; padding: 16px 20px;
-    font: inherit; font-size: 16px; font-weight: 600; cursor: pointer;
-    box-shadow: 0 3px 0 #0e1013, inset 0 1px 0 rgba(255,255,255,.07);
-    transition: transform .1s ease, box-shadow .1s ease, background .2s ease, border-color .2s ease;
+    border-radius: 10px; padding: 14px 18px; font: inherit; font-size: 15px; font-weight: 600;
+    cursor: pointer; transition: background .15s, transform .1s;
 }
-.creator-btn:hover { background: #2c313a; transform: translateY(-2px); box-shadow: 0 5px 0 #0e1013, inset 0 1px 0 rgba(255,255,255,.1); }
-.creator-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #0e1013, inset 0 2px 4px rgba(0,0,0,.4); }
+.creator-btn:hover { background: var(--inset); }
+.creator-btn:active { transform: scale(.98); }
 .creator-btn.note { border-left: 4px solid var(--creator); }
 .creator-btn.reportage { border-left: 4px solid var(--blue); }
-.creator-btn.reset-btn {
-    background: none; border: 1px solid var(--border); color: var(--muted);
-    box-shadow: none; font-weight: 500; font-size: 14px; padding: 12px 18px;
-    min-width: auto; flex: 0 1 auto;
-}
-.creator-btn.reset-btn:hover { background: rgba(255,255,255,.04); color: var(--text); box-shadow: none; transform: none; }
-.creator-btn.reset-btn:active { transform: none; box-shadow: none; }
-
-.creator-output {
-    background: var(--inset); border-radius: 10px; padding: 22px 24px;
-    box-shadow: inset 0 3px 9px rgba(0,0,0,.55), inset 0 -1px 0 rgba(255,255,255,.04);
-    min-height: 120px;
-    position: relative;
-    display: none;
-}
+.creator-btn.reset-btn { flex: 0 1 auto; min-width: auto; padding: 10px 16px; font-size: 13px; font-weight: 500; color: var(--muted); }
+.creator-output { background: var(--inset); border-radius: 10px; padding: 20px; min-height: 100px; display: none; }
 .creator-output.visible { display: block; }
-.creator-output .output-header {
-    display: flex; justify-content: space-between; align-items: flex-start;
-    margin-bottom: 16px; gap: 12px; flex-wrap: wrap;
-}
-.creator-output .output-type {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px;
-    color: var(--creator);
-}
+.creator-output .output-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; gap: 12px; flex-wrap: wrap; }
+.creator-output .output-type { display: inline-flex; align-items: center; gap: 8px; font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.4px; color: var(--creator); }
 .creator-output .output-type i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
-.creator-output .output-index {
-    font-size: 12px; color: var(--muted); font-family: var(--mono);
+.creator-output .output-index { font-size: 12px; color: var(--muted); font-family: var(--mono); }
+.creator-output h3 { margin: 0 0 12px; font-family: var(--serif); font-size: clamp(18px, 3vw, 22px); }
+.creator-output .output-text { font-family: var(--text-serif); font-size: clamp(15px, 2vw, 17px); line-height: 1.8; color: var(--text); }
+.creator-output .output-actions { display: flex; gap: 10px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+.creator-output .output-actions button, .creator-output .output-actions a {
+    display: inline-flex; align-items: center; gap: 8px; background: var(--panel); border: 1px solid var(--border);
+    color: var(--text); border-radius: 8px; padding: 10px 16px; font: inherit; font-size: 13.5px; font-weight: 500;
+    cursor: pointer; text-decoration: none; transition: background .15s;
 }
-.creator-output h3 {
-    margin: 0 0 14px; font-family: var(--serif); font-size: clamp(19px, 3vw, 23px);
-    font-weight: 600; line-height: 1.3; color: var(--text);
-}
-.creator-output .output-text {
-    font-family: var(--text-serif); font-size: clamp(15px, 2vw, 17px);
-    line-height: 1.8; color: #dcd9d2; white-space: pre-line;
-}
-.creator-output .output-text em {
-    font-style: normal; color: var(--creator); font-weight: 600;
-}
-.creator-output .output-actions {
-    display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap;
-    padding-top: 16px; border-top: 1px solid var(--border);
-}
-.creator-output .output-actions button {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--panel-2); border: 1px solid var(--border); color: var(--text);
-    border-radius: 8px; padding: 10px 16px; font: inherit; font-size: 14px; font-weight: 500; cursor: pointer;
-    transition: background .15s ease, border-color .15s ease;
-}
-.creator-output .output-actions button:hover { background: #2c313a; border-color: #3d434e; }
+.creator-output .output-actions button:hover, .creator-output .output-actions a:hover { background: var(--panel-2); }
 .creator-output .output-actions .dislike-btn { border-color: #4a3a3a; color: var(--red); }
-.creator-output .output-actions .dislike-btn:hover { background: rgba(228,124,124,.1); }
-.creator-output .output-actions a {
-    display: inline-flex; align-items: center; gap: 8px;
-    color: var(--gold); font-size: 14px; font-weight: 500;
-    text-decoration: none; padding: 10px 16px;
-    border-radius: 8px; border: 1px solid rgba(217,165,91,.3);
-    transition: background .15s ease;
-}
-.creator-output .output-actions a:hover { background: rgba(217,165,91,.1); }
-
-.creator-empty {
-    text-align: center; padding: 40px 20px; color: var(--muted);
-}
-.creator-empty .icon { font-size: 40px; margin-bottom: 12px; opacity: .5; }
-.creator-empty p { margin: 0; font-size: 15px; }
-
-.creator-all-done {
-    text-align: center; padding: 30px 20px;
-}
-.creator-all-done .icon { font-size: 40px; margin-bottom: 12px; }
-.creator-all-done p { margin: 0 0 16px; font-size: 15px; color: var(--muted); }
-
-.creator-stats {
-    margin-top: 16px; font-size: 13px; color: var(--muted);
-    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
-}
+.creator-all-done { text-align: center; padding: 26px 20px; }
+.creator-all-done .icon { font-size: 38px; margin-bottom: 10px; }
+.creator-stats { margin-top: 14px; font-size: 12.5px; color: var(--muted); display: flex; gap: 16px; flex-wrap: wrap; }
 .creator-stats span { display: inline-flex; align-items: center; gap: 6px; }
-.creator-stats .dot-green { width: 6px; height: 6px; border-radius: 50%; background: var(--green); display: inline-block; }
-.creator-stats .dot-gold { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); display: inline-block; }
+.dot-green, .dot-gold { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+.dot-green { background: var(--green); } .dot-gold { background: var(--gold); }
 
-/* Простое задание */
-.task-body { padding: 16px 20px; margin-bottom: 14px; font-size: clamp(15px, 2vw, 16.5px); line-height: 1.7; }
-.task-body ul, .task-body ol { padding-left: 20px; }
-.task-body li { margin-bottom: 6px; }
+/* Расписание уроков */
+.schedule-day { margin-bottom: 24px; }
+.schedule-day h3 { font-family: var(--serif); font-size: 20px; margin: 0 0 10px; color: var(--gold); }
+.schedule-day.today h3::after { content: ' · сегодня'; font-size: 12px; color: var(--green); font-weight: 500; font-family: var(--ui); }
+.schedule-table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+.schedule-table th, .schedule-table td { padding: 11px 14px; border-bottom: 1px solid var(--border); text-align: left; }
+.schedule-table th { font-size: 11.5px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); font-weight: 600; }
+.schedule-table tr:hover td { background: var(--panel-2); }
+.schedule-table .num { font-family: var(--mono); font-size: 13px; color: var(--muted); width: 40px; text-align: center; }
 
-.task-image {
-    display: block; max-width: 100%; height: auto; margin: 0 auto 14px; cursor: zoom-in;
-    border-radius: 10px; border: 1px solid var(--border);
-    box-shadow: 0 10px 24px rgba(0,0,0,.5);
-    transition: box-shadow .2s ease;
+.glossary-item { padding: 14px 16px; margin-bottom: 10px; background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--c, var(--gold)); border-radius: 10px; }
+.glossary-item[data-subject="algebra"] { --c: var(--algebra); }
+.glossary-item[data-subject="russian"] { --c: var(--russian); }
+.glossary-item[data-subject="english"] { --c: var(--english); }
+.glossary-item[data-subject="history"] { --c: var(--history); }
+.glossary-item[data-subject="geography"] { --c: var(--geography); }
+.glossary-item h4 { margin: 0 0 6px; font-family: var(--serif); font-size: 17px; color: var(--c); }
+.glossary-item p { margin: 0; font-size: 14.5px; color: var(--text); }
+
+.flashcards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+.flashcard { perspective: 1000px; height: 140px; cursor: pointer; }
+.flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform .55s cubic-bezier(.4,.2,.2,1); transform-style: preserve-3d; }
+.flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+.flashcard-face {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    text-align: center; padding: 14px; border-radius: 12px; border: 1px solid var(--border);
+    background: var(--panel); color: var(--text); -webkit-backface-visibility: hidden; backface-visibility: hidden;
+    font-family: var(--serif); font-size: 17px; font-weight: 600; box-shadow: 0 4px 10px rgba(0,0,0,.08);
 }
-.task-image:hover { box-shadow: 0 14px 30px rgba(0,0,0,.65); }
-.image-caption { text-align: center; color: var(--muted); font-size: 13px; margin: 0 0 14px; font-style: italic; }
-.note { margin: 8px 0 0; font-size: 13px; color: var(--muted); word-break: break-all; }
-.note a { color: var(--gold); }
-.empty-text { color: var(--muted); padding: 40px 0; }
+.flashcard-face.back { transform: rotateY(180deg); background: var(--panel-2); color: var(--green); font-family: var(--ui); font-size: 15px; font-weight: 500; }
 
-/* Lightbox */
-.lightbox {
-    position: fixed; inset: 0; z-index: 100; display: none;
-    align-items: center; justify-content: center;
-    padding: 20px; padding: max(20px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
-    background: rgba(8,9,11,.95); cursor: zoom-out;
-    backdrop-filter: blur(6px);
-}
+.lightbox { position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center; padding: max(20px, env(safe-area-inset-top)); background: rgba(0,0,0,.92); cursor: zoom-out; backdrop-filter: blur(6px); }
 .lightbox.open { display: flex; }
-.lightbox img { max-width: 100%; max-height: 100%; border-radius: 10px; object-fit: contain; }
-.lightbox-close {
-    position: absolute; top: max(20px, env(safe-area-inset-top)); right: max(20px, env(safe-area-inset-right));
-    width: 44px; height: 44px; border-radius: 50%;
-    background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
-    color: #fff; font-size: 20px; cursor: pointer;
-    display: none; align-items: center; justify-content: center;
-}
+.lightbox img { max-width: 100%; max-height: 100%; border-radius: 10px; }
+.lightbox-close { position: absolute; top: 20px; right: 20px; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3); color: #fff; font-size: 20px; cursor: pointer; display: none; align-items: center; justify-content: center; }
 .lightbox.open .lightbox-close { display: flex; }
 
-/* ================= Планшеты ================= */
-@media (max-width: 900px) {
-    .main { padding: 32px 20px 60px; }
-    .card { padding: 20px 20px 18px; }
-}
-
-/* ================= Мобильные ================= */
-@media (hover: none), (prefers-reduced-motion: reduce) {
-    .card::before { transform: none !important; }
-}
-@media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--gold); color: #1a1408; padding: 12px 22px; border-radius: 30px; font-weight: 600; font-size: 14px; box-shadow: 0 8px 20px rgba(0,0,0,.25); opacity: 0; transition: transform .3s ease, opacity .3s ease; z-index: 200; pointer-events: none; }
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
 @media (max-width: 800px) {
     .layout { flex-direction: column; }
-
-    .sidebar {
-        width: 100%; height: auto; position: sticky; top: 0;
-        flex-direction: row; align-items: center;
-        gap: 6px; padding: 10px 12px;
-        padding-top: max(10px, env(safe-area-inset-top));
-        padding-left: max(12px, env(safe-area-inset-left));
-        padding-right: max(12px, env(safe-area-inset-right));
-        overflow-x: auto; overflow-y: hidden;
-        border-right: none; border-bottom: 1px solid var(--border);
-        box-shadow: 0 6px 16px rgba(0,0,0,.4);
-        scrollbar-width: none;
-        -webkit-overflow-scrolling: touch;
-    }
+    .sidebar { width: 100%; height: auto; position: sticky; top: 0; flex-direction: row; align-items: center; gap: 6px; padding: 10px 12px; padding-top: max(10px, env(safe-area-inset-top)); overflow-x: auto; overflow-y: hidden; border-right: none; border-bottom: 1px solid var(--border); scrollbar-width: none; }
     .sidebar::-webkit-scrollbar { display: none; }
     .brand { padding: 0 10px 0 0; margin: 0; border: none; flex-shrink: 0; }
     .brand b { font-size: 20px; }
-    .brand span, .nav-label, .sidebar-foot { display: none; }
-
-    .nav-btn {
-        width: auto; white-space: nowrap;
-        padding: 10px 14px; font-size: 14px;
-        min-height: 42px; flex-shrink: 0;
-        background: var(--panel-2);
-        border: 1px solid var(--border);
-        border-radius: 999px;
-    }
-    .nav-btn .dot { width: 7px; height: 7px; }
+    .brand span, .nav-label, .sidebar-foot .icon-btn.sound { display: none; }
+    .sidebar-foot { padding: 0; margin: 0 0 0 auto; }
+    .nav-btn { width: auto; white-space: nowrap; padding: 8px 12px; font-size: 13.5px; min-height: 38px; flex-shrink: 0; background: var(--panel-2); border: 1px solid var(--border); border-radius: 999px; }
+    .nav-btn .dot { width: 6px; height: 6px; }
     .nav-btn .count { display: none; }
-    .nav-btn:hover:not(.active) { transform: none; }
-    .nav-btn.active {
-        background: var(--inset);
-        border-color: var(--border);
-        box-shadow: inset 0 2px 5px rgba(0,0,0,.55);
-    }
-
-    .main {
-        padding: 20px 14px 60px;
-        padding-left: max(14px, env(safe-area-inset-left));
-        padding-right: max(14px, env(safe-area-inset-right));
-    }
-
-    .hero { margin-bottom: 20px; }
+    .nav-btn.active { background: var(--inset); }
+    .main { padding: 20px 14px 60px; padding-left: max(14px, env(safe-area-inset-left)); padding-right: max(14px, env(safe-area-inset-right)); }
+    .search-wrap { top: 60px; }
+    .search-input { font-size: 14.5px; padding: 12px 16px 12px 40px; }
     .hero h1 { font-size: 26px; }
-    .hero .sub { font-size: 14px; }
-
-    .chips { gap: 6px; margin-top: 14px; }
-    .chip { padding: 8px 14px 8px 12px; font-size: 13px; }
-
-    .calendar {
-        max-width: none;
-        padding: 16px 14px;
-        margin-bottom: 22px;
-        border-radius: 12px;
-    }
-    .cal-head h2 { font-size: 18px; }
-    .cal-head button { width: 38px; height: 38px; font-size: 15px; }
-    .cal-grid { gap: 4px; }
-    .day-name { font-size: 10px; padding: 4px 0; letter-spacing: .5px; }
-    .day { font-size: 13px; min-height: 38px; border-radius: 8px; }
-    .day.has-hw::after { bottom: 3px; width: 3px; height: 3px; margin-left: -1.5px; }
-
-    .card {
-        padding: 16px 14px;
-        margin-bottom: 18px;
-        border-radius: 12px;
-        animation-delay: 0ms;
-    }
-    .card::before { border-radius: 12px; }
+    .calendar { max-width: none; padding: 14px; margin-bottom: 20px; }
+    .cal-head h2 { font-size: 17px; }
+    .cal-head button { width: 36px; height: 36px; }
+    .day-name { font-size: 10px; }
+    .day { font-size: 13px; min-height: 36px; }
+    .card { padding: 16px 14px; margin-bottom: 16px; border-radius: 10px; }
     .card-head { margin-bottom: 12px; padding-bottom: 10px; }
-    .tag { font-size: 11px; letter-spacing: 1px; gap: 6px; }
-    .tag small { font-size: 11.5px; }
-    .card h3 { font-size: 18px; margin-top: 4px; }
-
-    .math-body { padding: 6px 10px; }
-    .problem { padding: 10px 0; }
-    .problem-num { font-size: 15px; }
-    .problem-row { gap: 8px; padding: 4px 0; }
-    .part { min-width: 20px; height: 20px; font-size: 11px; }
-    .expr { font-size: 12.5px; line-height: 2; }
-
-    .rus-body { padding: 6px 10px; }
-    .sentence { padding: 12px 0; gap: 8px; }
-    .sentence .n { flex-basis: 22px; font-size: 14px; }
-    .sentence .t { font-size: 15.5px; line-height: 2.6; }
-    .legend-rus { font-size: 12px; gap: 8px 14px; margin-bottom: 12px; }
-
-    .eng-body { padding: 10px 12px; }
-    .eng-body ul, .eng-body ol { padding-left: 18px; }
-    .eng-table { font-size: 14px; }
-    .eng-table th, .eng-table td { padding: 8px 10px; }
-    .eng-table td:first-child { width: 45%; }
-
-    .task-body { padding: 12px 14px; }
-
-    .creator-panel { padding: 18px 16px; border-radius: 12px; margin-bottom: 24px; }
-    .creator-buttons { gap: 10px; }
-    .creator-btn { min-width: 100%; padding: 14px 16px; font-size: 15px; }
-    .creator-btn.reset-btn { min-width: auto; flex: 1; }
-    .creator-output { padding: 16px 14px; }
-    .creator-output .output-actions { flex-direction: column; }
-    .creator-output .output-actions button,
-    .creator-output .output-actions a { width: 100%; justify-content: center; }
-
-    .task-image { border-radius: 8px; margin-bottom: 10px; }
-    .image-caption { font-size: 12px; }
-
-    .note { font-size: 12px; }
-    .empty-text { padding: 30px 0; text-align: center; }
-}
-
-@media (max-width: 400px) {
-    .brand b { font-size: 18px; }
-    .nav-btn { padding: 8px 12px; font-size: 13px; }
-    .hero h1 { font-size: 22px; }
     .card h3 { font-size: 17px; }
-    .sentence .t { font-size: 15px; }
-    .sentence .n { flex-basis: 20px; }
-    .expr { font-size: 12px; }
-    .eng-table { font-size: 13px; }
-    .eng-table th, .eng-table td { padding: 6px 8px; }
-    .creator-output .output-text { font-size: 14.5px; }
+    .card-actions { gap: 5px; }
+    .card-btn { padding: 6px 10px; font-size: 12px; }
+    .inset { padding: 10px 12px; }
+    .expr { font-size: 12.5px; }
+    .sentence { padding: 10px 0; gap: 8px; }
+    .sentence .n { flex-basis: 22px; font-size: 13.5px; }
+    .sentence .t { font-size: 15px; line-height: 2.5; }
+    .creator-panel { padding: 16px 14px; margin-bottom: 22px; }
+    .creator-btn { min-width: 100%; padding: 12px 14px; font-size: 14.5px; }
+    .creator-output { padding: 14px 12px; }
+    .creator-output .output-actions { flex-direction: column; }
+    .creator-output .output-actions button, .creator-output .output-actions a { width: 100%; justify-content: center; }
+    .flashcards-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+    .flashcard { height: 110px; }
+    .flashcard-face { font-size: 15px; padding: 10px; }
+    .flashcard-face.back { font-size: 13px; }
+    .schedule-table { font-size: 13.5px; }
+    .schedule-table th, .schedule-table td { padding: 9px 10px; }
 }
-
-@media (max-height: 500px) and (orientation: landscape) {
-    .sidebar {
-        position: sticky;
-        height: auto;
-        max-height: none;
-    }
+@media (max-width: 400px) {
+    .hero h1 { font-size: 22px; }
+    .card h3 { font-size: 16px; }
+    .sentence .t { font-size: 14.5px; }
+    .expr { font-size: 11.5px; }
+}
+@media print {
+    body * { visibility: hidden; }
+    .card.printing, .card.printing * { visibility: visible; }
+    .card.printing { position: absolute; left: 0; top: 0; width: 100%; box-shadow: none; border: 1px solid #ccc; background: white !important; color: black !important; }
+    .card-actions { display: none !important; }
 }
 </style>
 </head>
-<body>
+<body data-theme="dark">
 <div class="layout">
     <aside class="sidebar" id="sidebar">
         <div class="brand"><b>Р<i>Д</i>З</b><span>Решённое домашнее задание</span></div>
-        <div class="nav-label">Разделы</div>
     </aside>
-    <main class="main"><div class="container" id="content"></div></main>
+    <main class="main">
+        <div class="container" id="content"></div>
+    </main>
 </div>
 <div class="lightbox" id="lightbox">
     <button class="lightbox-close" aria-label="Закрыть">✕</button>
     <img alt="">
 </div>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="toast" id="toast"></div>
 
 <script>
 /* ==========================================================
-   БАЗА ДАННЫХ ДОМАШНИХ ЗАДАНИЙ
+   ДАННЫЕ
    ========================================================== */
 const homeworkData = [
-    {
-        date: '2026-10-19',
-        subject: 'english',
-        title: 'Vocabulary (стр. 13) — Категории и пропуски',
-        type: 'task',
-        content: `
-            <p style="margin-bottom: 12px; font-size: 16px; font-weight: 600;">1. a) Распределение слов по категориям:</p>
-            <ul style="margin-bottom: 20px; line-height: 1.8; padding-left: 20px;">
-                <li><b>feelings (чувства):</b> confused, scared, relieved</li>
-                <li><b>sounds people make (звуки, которые издают люди):</b> gasp, sigh, laugh, snore, yawn, chat, whisper</li>
-                <li><b>ways of moving (способы передвижения):</b> trip over, crawl</li>
-                <li><b>the weather (погода и атмосфера):</b> stormy, lightning, cosy</li>
-            </ul>
-            <p style="margin-bottom: 12px; font-size: 16px; font-weight: 600;">1. b) Заполнение пропусков:</p>
-            <ol style="line-height: 1.9; padding-left: 20px;">
-                <li>My homework is so difficult that I am really <b style="color: var(--english);">confused</b>.</li>
-                <li>Mary was <b style="color: var(--english);">scared</b> when she found the door of her house open.</li>
-                <li>Can you see the ants <b style="color: var(--english);">crawling</b> (инфинитив: crawl) up the tree?</li>
-                <li>It was quite <b style="color: var(--english);">stormy</b> last night. Did you see the <b style="color: var(--english);">lightning</b>?</li>
-                <li>We don't feel like going out. We're having a <b style="color: var(--english);">cosy</b> evening in.</li>
-                <li>Is that Dad <b style="color: var(--english);">snoring</b> in the bedroom?</li>
-            </ol>
-        `
-    },
-    {
-        date: '2026-10-19',
-        subject: 'algebra',
-        title: 'п22 №482-484(бге), №487-489(бге), №486',
-        type: 'math',
-        images: [
-            'https://allwebs.ru/images/2026/10/16/b2291b2c409cc7393abb58500a7f6070.png',
-            'https://allwebs.ru/images/2026/10/16/bc2ec5e0c873b13a6f9c3a301a0de951.png',
-            'https://allwebs.ru/images/2026/10/16/10069477552b64adfa7e28803744fe42.png'
-        ],
-        imageCaption: 'Исходные фото заданий',
-        content: `№482
+    { date: '2026-10-19', subject: 'english', title: 'Vocabulary (стр. 13) — Категории и пропуски', type: 'task',
+      content: `<p style="margin-bottom:10px;font-weight:600;">1. a) Распределение слов по категориям:</p>
+      <ul style="padding-left:20px;line-height:1.8;margin-bottom:16px;">
+      <li><b>feelings:</b> confused, scared, relieved</li>
+      <li><b>sounds people make:</b> gasp, sigh, laugh, snore, yawn, chat, whisper</li>
+      <li><b>ways of moving:</b> trip over, crawl</li>
+      <li><b>the weather:</b> stormy, lightning, cosy</li></ul>
+      <p style="margin-bottom:10px;font-weight:600;">1. b) Заполнение пропусков:</p>
+      <ol style="padding-left:20px;line-height:1.9;">
+      <li>My homework is so difficult that I am really <b style="color:var(--english);">confused</b>.</li>
+      <li>Mary was <b style="color:var(--english);">scared</b> when she found the door of her house open.</li>
+      <li>Can you see the ants <b style="color:var(--english);">crawling</b> (инфинитив: crawl) up the tree?</li>
+      <li>It was quite <b style="color:var(--english);">stormy</b> last night. Did you see the <b style="color:var(--english);">lightning</b>?</li>
+      <li>We don't feel like going out. We're having a <b style="color:var(--english);">cosy</b> evening in.</li>
+      <li>Is that Dad <b style="color:var(--english);">snoring</b> in the bedroom?</li></ol>` },
+    { date: '2026-10-19', subject: 'algebra', title: 'п22 №482-484(бге), №487-489(бге), №486', type: 'math',
+      images: ['https://allwebs.ru/images/2026/10/16/b2291b2c409cc7393abb58500a7f6070.png','https://allwebs.ru/images/2026/10/16/bc2ec5e0c873b13a6f9c3a301a0de951.png','https://allwebs.ru/images/2026/10/16/10069477552b64adfa7e28803744fe42.png'],
+      imageCaption: 'Исходные фото заданий',
+      content: `№482
 б) -8x * 5x<sup>3</sup> = (-8 * 5) * x<sup>1+3</sup> = -40x<sup>4</sup>
 г) x<sup>2</sup>y<sup>5</sup> * (-6xy<sup>2</sup>) = (1 * (-6)) * x<sup>2+1</sup> * y<sup>5+2</sup> = -6x<sup>3</sup>y<sup>7</sup>
 е) -1/5 m<sup>3</sup>n<sup>4</sup> * 5m<sup>2</sup>n<sup>3</sup> = (-1/5 * 5) * m<sup>3+2</sup> * n<sup>4+3</sup> = -m<sup>5</sup>n<sup>7</sup>
@@ -706,333 +418,519 @@ const homeworkData = [
 №489
 б) (-4ax<sup>3</sup>)<sup>3</sup> = (-4)<sup>3</sup> * a<sup>3</sup> * (x<sup>3</sup>)<sup>3</sup> = -64a<sup>3</sup>x<sup>9</sup>
 в) (-2m<sup>3</sup>n<sup>2</sup>)<sup>4</sup> = (-2)<sup>4</sup> * (m<sup>3</sup>)<sup>4</sup> * (n<sup>2</sup>)<sup>4</sup> = 16m<sup>12</sup>n<sup>8</sup>
-г) (-a<sup>2</sup>bc<sup>3</sup>)<sup>5</sup> = (-1)<sup>5</sup> * (a<sup>2</sup>)<sup>5</sup> * b<sup>5</sup> * (c<sup>3</sup>)<sup>5</sup> = -a<sup>10</sup>b<sup>5</sup>c<sup>15</sup>`
-    },
-    {
-        date: '2026-10-19',
-        subject: 'history',
-        title: 'Без задания',
-        type: 'task',
-        content: 'На понедельник 19.10 по истории домашнее задание не задано.'
-    },
-    {
-        date: '2026-10-19',
-        subject: 'russian',
-        title: 'Задание из учебника + заметка и репортаж',
-        type: 'task',
-        content: 'Посмотрите задание по ссылке ниже. Также нужно написать заметку и репортаж в тетрадь.',
-        image: 'https://allwebs.ru/images/2026/10/16/d51f9f37086582ddef1a287304f2c204.jpg',
-        imageCaption: 'Фото с заданием',
-        note: 'Ссылка на изображение: https://allwebs.ru/images/2026/10/16/d51f9f37086582ddef1a287304f2c204.jpg'
-    },
-    {
-        date: '2026-10-19',
-        subject: 'russian',
-        title: 'Задание 1-14 (Вставка букв, разбор)',
-        type: 'rus',
-        content: `1) Пригнула ветки вишен <span class="root-arc">тяж</span><span class="inserted-letter">ё</span>лая (прил., ударение на ё, проверочное: тяжесть) роса.
+г) (-a<sup>2</sup>bc<sup>3</sup>)<sup>5</sup> = (-1)<sup>5</sup> * (a<sup>2</sup>)<sup>5</sup> * b<sup>5</sup> * (c<sup>3</sup>)<sup>5</sup> = -a<sup>10</sup>b<sup>5</sup>c<sup>15</sup>` },
+    { date: '2026-10-19', subject: 'history', title: 'Без задания', type: 'task',
+      content: 'На понедельник 19.10 по истории домашнее задание не задано.' },
+    { date: '2026-10-19', subject: 'russian', title: 'Задание из учебника + заметка и репортаж', type: 'task',
+      content: 'Посмотрите задание по ссылке ниже. Также нужно написать заметку и репортаж в тетрадь.',
+      image: 'https://allwebs.ru/images/2026/10/16/d51f9f37086582ddef1a287304f2c204.jpg',
+      imageCaption: 'Фото с заданием',
+      note: 'Ссылка на изображение: https://allwebs.ru/images/2026/10/16/d51f9f37086582ddef1a287304f2c204.jpg' },
+    { date: '2026-10-19', subject: 'russian', title: 'Задание 1-14 (Вставка букв, разбор)', type: 'rus',
+      content: `1) Пригнула ветки вишен <span class="root-arc">тяж</span><span class="inserted-letter">ё</span>лая (прил., ударение на ё, проверочное: тяжесть) роса.
 2) Прохладный воздух едва качает <span class="root-arc">языч</span><span class="inserted-letter">о</span><span class="suffix">к</span> (сущ., ударение на о, суффикс -ок-) свечи.
 3) <span class="root-arc">Ж<span class="inserted-letter">ё</span>луд</span>и (сущ., ударение на ё, проверочное: желудёвый) держатся на дереве до осени, а затем падают на землю.
-4) В сарае летали белогрудые ласточки, они присаживались под самую крышу, кормили <span class="root-arc">птенц</span><span class="inserted-letter">о</span><span class="ending">в</span> (сущ., ударение на о, окончание -ов), на <span class="root-arc">ж<span class="inserted-letter">ё</span>рд</span><span class="suffix">очк</span><span class="ending">е</span> (сущ., ударение на ё, суффикс -очк-, окончание -е, проверочное: жердь) висели берёзовые веники, ворота были открыты, и солнце светило прямо в ворота.
-5) Челкаш был доволен своей <span class="root-arc">удач</span><span class="ending">ей</span> (сущ., ударение на а, окончание -ей).
-6) Здесь росли кусты <span class="root-arc">крыж<span class="inserted-letter">о</span>вник</span><span class="ending">а</span> (сущ., ударение на о, окончание -а, словарное слово) и вишни.
-7) Где-то в тёмном углу потрескивал <span class="root-arc">сверч</span><span class="inserted-letter">о</span><span class="suffix">к</span> (сущ., ударение на о, суффикс -ок-), да комар вился над <span class="root-arc">ж<span class="inserted-letter">ё</span>лт</span><span class="ending">ым</span> (прил., ударение на ё, окончание -ым, проверочное: желтеть) абажуром.
-8) <span class="root-arc">Дириж</span><span class="inserted-letter">ё</span><span class="suffix">р</span> (сущ., ударение на ё, суффикс -ёр-) взмахнул палочкой, оркестр загремел.
-9) В тайге <span class="root-arc">ш<span class="inserted-letter">ё</span>л</span> (глагол, ударение на ё, проверочное: шедший) точно <span class="root-arc">ш<span class="inserted-letter">о</span>рох</span> (сущ., ударение на о, словарное слово) и таинственный <span class="root-arc">ш<span class="inserted-letter">ё</span>пот</span> (сущ., ударение на ё, проверочное: шептать).
-10) <span class="prefix">При</span><span class="root-arc">ш<span class="inserted-letter">ё</span>л</span> (глагол, ударение на ё, приставка при-, корень -шёл-, проверочное: шедший) доктор, перевязал мне <span class="root-arc">ож<span class="inserted-letter">о</span>г</span> (сущ., ударение на о).
-11) Девушка протянула <span class="root-arc">пуч</span><span class="inserted-letter">о</span><span class="suffix">к</span> (сущ., ударение на о, суффикс -ок-) <span class="root-arc">пахуч</span><span class="ending">ей</span> (прил., ударение на у, окончание -ей) травы.
-12) Берегите нос в <span class="root-arc">больш</span><span class="inserted-letter">о</span><span class="ending">й</span> (прил., ударение на о, окончание -ой) мороз.
-13) Маленький зелёный <span class="root-arc">сундуч</span><span class="inserted-letter">о</span><span class="suffix">к</span> (сущ., ударение на о, суффикс -ок-) стоял на развальнях.
-14) <span class="root-arc">Мужчи</span><span class="inserted-letter">н</span><span class="suffix">к</span><span class="ending">а</span> (сущ., ударение на и, суффикс -к-, окончание -а) отвязал под повозкой ведро и стал поить лошадь.`
-    }
+4) В сарае летали белогрудые ласточки, они присаживались под самую крышу, кормили <span class="root-arc">птенц</span><span class="inserted-letter">о</span><span class="ending">в</span> (сущ., окончание -ов), на <span class="root-arc">ж<span class="inserted-letter">ё</span>рд</span><span class="suffix">очк</span><span class="ending">е</span> (сущ., суффикс -очк-, окончание -е, проверочное: жердь) висели берёзовые веники.
+5) Челкаш был доволен своей <span class="root-arc">удач</span><span class="ending">ей</span> (сущ., окончание -ей).
+6) Здесь росли кусты <span class="root-arc">крыж<span class="inserted-letter">о</span>вник</span><span class="ending">а</span> (сущ., окончание -а, словарное слово) и вишни.
+7) Где-то в тёмном углу потрескивал <span class="root-arc">сверч</span><span class="inserted-letter">о</span><span class="suffix">к</span> (сущ., суффикс -ок-), да комар вился над <span class="root-arc">ж<span class="inserted-letter">ё</span>лт</span><span class="ending">ым</span> (прил., окончание -ым, проверочное: желтеть) абажуром.
+8) <span class="root-arc">Дириж</span><span class="inserted-letter">ё</span><span class="suffix">р</span> (сущ., суффикс -ёр-) взмахнул палочкой, оркестр загремел.
+9) В тайге <span class="root-arc">ш<span class="inserted-letter">ё</span>л</span> (глагол, проверочное: шедший) точно <span class="root-arc">ш<span class="inserted-letter">о</span>рох</span> (сущ., словарное слово) и таинственный <span class="root-arc">ш<span class="inserted-letter">ё</span>пот</span> (сущ., проверочное: шептать).
+10) <span class="prefix">При</span><span class="root-arc">ш<span class="inserted-letter">ё</span>л</span> (глагол, приставка при-, корень -шёл-, проверочное: шедший) доктор, перевязал мне <span class="root-arc">ож<span class="inserted-letter">о</span>г</span> (сущ., ударение на о).
+11) Девушка протянула <span class="root-arc">пуч</span><span class="inserted-letter">о</span><span class="suffix">к</span> (сущ., суффикс -ок-) <span class="root-arc">пахуч</span><span class="ending">ей</span> (прил., окончание -ей) травы.
+12) Берегите нос в <span class="root-arc">больш</span><span class="inserted-letter">о</span><span class="ending">й</span> (прил., окончание -ой) мороз.
+13) Маленький зелёный <span class="root-arc">сундуч</span><span class="inserted-letter">о</span><span class="suffix">к</span> (сущ., суффикс -ок-) стоял на развальнях.
+14) <span class="root-arc">Мужчи</span><span class="inserted-letter">н</span><span class="suffix">к</span><span class="ending">а</span> (сущ., суффикс -к-, окончание -а) отвязал под повозкой ведро и стал поить лошадь.` }
 ];
 
-/* ==========================================================
-   ТВОРЧЕСКАЯ МАСТЕРСКАЯ — загрузка из GitHub Gist
-   ========================================================== */
+const scheduleData = [
+    { day: 'Понедельник', index: 1, lessons: [
+        { subject: 'Разговоры о важном' },
+        { subject: 'Алгебра' },
+        { subject: 'Физическая культура' },
+        { subject: 'История' },
+        { subject: 'Русский язык' },
+        { subject: 'Английский язык' },
+        { subject: 'Информатика (практикум)' },
+        { subject: 'География' }
+    ]},
+    { day: 'Вторник', index: 2, lessons: [
+        { subject: 'Труд (технология)' },
+        { subject: 'Английский язык' },
+        { subject: 'Геометрия' },
+        { subject: 'Биология' },
+        { subject: 'Русский язык' },
+        { subject: 'Физика' },
+        { subject: 'Литература' }
+    ]},
+    { day: 'Среда', index: 3, lessons: [
+        { subject: 'Русский язык' },
+        { subject: 'Алгебра' },
+        { subject: 'Литература' },
+        { subject: 'Статистика и теория вероятности' },
+        { subject: 'Физика' },
+        { subject: 'География' }
+    ]},
+    { day: 'Четверг', index: 4, lessons: [
+        { subject: 'Россия — мои горизонты' },
+        { subject: 'Английский язык' },
+        { subject: 'Информатика' },
+        { subject: 'Алгебра' },
+        { subject: 'История' },
+        { subject: 'Изобразительное искусство' }
+    ]},
+    { day: 'Пятница', index: 5, lessons: [
+        { subject: 'История' },
+        { subject: 'Русский язык' },
+        { subject: 'Музыка' },
+        { subject: 'Труд (технология)' },
+        { subject: 'Геометрия' },
+        { subject: 'Физическая культура' },
+        { subject: 'Физика (элективный курс)' }
+    ]},
+    { day: 'Суббота', index: 6, lessons: [] }
+];
 
-const GIST_URL = 'https://gist.githubusercontent.com/netpuzyaka/4f05e09a64a8a6fc5de6555019d390d5/raw/ddb1f90ea2c7c9d73515065a57057155973ac477/creative-works.json';
+const glossaryData = [
+    { term: 'Одночлен', definition: 'Произведение чисел, переменных и их степеней.', subject: 'algebra' },
+    { term: 'Коэффициент', definition: 'Числовой множитель в произведении.', subject: 'algebra' },
+    { term: 'Стандартный вид одночлена', definition: 'Запись, где на первом месте стоит числовой коэффициент, а затем — переменные в разных степенях.', subject: 'algebra' },
+    { term: 'Степень одночлена', definition: 'Сумма показателей степеней всех входящих в него переменных.', subject: 'algebra' },
+    { term: 'Приставка', definition: 'Значимая часть слова перед корнем, образующая новые слова.', subject: 'russian' },
+    { term: 'Корень', definition: 'Главная значимая часть слова, общая для родственных слов.', subject: 'russian' },
+    { term: 'Суффикс', definition: 'Значимая часть слова после корня, образующая новые слова.', subject: 'russian' },
+    { term: 'Окончание', definition: 'Изменяемая часть слова, служащая для связи слов в предложении.', subject: 'russian' },
+    { term: 'Лексика', definition: 'Словарный состав языка.', subject: 'russian' },
+    { term: 'Stormy', definition: 'Штормовой, бурный (о погоде).', subject: 'english' },
+    { term: 'Cosy', definition: 'Уютный, комфортный.', subject: 'english' },
+    { term: 'Relieved', definition: 'Испытавший облегчение.', subject: 'english' },
+    { term: 'Летопись', definition: 'Историческое произведение, запись событий по годам.', subject: 'history' },
+    { term: 'Реформа', definition: 'Преобразование, изменение в какой-либо сфере.', subject: 'history' },
+    { term: 'Климат', definition: 'Многолетний режим погоды, характерный для данной местности.', subject: 'geography' },
+    { term: 'Атмосфера', definition: 'Газовая оболочка, окружающая Землю.', subject: 'geography' }
+];
 
-let creativeWorks = { note: [], reportage: [] };
-
-async function loadCreativeWorks() {
-    try {
-        const response = await fetch(GIST_URL, { cache: 'no-store' });
-        if (!response.ok) throw new Error('HTTP ' + response.status);
-        const data = await response.json();
-        if (data && Array.isArray(data.note) && Array.isArray(data.reportage)) {
-            creativeWorks = data;
-        } else {
-            throw new Error('Неверная структура JSON');
-        }
-    } catch (e) {
-        console.error('Не удалось загрузить заметки из Gist:', e);
-        creativeWorks = {
-            note: [{
-                title: '⚠️ Ошибка загрузки',
-                text: 'Не удалось загрузить заметки из GitHub Gist. Проверьте ссылку и структуру JSON. Ошибка: ' + e.message
-            }],
-            reportage: [{
-                title: '⚠️ Ошибка загрузки',
-                text: 'Не удалось загрузить репортажи из GitHub Gist. Проверьте ссылку и структуру JSON. Ошибка: ' + e.message
-            }]
-        };
-    }
-}
-
-const STORAGE_KEY_NOTE = 'rdz_viewed_notes_v2';
-const STORAGE_KEY_REPORTAGE = 'rdz_viewed_reportages_v2';
-
-let currentlyDisplayed = null;
-
-function getViewed(type) {
-    try {
-        const raw = localStorage.getItem(type === 'note' ? STORAGE_KEY_NOTE : STORAGE_KEY_REPORTAGE);
-        if (!raw) return [];
-        const parsed = JSON.parse(raw);
-        return Array.isArray(parsed) ? parsed : [];
-    } catch (e) { return []; }
-}
-
-function saveViewed(type, title) {
-    try {
-        const key = type === 'note' ? STORAGE_KEY_NOTE : STORAGE_KEY_REPORTAGE;
-        const current = getViewed(type);
-        if (!current.includes(title)) {
-            current.push(title);
-            localStorage.setItem(key, JSON.stringify(current));
-        }
-    } catch (e) {}
-}
-
-function resetViewed() {
-    try {
-        localStorage.removeItem(STORAGE_KEY_NOTE);
-        localStorage.removeItem(STORAGE_KEY_REPORTAGE);
-    } catch (e) {}
-}
-
-function getAvailable(type) {
-    const all = creativeWorks[type] || [];
-    const viewed = getViewed(type);
-    return all.filter(item => !viewed.includes(item.title));
-}
-
-function generateWork(type) {
-    const all = creativeWorks[type] || [];
-    const available = getAvailable(type);
-    const output = document.getElementById('creator-output');
-    if (!output) return;
-
-    if (available.length === 0) {
-        output.classList.add('visible');
-        output.innerHTML = `
-            <div class="creator-all-done">
-                <div class="icon">🎉</div>
-                <p>Вы просмотрели все ${all.length} ${type === 'note' ? 'заметки' : 'репортажа'}!</p>
-                <p style="font-size: 14px; margin-top: 6px;">Чтобы начать заново, нажмите кнопку ниже.</p>
-                <button class="creator-btn reset-btn" onclick="resetViewedAndRefresh()" style="margin-top: 14px;">🔄 Сбросить историю</button>
-            </div>
-        `;
-        currentlyDisplayed = null;
-        updateCreatorStats();
-        return;
-    }
-
-    const item = available[Math.floor(Math.random() * available.length)];
-    currentlyDisplayed = { type, title: item.title };
-    saveViewed(type, item.title);
-
-    const typeLabel = type === 'note' ? 'Заметка' : 'Репортаж';
-    const typeIcon = type === 'note' ? '📰' : '🎙️';
-    const totalCount = all.length;
-    const viewedCount = getViewed(type).length;
-
-    output.classList.add('visible');
-    output.innerHTML = `
-        <div class="output-header">
-            <span class="output-type">${typeIcon} ${typeLabel}</span>
-            <span class="output-index">${viewedCount} из ${totalCount}</span>
-        </div>
-        <h3>${item.title}</h3>
-        <div class="output-text">${item.text.replace(/\n/g, '<br>')}</div>
-        <div class="output-actions">
-            <button class="dislike-btn" onclick="dislikeWork()">👎 Мне не понравилась тема</button>
-            <a href="https://t.me/siegapilat" target="_blank" rel="noopener">💬 Написать автору в Telegram</a>
-        </div>
-    `;
-    updateCreatorStats();
-}
-
-function dislikeWork() {
-    const output = document.getElementById('creator-output');
-    if (!output) return;
-    const dislikeBtn = output.querySelector('.dislike-btn');
-    if (dislikeBtn) {
-        dislikeBtn.textContent = '✅ Спасибо за отзыв!';
-        dislikeBtn.disabled = true;
-        dislikeBtn.style.opacity = '0.6';
-    }
-    const actions = output.querySelector('.output-actions');
-    if (actions && !actions.querySelector('.dislike-message')) {
-        const msg = document.createElement('span');
-        msg.className = 'dislike-message';
-        msg.style.cssText = 'font-size: 13px; color: var(--muted); width: 100%; margin-top: 6px;';
-        msg.textContent = 'Напишите @siegapilat, какая тема вам интересна — мы добавим её!';
-        actions.appendChild(msg);
-    }
-}
-
-function resetViewedAndRefresh() {
-    resetViewed();
-    const output = document.getElementById('creator-output');
-    if (output) {
-        output.classList.remove('visible');
-        output.innerHTML = '';
-    }
-    currentlyDisplayed = null;
-    updateCreatorStats();
-}
-
-function updateCreatorStats() {
-    const statsEl = document.getElementById('creator-stats');
-    if (!statsEl) return;
-
-    const noteTotal = (creativeWorks.note || []).length;
-    const reportageTotal = (creativeWorks.reportage || []).length;
-    const noteViewed = getViewed('note').length;
-    const reportageViewed = getViewed('reportage').length;
-
-    statsEl.innerHTML = `
-        <span><span class="dot-gold"></span> Заметки: ${noteViewed} / ${noteTotal}</span>
-        <span><span class="dot-green"></span> Репортажи: ${reportageViewed} / ${reportageTotal}</span>
-    `;
-}
-
-function buildCreatorPanel() {
-    const panel = document.createElement('div');
-    panel.className = 'creator-panel';
-
-    panel.innerHTML = `
-        <div class="hero" style="margin-bottom: 18px; animation: none;">
-            <p class="eyebrow" style="margin-bottom: 4px;">Творческая мастерская</p>
-            <h1 style="font-size: clamp(22px, 3.5vw, 32px);">Заметка или <em>репортаж</em>?</h1>
-            <p class="sub">Сгенерируйте уникальный текст для домашнего задания. Каждый вариант показывается только один раз.</p>
-        </div>
-        <div class="creator-buttons">
-            <button class="creator-btn note" onclick="generateWork('note')">📰 Сгенерировать заметку</button>
-            <button class="creator-btn reportage" onclick="generateWork('reportage')">🎙️ Сгенерировать репортаж</button>
-            <button class="creator-btn reset-btn" onclick="resetViewedAndRefresh()">🔄 Сбросить историю</button>
-        </div>
-        <div class="creator-output" id="creator-output"></div>
-        <div class="creator-stats" id="creator-stats"></div>
-    `;
-
-    return panel;
-}
-
-/* ==========================================================
-   ОБЩИЙ ФУНКЦИОНАЛ САЙТА
-   ========================================================== */
+const flashcardsData = [
+    { word: 'confused', translation: 'смущённый, озадаченный' },
+    { word: 'scared', translation: 'испуганный' },
+    { word: 'relieved', translation: 'испытавший облегчение' },
+    { word: 'gasp', translation: 'задыхаться; вздох' },
+    { word: 'sigh', translation: 'вздыхать; вздох' },
+    { word: 'laugh', translation: 'смеяться; смех' },
+    { word: 'snore', translation: 'храпеть' },
+    { word: 'yawn', translation: 'зевать; зевота' },
+    { word: 'chat', translation: 'болтать, общаться' },
+    { word: 'whisper', translation: 'шептать; шёпот' },
+    { word: 'trip over', translation: 'спотыкаться' },
+    { word: 'crawl', translation: 'ползти' },
+    { word: 'stormy', translation: 'штормовой' },
+    { word: 'lightning', translation: 'молния' },
+    { word: 'cosy', translation: 'уютный' },
+    { word: 'sign', translation: 'знак, подпись' },
+    { word: 'feelings', translation: 'чувства' },
+    { word: 'the weather', translation: 'погода' }
+];
 
 const SUBJECTS = {
-    all:       { name: 'Все предметы' },
-    algebra:   { name: 'Алгебра' },
-    russian:   { name: 'Русский язык' },
-    history:   { name: 'История' },
-    geography: { name: 'География' },
-    english:   { name: 'Английский язык' },
-    creator:   { name: 'Творческая мастерская' }
+    all: { name: 'Все предметы' }, bookmarks: { name: 'Избранное' },
+    schedule: { name: 'Расписание' }, glossary: { name: 'Словарь' },
+    flashcards: { name: 'Флеш-карточки' }, creator: { name: 'Мастерская' },
+    algebra: { name: 'Алгебра' }, russian: { name: 'Русский язык' },
+    history: { name: 'История' }, geography: { name: 'География' },
+    english: { name: 'Английский язык' }
 };
 const MONTHS = ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];
 
+/* ==========================================================
+   СОСТОЯНИЕ
+   ========================================================== */
 let currentSubject = 'all';
 let selectedDate = '2026-10-19';
 let currentMonth = 9;
 let currentYear = 2026;
+let searchQuery = '';
 
+/* ==========================================================
+   LOCALSTORAGE
+   ========================================================== */
+const LS = {
+    get(k, def) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : def; } catch(e){ return def; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} },
+    del(k) { try { localStorage.removeItem(k); } catch(e){} }
+};
+const THEME_KEY = 'rdz_theme';
+const SOUND_KEY = 'rdz_sound';
+const BOOKMARKS_KEY = 'rdz_bookmarks';
+const STORAGE_KEY_NOTE = 'rdz_viewed_notes_v2';
+const STORAGE_KEY_REPORTAGE = 'rdz_viewed_reportages_v2';
+
+let soundEnabled = LS.get(SOUND_KEY, true);
+let bookmarks = LS.get(BOOKMARKS_KEY, []);
+
+/* ==========================================================
+   УТИЛИТЫ
+   ========================================================== */
 const pad = n => String(n).padStart(2, '0');
 const datesWithHw = new Set(homeworkData.map(i => i.date));
-const todayKey = (() => { const t = new Date(); return `${t.getFullYear()}-${pad(t.getMonth() + 1)}-${pad(t.getDate())}`; })();
-const keyToDate = key => { const [y, m, d] = key.split('-').map(Number); return new Date(y, m - 1, d); };
+const todayKey = (() => { const t = new Date(); return `${t.getFullYear()}-${pad(t.getMonth()+1)}-${pad(t.getDate())}`; })();
+const keyToDate = k => { const [y,m,d] = k.split('-').map(Number); return new Date(y, m-1, d); };
 const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
-
 function plural(n, one, few, many) {
-    const m10 = n % 10, m100 = n % 100;
-    if (m10 === 1 && m100 !== 11) return one;
-    if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
+    const m10 = n%10, m100 = n%100;
+    if (m10===1 && m100!==11) return one;
+    if (m10>=2 && m10<=4 && (m100<12||m100>14)) return few;
     return many;
 }
-
 function fracify(str) {
-    return str.replace(/(^|[^\w\/])(-?)(\d+)\/(\d+)(?![\w\/])/g, (match, prefix, minus, num, den) => {
-        const fracHtml = `<span class="frac"><span class="num">${num}</span><span class="den">${den}</span></span>`;
-        return `${prefix}${minus ? '−&#8202;' : ''}${fracHtml}`;
-    });
+    return str.replace(/(^|[^\w\/])(-?)(\d+)\/(\d+)(?![\w\/])/g, (m, p, minus, num, den) =>
+        `${p}${minus ? '−&#8202;' : ''}<span class="frac"><span class="num">${num}</span><span class="den">${den}</span></span>`);
+}
+function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(() => t.classList.remove('show'), 1800);
 }
 
+/* ==========================================================
+   ЗВУК
+   ========================================================== */
+let audioCtx = null;
+function playClick() {
+    if (!soundEnabled) return;
+    try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
+        osc.type = 'sine'; osc.frequency.value = 900;
+        gain.gain.setValueAtTime(0.035, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.07);
+        osc.connect(gain).connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime + 0.07);
+    } catch (e) {}
+}
+
+/* ==========================================================
+   КУРСОР
+   ========================================================== */
+function initCursor() {
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    const dot = document.getElementById('cursorDot'), ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => {
+        mx = e.clientX; my = e.clientY;
+        dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+        document.body.classList.add('cursor-ready', 'custom-cursor');
+    });
+    function loop() {
+        rx += (mx - rx) * 0.16; ry += (my - ry) * 0.16;
+        ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+        requestAnimationFrame(loop);
+    }
+    loop();
+    document.addEventListener('mouseover', e => {
+        if (e.target.closest('a, button, .chip, .nav-btn, .card-btn, .flashcard, input, .day')) ring.classList.add('hover');
+    });
+    document.addEventListener('mouseout', e => {
+        if (e.target.closest('a, button, .chip, .nav-btn, .card-btn, .flashcard, input, .day')) ring.classList.remove('hover');
+    });
+    document.addEventListener('mousedown', () => ring.classList.add('clicking'));
+    document.addEventListener('mouseup', () => ring.classList.remove('clicking'));
+    document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; ring.style.opacity = '0'; });
+    document.addEventListener('mouseenter', () => { dot.style.opacity = '1'; ring.style.opacity = '1'; });
+}
+
+/* ==========================================================
+   ТЕМА
+   ========================================================== */
+function applyTheme(theme) {
+    document.body.dataset.theme = theme;
+    document.querySelector('meta[name="theme-color"]').content = theme === 'light' ? '#f4f1ea' : '#14161a';
+    const btn = document.getElementById('themeBtn');
+    if (btn) btn.textContent = theme === 'light' ? '🌙' : '☀️';
+    LS.set(THEME_KEY, theme);
+}
+function toggleTheme() { applyTheme(document.body.dataset.theme === 'light' ? 'dark' : 'light'); }
+
+/* ==========================================================
+   ЗАКЛАДКИ
+   ========================================================== */
+function isBookmarked(title) { return bookmarks.includes(title); }
+function toggleBookmark(title) {
+    if (isBookmarked(title)) { bookmarks = bookmarks.filter(t => t !== title); showToast('Удалено из избранного'); }
+    else { bookmarks.push(title); showToast('⭐ Добавлено в избранное'); }
+    LS.set(BOOKMARKS_KEY, bookmarks);
+    renderContent();
+}
+
+/* ==========================================================
+   ПОИСК
+   ========================================================== */
+function matchesSearch(item, q) {
+    if (!q) return true;
+    const lower = q.toLowerCase();
+    const hay = [item.title || '', item.subject || '', (SUBJECTS[item.subject] && SUBJECTS[item.subject].name) || '',
+        typeof item.content === 'string' ? item.content.replace(/<[^>]+>/g, ' ') : ''].join(' ').toLowerCase();
+    return hay.includes(lower);
+}
+
+/* ==========================================================
+   МАСТЕРСКАЯ
+   ========================================================== */
+const GIST_URL = 'https://gist.githubusercontent.com/netpuzyaka/4f05e09a64a8a6fc5de6555019d390d5/raw/ddb1f90ea2c7c9d73515065a57057155973ac477/creative-works.json';
+let creativeWorks = { note: [], reportage: [] };
+async function loadCreativeWorks() {
+    try {
+        const r = await fetch(GIST_URL, { cache: 'no-store' });
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        const d = await r.json();
+        if (d && Array.isArray(d.note) && Array.isArray(d.reportage)) creativeWorks = d;
+        else throw new Error('Неверная структура JSON');
+    } catch (e) {
+        console.error('Ошибка загрузки Gist:', e);
+        creativeWorks = {
+            note: [{ title: '⚠️ Ошибка загрузки', text: 'Не удалось загрузить заметки. ' + e.message }],
+            reportage: [{ title: '⚠️ Ошибка загрузки', text: 'Не удалось загрузить репортажи. ' + e.message }]
+        };
+    }
+}
+function getViewed(type) { return LS.get(type === 'note' ? STORAGE_KEY_NOTE : STORAGE_KEY_REPORTAGE, []); }
+function saveViewed(type, title) {
+    const key = type === 'note' ? STORAGE_KEY_NOTE : STORAGE_KEY_REPORTAGE;
+    const cur = getViewed(type);
+    if (!cur.includes(title)) { cur.push(title); LS.set(key, cur); }
+}
+function resetViewed() { LS.del(STORAGE_KEY_NOTE); LS.del(STORAGE_KEY_REPORTAGE); }
+function getAvailable(type) {
+    const all = creativeWorks[type] || [];
+    const viewed = getViewed(type);
+    return all.filter(i => !viewed.includes(i.title));
+}
+function generateWork(type) {
+    const all = creativeWorks[type] || [];
+    const available = getAvailable(type);
+    const out = document.getElementById('creator-output');
+    if (!out) return;
+    if (!available.length) {
+        out.classList.add('visible');
+        out.innerHTML = `<div class="creator-all-done"><div class="icon">🎉</div>
+            <p>Вы просмотрели все ${all.length} ${type === 'note' ? 'заметки' : 'репортажа'}!</p>
+            <button class="creator-btn reset-btn" onclick="resetViewedAndRefresh()" style="margin-top:12px;">🔄 Сбросить историю</button></div>`;
+        updateCreatorStats(); return;
+    }
+    const item = available[Math.floor(Math.random() * available.length)];
+    saveViewed(type, item.title);
+    const viewedCount = getViewed(type).length;
+    const icon = type === 'note' ? '📰' : '🎙️', label = type === 'note' ? 'Заметка' : 'Репортаж';
+    out.classList.add('visible');
+    out.innerHTML = `
+        <div class="output-header">
+            <span class="output-type"><i></i>${icon} ${label}</span>
+            <span class="output-index">${viewedCount} из ${all.length}</span>
+        </div>
+        <h3>${escapeHtml(item.title)}</h3>
+        <div class="output-text">${escapeHtml(item.text).replace(/\n/g, '<br>')}</div>
+        <div class="output-actions">
+            <button class="dislike-btn" onclick="dislikeWork()">👎 Мне не понравилась тема</button>
+            <a href="https://t.me/siegapilat" target="_blank" rel="noopener">💬 Написать @siegapilat</a>
+        </div>`;
+    updateCreatorStats();
+}
+function dislikeWork() {
+    const out = document.getElementById('creator-output');
+    if (!out) return;
+    const b = out.querySelector('.dislike-btn');
+    if (b) { b.textContent = '✅ Спасибо!'; b.disabled = true; b.style.opacity = .6; }
+    const a = out.querySelector('.output-actions');
+    if (a && !a.querySelector('.dislike-message')) {
+        const m = document.createElement('span');
+        m.className = 'dislike-message';
+        m.style.cssText = 'font-size:12.5px;color:var(--muted);width:100%;margin-top:4px;';
+        m.textContent = 'Напишите @siegapilat, какая тема интересна — добавим!';
+        a.appendChild(m);
+    }
+}
+function resetViewedAndRefresh() {
+    resetViewed();
+    const out = document.getElementById('creator-output');
+    if (out) { out.classList.remove('visible'); out.innerHTML = ''; }
+    updateCreatorStats();
+}
+function updateCreatorStats() {
+    const el = document.getElementById('creator-stats');
+    if (!el) return;
+    const nT = (creativeWorks.note||[]).length, rT = (creativeWorks.reportage||[]).length;
+    const nV = getViewed('note').length, rV = getViewed('reportage').length;
+    el.innerHTML = `<span><span class="dot-gold"></span> Заметки: ${nV} / ${nT}</span>
+        <span><span class="dot-green"></span> Репортажи: ${rV} / ${rT}</span>`;
+}
+
+/* ==========================================================
+   САЙДБАР
+   ========================================================== */
 function buildSidebar() {
     const sb = document.getElementById('sidebar');
-    Object.keys(SUBJECTS).forEach(key => {
-        const btn = document.createElement('button');
-        btn.className = 'nav-btn' + (key === currentSubject ? ' active' : '');
-        btn.dataset.subject = key;
+    Array.from(sb.children).forEach(c => { if (!c.classList.contains('brand')) c.remove(); });
 
-        let count;
-        if (key === 'all') count = homeworkData.length;
-        else if (key === 'creator') count = (creativeWorks.note || []).length + (creativeWorks.reportage || []).length;
-        else count = homeworkData.filter(i => i.subject === key).length;
+    const mainLabel = document.createElement('div');
+    mainLabel.className = 'nav-label'; mainLabel.textContent = 'Разделы';
+    sb.appendChild(mainLabel);
+    ['all','bookmarks','schedule','glossary','flashcards','creator'].forEach(k => sb.appendChild(makeNavBtn(k)));
 
-        const color = key === 'all' ? 'var(--gold)' :
-                      key === 'creator' ? 'var(--creator)' :
-                      `var(--${key})`;
-        btn.style.setProperty('--c', color);
-        btn.innerHTML = `<span class="dot"></span>${SUBJECTS[key].name}<span class="count">${count}</span>`;
-        btn.onclick = () => {
-            currentSubject = key;
-            sb.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b === btn));
-            renderContent();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        };
-        sb.appendChild(btn);
-    });
+    const subjLabel = document.createElement('div');
+    subjLabel.className = 'nav-label'; subjLabel.textContent = 'Предметы';
+    sb.appendChild(subjLabel);
+    ['algebra','russian','history','geography','english'].forEach(k => sb.appendChild(makeNavBtn(k)));
+
     const foot = document.createElement('div');
     foot.className = 'sidebar-foot';
-    foot.textContent = 'Учебный год 2026/27';
+    foot.innerHTML = `
+        <button class="icon-btn" id="themeBtn" title="Сменить тему">${document.body.dataset.theme === 'light' ? '🌙' : '☀️'}</button>
+        <button class="icon-btn sound ${soundEnabled ? '' : 'off'}" id="soundBtn" title="Звук кликов">🔊</button>`;
     sb.appendChild(foot);
+
+    document.getElementById('themeBtn').onclick = toggleTheme;
+    document.getElementById('soundBtn').onclick = () => {
+        soundEnabled = !soundEnabled; LS.set(SOUND_KEY, soundEnabled);
+        document.getElementById('soundBtn').classList.toggle('off', !soundEnabled);
+        if (soundEnabled) playClick();
+        showToast(soundEnabled ? '🔊 Звук включён' : '🔇 Звук выключен');
+    };
+}
+function makeNavBtn(key) {
+    const btn = document.createElement('button');
+    btn.className = 'nav-btn' + (key === currentSubject ? ' active' : '');
+    btn.dataset.subject = key;
+    let count = 0;
+    if (key === 'all') count = homeworkData.length;
+    else if (key === 'bookmarks') count = bookmarks.length;
+    else if (key === 'schedule') count = scheduleData.reduce((s,d) => s + d.lessons.length, 0);
+    else if (key === 'glossary') count = glossaryData.length;
+    else if (key === 'flashcards') count = flashcardsData.length;
+    else if (key === 'creator') count = (creativeWorks.note||[]).length + (creativeWorks.reportage||[]).length;
+    else count = homeworkData.filter(i => i.subject === key).length;
+
+    const colors = { all:'var(--gold)', bookmarks:'var(--gold)', schedule:'var(--blue)', glossary:'var(--purple)', flashcards:'var(--green)', creator:'var(--creator)' };
+    btn.style.setProperty('--c', colors[key] || `var(--${key})`);
+    btn.innerHTML = `<span class="dot"></span>${SUBJECTS[key].name}<span class="count">${count}</span>`;
+    btn.onclick = () => {
+        if (currentSubject === key) return;
+        currentSubject = key;
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b === btn));
+        renderContent(); window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+    return btn;
 }
 
-function renderCalendar() {
-    const cal = document.createElement('div');
-    cal.className = 'calendar';
+/* ==========================================================
+   РЕНДЕР
+   ========================================================== */
+function renderContent() {
+    const root = document.getElementById('content');
+    root.innerHTML = '';
+    root.classList.remove('page-enter'); void root.offsetWidth; root.classList.add('page-enter');
 
-    const head = document.createElement('div');
-    head.className = 'cal-head';
-    head.innerHTML = `<button aria-label="Предыдущий месяц">←</button><h2>${MONTHS[currentMonth]} ${currentYear}</h2><button aria-label="Следующий месяц">→</button>`;
-    const [prev, next] = head.querySelectorAll('button');
-    prev.onclick = () => changeMonth(-1);
-    next.onclick = () => changeMonth(1);
-    cal.appendChild(head);
-
-    const grid = document.createElement('div');
-    grid.className = 'cal-grid';
-    ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].forEach(n => {
-        const el = document.createElement('div');
-        el.className = 'day-name'; el.textContent = n; grid.appendChild(el);
-    });
-
-    let start = new Date(currentYear, currentMonth, 1).getDay();
-    if (start === 0) start = 7;
-    for (let i = 0; i < start - 1; i++) {
-        const e = document.createElement('div'); e.className = 'day empty'; grid.appendChild(e);
+    if (['all','bookmarks','algebra','russian','history','geography','english'].includes(currentSubject)) {
+        root.appendChild(buildSearchBar());
     }
+    if (currentSubject === 'schedule') return renderSchedule(root);
+    if (currentSubject === 'glossary') return renderGlossary(root);
+    if (currentSubject === 'flashcards') return renderFlashcards(root);
+    if (currentSubject === 'creator') return renderCreator(root);
+    if (currentSubject === 'bookmarks') return renderBookmarks(root);
 
+    if (currentSubject === 'all') {
+        root.appendChild(renderCalendar());
+        renderDateTasks(root);
+    } else {
+        const items = homeworkData.filter(i => i.subject === currentSubject && matchesSearch(i, searchQuery));
+        root.appendChild(buildSubjectHero(currentSubject, items.length));
+        if (!items.length) {
+            const p = document.createElement('p'); p.className = 'empty-text';
+            p.textContent = searchQuery ? 'Ничего не найдено по запросу.' : 'По этому предмету заданий пока нет.';
+            root.appendChild(p); return;
+        }
+        items.forEach((it, i) => root.appendChild(buildCard(it, i)));
+    }
+}
+function buildSearchBar() {
+    const wrap = document.createElement('div');
+    wrap.className = 'search-wrap';
+    wrap.innerHTML = `<input type="text" class="search-input" id="searchInput" placeholder="Поиск по заданиям…" value="${escapeHtml(searchQuery)}">
+        <button class="search-clear ${searchQuery ? 'visible' : ''}" id="searchClear" aria-label="Очистить">✕</button>`;
+    setTimeout(() => {
+        const inp = document.getElementById('searchInput'), clr = document.getElementById('searchClear');
+        if (inp) {
+            inp.addEventListener('input', e => {
+                searchQuery = e.target.value;
+                clr.classList.toggle('visible', !!searchQuery);
+                clearTimeout(buildSearchBar._t);
+                buildSearchBar._t = setTimeout(() => {
+                    const pos = inp.selectionStart;
+                    renderContent();
+                    const ni = document.getElementById('searchInput');
+                    if (ni) { ni.focus(); ni.setSelectionRange(pos, pos); }
+                }, 250);
+            });
+            if (searchQuery) inp.focus();
+        }
+        if (clr) clr.onclick = () => { searchQuery = ''; renderContent(); };
+    }, 0);
+    return wrap;
+}
+function buildSubjectHero(subjKey, count) {
+    const hero = document.createElement('div'); hero.className = 'hero';
+    hero.innerHTML = `<p class="eyebrow">Предмет</p><h1>${SUBJECTS[subjKey].name}</h1>
+        <p class="sub">${count} ${plural(count,'задание','задания','заданий')}</p>`;
+    return hero;
+}
+function renderDateTasks(root) {
+    let items = homeworkData.filter(i => i.date === selectedDate);
+    if (searchQuery) items = items.filter(i => matchesSearch(i, searchQuery));
+
+    const d = keyToDate(selectedDate);
+    const weekday = cap(d.toLocaleDateString('ru-RU', { weekday: 'long' }));
+    const dm = d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
+
+    const hero = document.createElement('div'); hero.className = 'hero';
+    const subjCount = new Set(items.map(i => i.subject)).size;
+    hero.innerHTML = `<p class="eyebrow">Домашнее задание</p>
+        <h1>${weekday}, <em>${dm}</em></h1>
+        <p class="sub">${items.length
+            ? `${subjCount} ${plural(subjCount,'предмет','предмета','предметов')} · ${items.length} ${plural(items.length,'задание','задания','заданий')}`
+            : (searchQuery ? 'Ничего не найдено' : 'На этот день заданий нет')}</p>`;
+    root.appendChild(hero);
+
+    if (items.length) {
+        const chips = document.createElement('div'); chips.className = 'chips';
+        const seen = new Set();
+        items.forEach((it, idx) => {
+            if (seen.has(it.subject)) return; seen.add(it.subject);
+            const chip = document.createElement('button'); chip.className = 'chip';
+            chip.style.setProperty('--c', `var(--${it.subject})`);
+            chip.innerHTML = `<i></i>${SUBJECTS[it.subject].name}`;
+            chip.onclick = () => { const t = root.querySelector(`.card[data-id="${idx}"]`); if (t) t.scrollIntoView({ behavior:'smooth', block:'start' }); };
+            chips.appendChild(chip);
+        });
+        root.appendChild(chips);
+    }
+    items.forEach((it, i) => root.appendChild(buildCard(it, i)));
+}
+function renderCalendar() {
+    const cal = document.createElement('div'); cal.className = 'calendar';
+    cal.innerHTML = `<div class="cal-head"><button aria-label="Предыдущий месяц">←</button><h2>${MONTHS[currentMonth]} ${currentYear}</h2><button aria-label="Следующий месяц">→</button></div>`;
+    const [prev, next] = cal.querySelectorAll('button');
+    prev.onclick = () => changeMonth(-1); next.onclick = () => changeMonth(1);
+
+    const grid = document.createElement('div'); grid.className = 'cal-grid';
+    ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].forEach(n => { const el = document.createElement('div'); el.className='day-name'; el.textContent = n; grid.appendChild(el); });
+    let start = new Date(currentYear, currentMonth, 1).getDay(); if (start === 0) start = 7;
+    for (let i = 0; i < start - 1; i++) { const e = document.createElement('div'); e.className='day empty'; grid.appendChild(e); }
     const days = new Date(currentYear, currentMonth + 1, 0).getDate();
     for (let d = 1; d <= days; d++) {
-        const el = document.createElement('div');
-        el.className = 'day';
-        el.textContent = d;
-        const key = `${currentYear}-${pad(currentMonth + 1)}-${pad(d)}`;
+        const el = document.createElement('div'); el.className = 'day'; el.textContent = d;
+        const key = `${currentYear}-${pad(currentMonth+1)}-${pad(d)}`;
         const dow = new Date(currentYear, currentMonth, d).getDay();
         if (dow === 0 || dow === 6) el.classList.add('disabled');
         else el.onclick = () => { selectedDate = key; renderContent(); };
@@ -1042,253 +940,236 @@ function renderCalendar() {
         grid.appendChild(el);
     }
     cal.appendChild(grid);
-
-    const legend = document.createElement('div');
-    legend.className = 'legend';
-    legend.innerHTML = '<i></i>Есть задания';
+    const legend = document.createElement('div'); legend.className = 'legend'; legend.innerHTML = '<i></i>Есть задания';
     cal.appendChild(legend);
     return cal;
 }
-
 function changeMonth(delta) {
     currentMonth += delta;
-    if (currentMonth < 0) { currentMonth = 11; currentYear--; }
-    else if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+    if (currentMonth < 0) { currentMonth = 11; currentYear--; } else if (currentMonth > 11) { currentMonth = 0; currentYear++; }
     renderContent();
 }
 
-function renderMath(content) {
-    const wrap = document.createElement('div');
-    wrap.className = 'math-body inset';
-    content.split(/\n\s*\n/).forEach(group => {
-        const lines = group.split('\n').map(l => l.trim()).filter(Boolean);
-        if (!lines.length) return;
-        const problem = document.createElement('div');
-        problem.className = 'problem';
-        const num = document.createElement('div');
-        num.className = 'problem-num';
-        num.textContent = lines[0];
-        problem.appendChild(num);
-        lines.slice(1).forEach(line => {
-            const m = line.match(/^([а-яё])\)\s*(.*)$/i);
-            const row = document.createElement('div');
-            row.className = 'problem-row';
-            const part = document.createElement('span');
-            part.className = 'part';
-            part.textContent = m ? m[1] : '•';
-            const expr = document.createElement('span');
-            expr.className = 'expr';
-            expr.innerHTML = fracify(m ? m[2] : line);
-            row.append(part, expr);
-            problem.appendChild(row);
-        });
-        wrap.appendChild(problem);
-    });
-    return wrap;
-}
-
-function renderRus(content) {
-    const frag = document.createDocumentFragment();
-
-    const legend = document.createElement('div');
-    legend.className = 'legend-rus';
-    legend.innerHTML =
-        '<span>Приставка — <span class="prefix" style="color:var(--blue)">¬</span></span>' +
-        '<span>Корень — <span class="root-arc" style="color:var(--red)">∩</span></span>' +
-        '<span>Суффикс — <span class="suffix" style="color:var(--green)">^</span></span>' +
-        '<span>Окончание — <span class="ending" style="color:var(--purple)">☐</span></span>' +
-        '<span>Вставленная буква — <b class="inserted-letter">ё</b></span>';
-    frag.appendChild(legend);
-
-    const wrap = document.createElement('div');
-    wrap.className = 'rus-body inset';
-    content.split('\n').map(l => l.trim()).filter(Boolean).forEach(line => {
-        const m = line.match(/^(\d+)\)\s*(.*)$/s);
-        const s = document.createElement('div');
-        s.className = 'sentence';
-        const n = document.createElement('span');
-        n.className = 'n';
-        n.textContent = m ? m[1] : '';
-        const t = document.createElement('span');
-        t.className = 't';
-        t.innerHTML = m ? m[2] : line;
-        s.append(n, t);
-        wrap.appendChild(s);
-    });
-    frag.appendChild(wrap);
-    return frag;
-}
-
+/* ==========================================================
+   КАРТОЧКА
+   ========================================================== */
 function buildCard(item, index) {
     const card = document.createElement('article');
-    card.className = 'card';
-    card.dataset.subject = item.subject;
-    card.dataset.id = index;
-    card.style.setProperty('--i', index);
+    card.className = 'card'; card.dataset.subject = item.subject; card.dataset.id = index; card.dataset.title = item.title;
 
-    const head = document.createElement('div');
-    head.className = 'card-head';
+    const head = document.createElement('div'); head.className = 'card-head';
     const dateNote = currentSubject !== 'all'
-        ? `<small>· ${keyToDate(item.date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', weekday: 'long' })}</small>` : '';
+        ? `<small>· ${keyToDate(item.date).toLocaleDateString('ru-RU', { day:'numeric', month:'long', weekday:'long' })}</small>` : '';
     head.innerHTML = `<span class="tag"><i></i>${SUBJECTS[item.subject].name}${dateNote}</span>`;
-    const h3 = document.createElement('h3');
-    h3.textContent = item.title;
-    head.appendChild(h3);
-    card.appendChild(head);
+    const h3 = document.createElement('h3'); h3.textContent = item.title;
+    head.appendChild(h3); card.appendChild(head);
 
     const imgs = item.images || (item.image ? [item.image] : []);
     imgs.forEach(url => {
-        const img = document.createElement('img');
-        img.src = url; img.alt = item.title; img.className = 'task-image'; img.loading = 'lazy';
-        img.onclick = () => openLightbox(url);
-        img.onerror = () => { img.style.display = 'none'; };
+        const img = document.createElement('img'); img.src = url; img.alt = item.title; img.className = 'task-image'; img.loading = 'lazy';
+        img.onclick = () => openLightbox(url); img.onerror = () => { img.style.display = 'none'; };
         card.appendChild(img);
     });
-    if (imgs.length && item.imageCaption) {
-        const c = document.createElement('p');
-        c.className = 'image-caption'; c.textContent = item.imageCaption;
-        card.appendChild(c);
-    }
+    if (imgs.length && item.imageCaption) { const c = document.createElement('p'); c.className = 'image-caption'; c.textContent = item.imageCaption; card.appendChild(c); }
 
     if (item.content) {
-        if (item.type === 'math') card.appendChild(renderMath(item.content));
-        else if (item.type === 'rus') card.appendChild(renderRus(item.content));
-        else {
-            const box = document.createElement('div');
-            box.className = 'task-body inset eng-body';
-            box.innerHTML = item.content;
-            card.appendChild(box);
+        if (item.type === 'math') {
+            const w = document.createElement('div'); w.className = 'inset math-body';
+            item.content.split(/\n\s*\n/).forEach(group => {
+                const lines = group.split('\n').map(l => l.trim()).filter(Boolean); if (!lines.length) return;
+                const problem = document.createElement('div'); problem.className = 'problem';
+                const num = document.createElement('div'); num.className = 'problem-num'; num.textContent = lines[0]; problem.appendChild(num);
+                lines.slice(1).forEach(line => {
+                    const m = line.match(/^([а-яё])\)\s*(.*)$/i);
+                    const row = document.createElement('div'); row.className = 'problem-row';
+                    const p = document.createElement('span'); p.className = 'part'; p.textContent = m ? m[1] : '•';
+                    const e = document.createElement('span'); e.className = 'expr'; e.innerHTML = fracify(m ? m[2] : line);
+                    row.append(p, e); problem.appendChild(row);
+                });
+                w.appendChild(problem);
+            });
+            card.appendChild(w);
+        } else if (item.type === 'rus') {
+            const legend = document.createElement('div'); legend.className = 'legend-rus';
+            legend.innerHTML = '<span>Приставка — <span class="prefix" style="color:var(--blue)">¬</span></span>' +
+                '<span>Корень — <span class="root-arc" style="color:var(--red)">∩</span></span>' +
+                '<span>Суффикс — <span class="suffix" style="color:var(--green)">^</span></span>' +
+                '<span>Окончание — <span class="ending" style="color:var(--purple)">☐</span></span>';
+            card.appendChild(legend);
+            const w = document.createElement('div'); w.className = 'inset';
+            item.content.split('\n').map(l => l.trim()).filter(Boolean).forEach(line => {
+                const m = line.match(/^(\d+)\)\s*(.*)$/s);
+                const s = document.createElement('div'); s.className = 'sentence';
+                const n = document.createElement('span'); n.className = 'n'; n.textContent = m ? m[1] : '';
+                const t = document.createElement('span'); t.className = 't'; t.innerHTML = m ? m[2] : line;
+                s.append(n, t); w.appendChild(s);
+            });
+            card.appendChild(w);
+        } else {
+            const b = document.createElement('div'); b.className = 'inset'; b.innerHTML = item.content; card.appendChild(b);
         }
     }
-
     if (item.note) {
-        const note = document.createElement('p');
-        note.className = 'note';
+        const n = document.createElement('p'); n.className = 'note';
         const m = item.note.match(/^(.*?)(https?:\/\/\S+)$/);
-        if (m) {
-            note.append(m[1]);
-            const a = document.createElement('a');
-            a.href = m[2]; a.textContent = m[2]; a.target = '_blank'; a.rel = 'noopener';
-            note.appendChild(a);
-        } else note.textContent = item.note;
-        card.appendChild(note);
+        if (m) { n.append(m[1]); const a = document.createElement('a'); a.href = m[2]; a.textContent = m[2]; a.target = '_blank'; a.rel = 'noopener'; n.appendChild(a); }
+        else n.textContent = item.note;
+        card.appendChild(n);
     }
+    const actions = document.createElement('div'); actions.className = 'card-actions';
+    const starred = isBookmarked(item.title);
+    actions.innerHTML = `
+        <button class="card-btn bookmark-btn ${starred ? 'active' : ''}" data-title="${escapeHtml(item.title)}">
+            ${starred ? '★' : '☆'} ${starred ? 'В избранном' : 'В избранное'}
+        </button>
+        <button class="card-btn copy-btn">📋 Копировать</button>
+        <button class="card-btn pdf-btn">🖨️ PDF</button>`;
+    card.appendChild(actions);
+    actions.querySelector('.bookmark-btn').onclick = (e) => { e.stopPropagation(); toggleBookmark(item.title); };
+    actions.querySelector('.copy-btn').onclick = (e) => { e.stopPropagation(); copyCardText(item); };
+    actions.querySelector('.pdf-btn').onclick = (e) => { e.stopPropagation(); exportPDF(card); };
     return card;
 }
-
-function renderContent() {
-    const root = document.getElementById('content');
-    root.innerHTML = '';
-
-    if (currentSubject === 'creator') {
-        const hero = document.createElement('div');
-        hero.className = 'hero';
-        hero.innerHTML = `<p class="eyebrow">Творческая мастерская</p>
-            <h1>Заметка или <em>репортаж</em>?</h1>
-            <p class="sub">Сгенерируйте уникальный текст. Каждый вариант показывается только один раз.</p>`;
-        root.appendChild(hero);
-        root.appendChild(buildCreatorPanel());
-        return;
-    }
-
-    const hero = document.createElement('div');
-    hero.className = 'hero';
-    let items;
-
-    if (currentSubject === 'all') {
-        root.appendChild(renderCalendar());
-        items = homeworkData.filter(i => i.date === selectedDate);
-
-        const d = keyToDate(selectedDate);
-        const weekday = cap(d.toLocaleDateString('ru-RU', { weekday: 'long' }));
-        const dm = d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
-        const subjCount = new Set(items.map(i => i.subject)).size;
-        hero.innerHTML = `<p class="eyebrow">Домашнее задание</p>
-            <h1>${weekday}, <em>${dm}</em></h1>
-            <p class="sub">${items.length
-                ? `${subjCount} ${plural(subjCount, 'предмет', 'предмета', 'предметов')} · ${items.length} ${plural(items.length, 'задание', 'задания', 'заданий')}`
-                : 'На этот день заданий нет'}</p>`;
-
-        if (items.length) {
-            const chips = document.createElement('div');
-            chips.className = 'chips';
-            const seen = new Set();
-            items.forEach((it, idx) => {
-                if (seen.has(it.subject)) return;
-                seen.add(it.subject);
-                const chip = document.createElement('button');
-                chip.className = 'chip';
-                chip.style.setProperty('--c', `var(--${it.subject})`);
-                chip.innerHTML = `<i></i>${SUBJECTS[it.subject].name}`;
-                chip.onclick = () => {
-                    const target = root.querySelector(`.card[data-id="${idx}"]`);
-                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                };
-                chips.appendChild(chip);
-            });
-            hero.appendChild(chips);
-        }
-        root.appendChild(hero);
+function copyCardText(item) {
+    const parts = [item.title, ''];
+    if (item.content) parts.push(item.content.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim());
+    const text = parts.join('\n');
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => showToast('✅ Скопировано!'));
     } else {
-        items = homeworkData.filter(i => i.subject === currentSubject);
-        hero.innerHTML = `<p class="eyebrow">Предмет</p>
-            <h1>${SUBJECTS[currentSubject].name}</h1>
-            <p class="sub">${items.length
-                ? `${items.length} ${plural(items.length, 'задание', 'задания', 'заданий')}`
-                : 'Заданий пока нет'}</p>`;
-        root.appendChild(hero);
+        const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); showToast('✅ Скопировано!'); } catch(e){ showToast('Не удалось'); }
+        document.body.removeChild(ta);
     }
+}
+function exportPDF(cardEl) {
+    cardEl.classList.add('printing');
+    setTimeout(() => { window.print(); setTimeout(() => cardEl.classList.remove('printing'), 500); }, 100);
+}
 
+/* ==========================================================
+   РАЗДЕЛЫ
+   ========================================================== */
+function renderBookmarks(root) {
+    const hero = document.createElement('div'); hero.className = 'hero';
+    hero.innerHTML = `<p class="eyebrow">Избранное</p><h1>Сохранённые задания</h1>
+        <p class="sub">${bookmarks.length} ${plural(bookmarks.length,'задание','задания','заданий')}</p>`;
+    root.appendChild(hero);
+    let items = homeworkData.filter(i => bookmarks.includes(i.title));
+    if (searchQuery) items = items.filter(i => matchesSearch(i, searchQuery));
     if (!items.length) {
-        const p = document.createElement('p');
-        p.className = 'empty-text';
-        p.textContent = currentSubject === 'all' ? 'Выберите другой день в календаре.' : 'По этому предмету заданий пока нет.';
-        root.appendChild(p);
-        return;
+        const p = document.createElement('p'); p.className = 'empty-text';
+        p.textContent = 'Вы пока ничего не добавили в избранное. Нажмите ☆ на карточке задания.';
+        root.appendChild(p); return;
     }
     items.forEach((it, i) => root.appendChild(buildCard(it, i)));
 }
-
-/* Tilt (только на устройствах с мышью) */
-const isTouchDevice = window.matchMedia('(hover: none)').matches;
-if (!isTouchDevice) {
-    const MAX_TILT = 2;
-    const content = document.getElementById('content');
-    content.addEventListener('mousemove', e => {
-        const card = e.target.closest('.card');
-        if (!card) return;
-        const r = card.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width - 0.5;
-        const y = (e.clientY - r.top) / r.height - 0.5;
-        const k = Math.min(1, 500 / r.height);
-        card.style.setProperty('--ry', (x * MAX_TILT * 2 * k).toFixed(2) + 'deg');
-        card.style.setProperty('--rx', (-y * MAX_TILT * 2 * k).toFixed(2) + 'deg');
-    });
-    content.addEventListener('mouseout', e => {
-        const card = e.target.closest('.card');
-        if (card && !card.contains(e.relatedTarget)) {
-            card.style.setProperty('--rx', '0deg');
-            card.style.setProperty('--ry', '0deg');
-        }
+function renderSchedule(root) {
+    const hero = document.createElement('div'); hero.className = 'hero';
+    hero.innerHTML = `<p class="eyebrow">Расписание</p><h1>Уроки на неделю</h1>`;
+    root.appendChild(hero);
+    const todayDow = new Date().getDay();
+    scheduleData.forEach(day => {
+        if (!day.lessons.length) return;
+        const div = document.createElement('div');
+        div.className = 'schedule-day' + (day.index === todayDow ? ' today' : '');
+        div.innerHTML = `<h3>${day.day}</h3>
+            <table class="schedule-table">
+                <thead><tr><th style="width:50px">№</th><th>Предмет</th></tr></thead>
+                <tbody>${day.lessons.map((l, i) => `<tr><td class="num">${i+1}</td><td>${l.subject}</td></tr>`).join('')}</tbody>
+            </table>`;
+        root.appendChild(div);
     });
 }
+function renderGlossary(root) {
+    const hero = document.createElement('div'); hero.className = 'hero';
+    hero.innerHTML = `<p class="eyebrow">Словарь</p><h1>Термины по предметам</h1>
+        <p class="sub">${glossaryData.length} ${plural(glossaryData.length,'термин','термина','терминов')}</p>`;
+    root.appendChild(hero);
+    let items = glossaryData;
+    if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        items = items.filter(g => g.term.toLowerCase().includes(q) || g.definition.toLowerCase().includes(q));
+    }
+    if (!items.length) { const p = document.createElement('p'); p.className = 'empty-text'; p.textContent = 'Ничего не найдено.'; root.appendChild(p); return; }
+    const groups = {};
+    items.forEach(g => { (groups[g.subject] = groups[g.subject] || []).push(g); });
+    Object.keys(groups).forEach(subj => {
+        const label = document.createElement('p'); label.className = 'eyebrow'; label.style.marginTop = '20px';
+        label.textContent = SUBJECTS[subj] ? SUBJECTS[subj].name : subj;
+        root.appendChild(label);
+        groups[subj].forEach(g => {
+            const div = document.createElement('div'); div.className = 'glossary-item'; div.dataset.subject = g.subject;
+            div.innerHTML = `<h4>${escapeHtml(g.term)}</h4><p>${escapeHtml(g.definition)}</p>`;
+            root.appendChild(div);
+        });
+    });
+}
+function renderFlashcards(root) {
+    const hero = document.createElement('div'); hero.className = 'hero';
+    hero.innerHTML = `<p class="eyebrow">Флеш-карточки</p><h1>Английский язык</h1>
+        <p class="sub">Нажми на карточку, чтобы увидеть перевод</p>`;
+    root.appendChild(hero);
+    let items = flashcardsData;
+    if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        items = items.filter(f => f.word.toLowerCase().includes(q) || f.translation.toLowerCase().includes(q));
+    }
+    if (!items.length) { const p = document.createElement('p'); p.className = 'empty-text'; p.textContent = 'Ничего не найдено.'; root.appendChild(p); return; }
+    const grid = document.createElement('div'); grid.className = 'flashcards-grid';
+    items.forEach(f => {
+        const c = document.createElement('div'); c.className = 'flashcard'; c.onclick = () => c.classList.toggle('flipped');
+        c.innerHTML = `<div class="flashcard-inner">
+            <div class="flashcard-face front">${escapeHtml(f.word)}</div>
+            <div class="flashcard-face back">${escapeHtml(f.translation)}</div></div>`;
+        grid.appendChild(c);
+    });
+    root.appendChild(grid);
+}
+function renderCreator(root) {
+    const hero = document.createElement('div'); hero.className = 'hero';
+    hero.innerHTML = `<p class="eyebrow">Творческая мастерская</p>
+        <h1>Заметка или <em>репортаж</em>?</h1>
+        <p class="sub">Сгенерируйте уникальный текст для домашнего задания. Каждый вариант показывается только один раз.</p>`;
+    root.appendChild(hero);
+    const panel = document.createElement('div'); panel.className = 'creator-panel';
+    panel.innerHTML = `
+        <div class="creator-buttons">
+            <button class="creator-btn note" onclick="generateWork('note')">📰 Сгенерировать заметку</button>
+            <button class="creator-btn reportage" onclick="generateWork('reportage')">🎙️ Сгенерировать репортаж</button>
+            <button class="creator-btn reset-btn" onclick="resetViewedAndRefresh()">🔄 Сбросить историю</button>
+        </div>
+        <div class="creator-output" id="creator-output"></div>
+        <div class="creator-stats" id="creator-stats"></div>`;
+    root.appendChild(panel);
+    updateCreatorStats();
+}
 
-/* Lightbox */
+/* ==========================================================
+   LIGHTBOX
+   ========================================================== */
 const lb = document.getElementById('lightbox');
 function openLightbox(src) {
-    lb.querySelector('img').src = src;
-    lb.classList.add('open');
+    lb.querySelector('img').src = src; lb.classList.add('open');
     document.body.style.overflow = 'hidden';
 }
-function closeLightbox() {
-    lb.classList.remove('open');
-    document.body.style.overflow = '';
-}
-lb.onclick = (e) => { if (e.target === lb || e.target.classList.contains('lightbox-close')) closeLightbox(); };
+function closeLightbox() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+lb.onclick = e => { if (e.target === lb || e.target.classList.contains('lightbox-close')) closeLightbox(); };
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
-/* Запуск */
+/* ==========================================================
+   ЗВУК
+   ========================================================== */
+document.addEventListener('click', e => {
+    if (e.target.closest('button, .chip, .nav-btn, .card-btn, .flashcard, .day:not(.disabled)')) playClick();
+});
+
+/* ==========================================================
+   ЗАПУСК
+   ========================================================== */
 (async () => {
+    applyTheme(LS.get(THEME_KEY, 'dark'));
+    initCursor();
     await loadCreativeWorks();
     buildSidebar();
     renderContent();
