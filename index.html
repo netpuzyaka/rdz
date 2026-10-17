@@ -107,8 +107,12 @@ body.cursor-ready .cursor-dot, body.cursor-ready .cursor-ring { opacity: 1; }
 .hero h1 { margin: 0; font-family: var(--serif); font-weight: 700; font-size: clamp(26px, 5vw, 42px); line-height: 1.12; letter-spacing: -.3px; }
 .hero h1 em { font-style: normal; color: var(--gold); }
 .hero .sub { margin: 8px 0 0; color: var(--muted); font-size: 14px; }
+.hero code {
+    font-family: var(--mono); font-size: 13.5px;
+    background: var(--panel-2); padding: 2px 8px; border-radius: 5px;
+    color: var(--gold);
+}
 
-/* Notification banner */
 .notif-banner {
     display: flex; align-items: center; gap: 14px;
     background: linear-gradient(90deg, rgba(124,197,150,.15), rgba(124,197,150,.05));
@@ -326,7 +330,6 @@ body.cursor-ready .cursor-dot, body.cursor-ready .cursor-ring { opacity: 1; }
 .schedule-table tr:hover td { background: var(--panel-2); }
 .schedule-table .num { font-family: var(--mono); font-size: 13px; color: var(--muted); width: 40px; text-align: center; }
 
-/* Учебники */
 .textbook-item {
     display: flex; align-items: center; gap: 14px;
     padding: 16px 18px; margin-bottom: 12px;
@@ -355,7 +358,6 @@ body.cursor-ready .cursor-dot, body.cursor-ready .cursor-ring { opacity: 1; }
 .textbook-item .tb-subject { font-size: 12.5px; color: var(--muted); }
 .textbook-item .tb-arrow { font-size: 18px; color: var(--muted); flex-shrink: 0; }
 
-/* Калькулятор дробей */
 .calc-panel {
     background: var(--panel); border: 1px solid var(--border);
     border-radius: 14px; padding: 22px;
@@ -371,9 +373,9 @@ body.cursor-ready .cursor-dot, body.cursor-ready .cursor-ring { opacity: 1; }
 .calc-input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(217,165,91,.15); }
 .calc-buttons { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
 .calc-op {
-    width: 42px; height: 42px;
+    min-width: 42px; height: 42px; padding: 0 12px;
     background: var(--panel-2); border: 1px solid var(--border); color: var(--text);
-    border-radius: 9px; cursor: pointer; font-size: 18px; font-weight: 600;
+    border-radius: 9px; cursor: pointer; font-size: 15px; font-weight: 600;
     display: inline-flex; align-items: center; justify-content: center;
     transition: background .15s, transform .1s;
 }
@@ -408,11 +410,19 @@ body.cursor-ready .cursor-dot, body.cursor-ready .cursor-ring { opacity: 1; }
 }
 .calc-steps .step { padding: 4px 0; border-bottom: 1px dashed var(--border); }
 .calc-steps .step:last-child { border-bottom: none; }
+.calc-steps b { color: var(--gold); font-weight: 700; }
+.calc-steps sup { font-size: .72em; color: var(--orange); font-weight: 700; }
+.calc-steps .frac { font-family: var(--mono); }
 .calc-steps .final {
     font-size: 22px; font-weight: 700; color: var(--green);
     font-family: var(--serif); padding-top: 8px;
 }
-.calc-hint { color: var(--muted); font-size: 13px; margin: 0 0 10px; }
+.calc-hint { color: var(--muted); font-size: 13.5px; margin: 0 0 12px; line-height: 1.6; }
+.calc-hint code {
+    font-family: var(--mono); font-size: 12.5px;
+    background: var(--panel-2); padding: 2px 6px; border-radius: 4px;
+    color: var(--gold);
+}
 
 .glossary-item { padding: 14px 16px; margin-bottom: 10px; background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--c, var(--gold)); border-radius: 10px; }
 .glossary-item[data-subject="algebra"] { --c: var(--algebra); }
@@ -495,6 +505,7 @@ body.cursor-ready .cursor-dot, body.cursor-ready .cursor-ring { opacity: 1; }
     .calc-panel { padding: 16px 14px; }
     .calc-input { font-size: 15px; padding: 12px 14px; }
     .calc-btn { padding: 12px 18px; font-size: 14.5px; }
+    .calc-op { font-size: 13.5px; min-width: 38px; height: 38px; padding: 0 10px; }
     .calc-steps { font-size: 13.5px; line-height: 1.9; }
     .calc-steps .final { font-size: 19px; }
     .textbook-item { padding: 14px 14px; }
@@ -510,7 +521,8 @@ body.cursor-ready .cursor-dot, body.cursor-ready .cursor-ring { opacity: 1; }
     .card h3 { font-size: 16px; }
     .sentence .t { font-size: 14.5px; }
     .expr { font-size: 11.5px; }
-    .calc-op { width: 38px; height: 38px; font-size: 16px; }
+    .calc-steps { font-size: 12.5px; }
+    .calc-btn { font-size: 13.5px; padding: 11px 16px; }
 }
 @media print {
     body * { visibility: hidden; }
@@ -645,63 +657,43 @@ const scheduleData = [
     { day: 'Суббота', index: 6, lessons: [] }
 ];
 
-/* ========== УЧЕБНИКИ ========== */
 const textbooksData = [
-    { subject: 'algebra',   icon: '📐', title: 'Алгебра 7 класс — Макарычев Ю.Н.', sub: 'Российская электронная школа · уроки и задания', url: 'https://resh.edu.ru/subject/13/7/' },
-    { subject: 'geometry',  icon: '📏', title: 'Геометрия 7–9 класс — Атанасян Л.С.', sub: 'Российская электронная школа', url: 'https://resh.edu.ru/subject/14/7/' },
-    { subject: 'russian',   icon: '📖', title: 'Русский язык 7 класс — Ладыженская Т.А.', sub: 'Российская электронная школа', url: 'https://resh.edu.ru/subject/11/7/' },
-    { subject: 'english',   icon: '🇬🇧', title: 'Английский язык 7 класс — Spotlight / Афанасьева', sub: 'Российская электронная школа', url: 'https://resh.edu.ru/subject/15/7/' },
-    { subject: 'history',   icon: '🏛️', title: 'История России и Всеобщая история 7 класс', sub: 'Российская электронная школа', url: 'https://resh.edu.ru/subject/3/7/' },
-    { subject: 'geography', icon: '🌍', title: 'География 7 класс — Коринская В.А.', sub: 'Российская электронная школа', url: 'https://resh.edu.ru/subject/4/7/' },
-    { subject: 'physics',   icon: '⚛️', title: 'Физика 7 класс — Перышкин А.В.', sub: 'Российская электронная школа', url: 'https://resh.edu.ru/subject/5/7/' },
-    { subject: 'biology',   icon: '🌱', title: 'Биология 7 класс — Пасечник В.В.', sub: 'Российская электронная школа', url: 'https://resh.edu.ru/subject/6/7/' },
-    { subject: 'algebra',   icon: '📚', title: 'ЯКласс — все предметы 7 класс', sub: 'Теория и тренировочные задания', url: 'https://www.yaklass.ru/' },
-    { subject: 'algebra',   icon: '🎓', title: 'ИнтернетУрок — библиотека видеоуроков', sub: 'Бесплатные видеоуроки по всем предметам', url: 'https://interneturok.ru/' }
+    { subject: 'algebra',   icon: '📐', title: 'Библиотека ЦОК — все предметы 7 класс', sub: 'Государственная платформа, уроки по ФГОС', url: 'https://lib.myschool.edu.ru/' },
+    { subject: 'algebra',   icon: '📚', title: 'ЯКласс — тренировочные задания', sub: 'Теория и упражнения по всем предметам', url: 'https://www.yaklass.ru/' },
+    { subject: 'geometry',  icon: '📏', title: 'ИнтернетУрок — видеоуроки', sub: 'Бесплатные видеоуроки по всем предметам', url: 'https://interneturok.ru/' },
+    { subject: 'russian',   icon: '📖', title: 'Грамота.ру — справочник по русскому', sub: 'Правила, словари, проверка слов', url: 'https://gramota.ru/' },
+    { subject: 'english',   icon: '🇬🇧', title: 'British Council — LearnEnglish', sub: 'Упражнения, аудио, грамматика', url: 'https://learnenglish.britishcouncil.org/' },
+    { subject: 'english',   icon: '📘', title: 'Duolingo — английский', sub: 'Игровые уроки и практика', url: 'https://www.duolingo.com/' },
+    { subject: 'history',   icon: '🏛️', title: 'История.РФ — портал', sub: 'Статьи, карты, документы', url: 'https://histrf.ru/' },
+    { subject: 'geography', icon: '🌍', title: 'География — карты и атласы', sub: 'Интерактивные карты мира', url: 'https://www.google.com/maps' },
+    { subject: 'physics',   icon: '⚛️', title: 'Физика — GetAClass', sub: 'Видеоуроки по физике с опытами', url: 'https://getaclass.ru/' },
+    { subject: 'biology',   icon: '🌱', title: 'Биология — Птицы и животные', sub: 'Иллюстрированная энциклопедия', url: 'https://www.ebirds.ru/' },
+    { subject: 'algebra',   icon: '🎓', title: 'Моя школа — главный портал', sub: 'Библиотека цифрового контента', url: 'https://myschool.edu.ru/' },
+    { subject: 'algebra',   icon: '📕', title: 'Фоксфорд — учебник', sub: 'Бесплатные материалы по классам', url: 'https://foxford.ru/wiki' }
 ];
 
 const geometryQA = [
-    { q: 'Сколько прямых можно провести через две точки?',
-      a: 'Через любые две точки можно провести прямую, и притом только одну.' },
-    { q: 'Сколько общих точек могут иметь две прямые?',
-      a: 'Две прямые могут иметь либо <b>одну общую точку</b> (пересекаться), либо <b>не иметь общих точек</b> (быть параллельными), либо <b>совпадать</b>.' },
-    { q: 'Объясните, что такое отрезок.',
-      a: 'Отрезок — это часть прямой, которая состоит из всех точек этой прямой, лежащих между двумя данными её точками.' },
-    { q: 'Объясните, что такое луч. Как обозначаются лучи?',
-      a: 'Луч (полупрямая) — часть прямой, состоящая из всех точек этой прямой, лежащих по одну сторону от данной её точки. Лучи обозначаются двумя буквами: первой — начало, второй — любая точка на луче.' },
-    { q: 'Какая фигура называется углом? Что такое вершина и стороны угла?',
-      a: 'Угол — фигура, состоящая из точки (<b>вершины</b>) и двух различных лучей, исходящих из этой точки (<b>сторон</b>).' },
-    { q: 'Какой угол называется развёрнутым?',
-      a: 'Развёрнутый угол — угол, стороны которого являются двумя дополнительными лучами одной прямой. Его градусная мера равна <b>180°</b>.' },
-    { q: 'Какие фигуры называются равными?',
-      a: 'Две фигуры называются равными, если их можно совместить наложением.' },
-    { q: 'Как сравнить два отрезка?',
-      a: 'Наложить один на другой так, чтобы один из концов совпал. Если совпадут вторые концы — отрезки равны. Либо измерить длины и сравнить числа.' },
-    { q: 'Какая точка называется серединой отрезка?',
-      a: 'Точка, которая делит отрезок на два равных отрезка.' },
-    { q: 'Как сравнить два угла?',
-      a: 'Наложить один угол на другой так, чтобы сторона одного совместилась со стороной другого, а две другие оказались по одну сторону. Если совместятся — углы равны.' },
-    { q: 'Какой луч называется биссектрисой угла?',
-      a: 'Луч, выходящий из вершины угла и делящий его на два равных угла.' },
-    { q: 'Как найти длину AB, если AC и CB известны?',
-      a: 'Длина отрезка <b>AB = AC + CB</b>.' },
-    { q: 'Какими инструментами пользуются для измерения расстояний?',
-      a: 'Масштабная линейка, рулетка, циркуль-измеритель, нивелир, теодолит.' },
-    { q: 'Что такое градусная мера угла?',
-      a: 'Положительное число, которое показывает, сколько раз градус (1/180 часть развёрнутого угла) и его части укладываются в данном угле.' },
-    { q: 'Как найти градусную меру ∠AOB, если известны ∠AOC и ∠COB?',
-      a: '<b>∠AOB = ∠AOC + ∠COB</b>.' },
-    { q: 'Какой угол называется острым? прямым? тупым?',
-      a: '<b>Острый</b> — меньше 90°.<br><b>Прямой</b> — равен 90°.<br><b>Тупой</b> — больше 90°, но меньше 180°.' },
-    { q: 'Какие углы называются смежными? Чему равна их сумма?',
-      a: 'Смежные углы — два угла, у которых одна сторона общая, а две другие — продолжения одна другой. Сумма = <b>180°</b>.' },
-    { q: 'Какие углы называются вертикальными? Свойство вертикальных углов?',
-      a: 'Вертикальные углы — пары углов при пересечении двух прямых, у которых стороны одного — продолжения сторон другого. <b>Свойство:</b> вертикальные углы равны.' },
-    { q: 'Какие прямые называются перпендикулярными?',
-      a: 'Две прямые, пересекающиеся под прямым углом (90°).' },
-    { q: 'Почему две прямые, перпендикулярные к третьей, не пересекаются?',
-      a: 'При пересечении с третьей они образуют прямые углы (по 90°). По признаку параллельности такие прямые параллельны, а параллельные не пересекаются.' },
-    { q: 'Какие приборы применяют для построения прямых углов на местности?',
-      a: 'Экер, теодолит, астролябия, нивелир.' }
+    { q: 'Сколько прямых можно провести через две точки?', a: 'Через любые две точки можно провести прямую, и притом только одну.' },
+    { q: 'Сколько общих точек могут иметь две прямые?', a: 'Две прямые могут иметь либо <b>одну общую точку</b> (пересекаться), либо <b>не иметь общих точек</b> (быть параллельными), либо <b>совпадать</b>.' },
+    { q: 'Объясните, что такое отрезок.', a: 'Отрезок — это часть прямой, которая состоит из всех точек этой прямой, лежащих между двумя данными её точками.' },
+    { q: 'Объясните, что такое луч. Как обозначаются лучи?', a: 'Луч (полупрямая) — часть прямой, состоящая из всех точек этой прямой, лежащих по одну сторону от данной её точки. Лучи обозначаются двумя буквами: первой — начало, второй — любая точка на луче.' },
+    { q: 'Какая фигура называется углом? Что такое вершина и стороны угла?', a: 'Угол — фигура, состоящая из точки (<b>вершины</b>) и двух различных лучей, исходящих из этой точки (<b>сторон</b>).' },
+    { q: 'Какой угол называется развёрнутым?', a: 'Развёрнутый угол — угол, стороны которого являются двумя дополнительными лучами одной прямой. Его градусная мера равна <b>180°</b>.' },
+    { q: 'Какие фигуры называются равными?', a: 'Две фигуры называются равными, если их можно совместить наложением.' },
+    { q: 'Как сравнить два отрезка?', a: 'Наложить один на другой так, чтобы один из концов совпал. Если совпадут вторые концы — отрезки равны. Либо измерить длины и сравнить числа.' },
+    { q: 'Какая точка называется серединой отрезка?', a: 'Точка, которая делит отрезок на два равных отрезка.' },
+    { q: 'Как сравнить два угла?', a: 'Наложить один угол на другой так, чтобы сторона одного совместилась со стороной другого, а две другие оказались по одну сторону. Если совместятся — углы равны.' },
+    { q: 'Какой луч называется биссектрисой угла?', a: 'Луч, выходящий из вершины угла и делящий его на два равных угла.' },
+    { q: 'Как найти длину AB, если AC и CB известны?', a: 'Длина отрезка <b>AB = AC + CB</b>.' },
+    { q: 'Какими инструментами пользуются для измерения расстояний?', a: 'Масштабная линейка, рулетка, циркуль-измеритель, нивелир, теодолит.' },
+    { q: 'Что такое градусная мера угла?', a: 'Положительное число, которое показывает, сколько раз градус (1/180 часть развёрнутого угла) и его части укладываются в данном угле.' },
+    { q: 'Как найти градусную меру ∠AOB, если известны ∠AOC и ∠COB?', a: '<b>∠AOB = ∠AOC + ∠COB</b>.' },
+    { q: 'Какой угол называется острым? прямым? тупым?', a: '<b>Острый</b> — меньше 90°.<br><b>Прямой</b> — равен 90°.<br><b>Тупой</b> — больше 90°, но меньше 180°.' },
+    { q: 'Какие углы называются смежными? Чему равна их сумма?', a: 'Смежные углы — два угла, у которых одна сторона общая, а две другие — продолжения одна другой. Сумма = <b>180°</b>.' },
+    { q: 'Какие углы называются вертикальными? Свойство вертикальных углов?', a: 'Вертикальные углы — пары углов при пересечении двух прямых, у которых стороны одного — продолжения сторон другого. <b>Свойство:</b> вертикальные углы равны.' },
+    { q: 'Какие прямые называются перпендикулярными?', a: 'Две прямые, пересекающиеся под прямым углом (90°).' },
+    { q: 'Почему две прямые, перпендикулярные к третьей, не пересекаются?', a: 'При пересечении с третьей они образуют прямые углы (по 90°). По признаку параллельности такие прямые параллельны, а параллельные не пересекаются.' },
+    { q: 'Какие приборы применяют для построения прямых углов на местности?', a: 'Экер, теодолит, астролябия, нивелир.' }
 ];
 
 const glossaryData = [
@@ -722,7 +714,6 @@ const glossaryData = [
     { term: 'Функция', definition: 'Правило, по которому каждому значению аргумента соответствует единственное значение функции.', subject: 'algebra' },
     { term: 'Прямая пропорциональность', definition: 'Функция вида y = kx. График — прямая через начало координат.', subject: 'algebra' },
     { term: 'Линейная функция', definition: 'Функция вида y = kx + b. График — прямая.', subject: 'algebra' },
-
     { term: 'Отрезок', definition: 'Часть прямой между двумя её точками.', subject: 'geometry' },
     { term: 'Середина отрезка', definition: 'Точка, делящая отрезок пополам.', subject: 'geometry' },
     { term: 'Луч', definition: 'Часть прямой, лежащая по одну сторону от данной точки.', subject: 'geometry' },
@@ -743,7 +734,6 @@ const glossaryData = [
     { term: 'Медиана', definition: 'Отрезок, соединяющий вершину с серединой противоположной стороны.', subject: 'geometry' },
     { term: 'Биссектриса треугольника', definition: 'Отрезок биссектрисы угла от вершины до противоположной стороны.', subject: 'geometry' },
     { term: 'Высота треугольника', definition: 'Перпендикуляр из вершины к прямой, содержащей противоположную сторону.', subject: 'geometry' },
-
     { term: 'Причастие', definition: 'Особая форма глагола, обозначающая признак по действию.', subject: 'russian' },
     { term: 'Причастный оборот', definition: 'Причастие с зависимыми словами.', subject: 'russian' },
     { term: 'Деепричастие', definition: 'Особая форма глагола, обозначающая добавочное действие.', subject: 'russian' },
@@ -753,7 +743,6 @@ const glossaryData = [
     { term: 'Союз', definition: 'Служебная часть речи, связывающая однородные члены и предложения.', subject: 'russian' },
     { term: 'Частица', definition: 'Служебная часть речи, вносящая оттенки значения.', subject: 'russian' },
     { term: 'Междометие', definition: 'Часть речи, выражающая чувства и побуждения, но не называющая их.', subject: 'russian' },
-
     { term: 'Новое время', definition: 'Период XV–XIX веков. Переход от ремесла к заводам.', subject: 'history' },
     { term: 'Абсолютизм', definition: 'Форма правления, при которой вся власть у монарха.', subject: 'history' },
     { term: 'Мануфактура', definition: 'Предприятие с разделением ручного труда.', subject: 'history' },
@@ -761,7 +750,6 @@ const glossaryData = [
     { term: 'Конституция', definition: 'Основной закон государства.', subject: 'history' },
     { term: 'Смутное время', definition: 'Период 1604–1618 в России. Глубокий кризис государства.', subject: 'history' },
     { term: 'Вече', definition: 'Народное собрание в древней Руси.', subject: 'history' },
-
     { term: 'Литосфера', definition: 'Земная кора с верхним слоем мантии.', subject: 'geography' },
     { term: 'Рельеф', definition: 'Неровности земной поверхности.', subject: 'geography' },
     { term: 'Климат', definition: 'Многолетний режим погоды.', subject: 'geography' },
@@ -774,7 +762,6 @@ const glossaryData = [
     { term: 'Ветер', definition: 'Движение воздушных масс из области высокого давления в низкое.', subject: 'geography' },
     { term: 'Бриз', definition: 'Ветер, меняющий направление дважды в сутки.', subject: 'geography' },
     { term: 'Муссон', definition: 'Ветер, меняющий направление дважды в год.', subject: 'geography' },
-
     { term: 'Механическое движение', definition: 'Изменение положения тела относительно других тел.', subject: 'physics' },
     { term: 'Траектория', definition: 'Линия, по которой движется тело.', subject: 'physics' },
     { term: 'Путь', definition: 'Длина траектории.', subject: 'physics' },
@@ -789,7 +776,6 @@ const glossaryData = [
     { term: 'Вес тела', definition: 'Сила, с которой тело действует на опору или подвес.', subject: 'physics' },
     { term: 'Давление', definition: 'p = F/S.', subject: 'physics' },
     { term: 'Закон Паскаля', definition: 'Давление на жидкость или газ передаётся во все точки без изменений.', subject: 'physics' },
-
     { term: 'Систематика', definition: 'Наука о многообразии и классификации организмов.', subject: 'biology' },
     { term: 'Вид', definition: 'Исходная единица систематики.', subject: 'biology' },
     { term: 'Бактерии', definition: 'Доядерные организмы.', subject: 'biology' },
@@ -804,7 +790,6 @@ const glossaryData = [
     { term: 'Гормоны', definition: 'Биологически активные вещества желёз внутренней секреции.', subject: 'biology' },
     { term: 'Биоценоз', definition: 'Сообщество живых организмов на определённой территории.', subject: 'biology' },
     { term: 'Экосистема', definition: 'Совокупность организмов и среды их обитания.', subject: 'biology' },
-
     { term: 'Present Simple', definition: 'Постоянное действие: S + V(s). Отрицание: don\'t/doesn\'t + V.', subject: 'english' },
     { term: 'Present Continuous', definition: 'Действие сейчас: S + am/is/are + Ving.', subject: 'english' },
     { term: 'Present Perfect', definition: 'Недавнее действие, важен результат: S + have/has + V3.', subject: 'english' },
@@ -839,7 +824,9 @@ const flashcardsData = [
 const SUBJECTS = {
     all: { name: 'Все предметы' }, bookmarks: { name: 'Избранное' },
     schedule: { name: 'Расписание' }, textbooks: { name: 'Учебники' },
-    calculator: { name: 'Калькулятор дробей' }, glossary: { name: 'Словарь' },
+    calculator: { name: 'Калькулятор дробей' },
+    degreecalc: { name: 'Калькулятор степеней' },
+    glossary: { name: 'Словарь' },
     flashcards: { name: 'Флеш-карточки' }, creator: { name: 'Мастерская' },
     algebra: { name: 'Алгебра' }, geometry: { name: 'Геометрия — определения' },
     russian: { name: 'Русский язык' }, history: { name: 'История' },
@@ -959,9 +946,7 @@ function matchesSearch(item, q) {
     return hay.includes(lower);
 }
 
-/* ==========================================================
-   УВЕДОМЛЕНИЯ О НОВОМ ДЗ
-   ========================================================== */
+/* УВЕДОМЛЕНИЯ О НОВОМ ДЗ */
 function hashCode(str) {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
@@ -1071,9 +1056,7 @@ function updateNotifBtn() {
     }
 }
 
-/* ==========================================================
-   ТВОРЧЕСКАЯ МАСТЕРСКАЯ
-   ========================================================== */
+/* ТВОРЧЕСКАЯ МАСТЕРСКАЯ */
 const GIST_URL = 'https://gist.githubusercontent.com/netpuzyaka/4f05e09a64a8a6fc5de6555019d390d5/raw/ddb1f90ea2c7c9d73515065a57057155973ac477/creative-works.json';
 let creativeWorks = { note: [], reportage: [] };
 async function loadCreativeWorks() {
@@ -1162,16 +1145,14 @@ function updateCreatorStats() {
         <span><span class="dot-green"></span> Репортажи: ${rV} / ${rT}</span>`;
 }
 
-/* ==========================================================
-   САЙДБАР
-   ========================================================== */
+/* САЙДБАР */
 function buildSidebar() {
     const sb = document.getElementById('sidebar');
     Array.from(sb.children).forEach(c => { if (!c.classList.contains('brand')) c.remove(); });
     const mainLabel = document.createElement('div');
     mainLabel.className = 'nav-label'; mainLabel.textContent = 'Разделы';
     sb.appendChild(mainLabel);
-    ['all','bookmarks','schedule','textbooks','calculator','glossary','flashcards','creator'].forEach(k => sb.appendChild(makeNavBtn(k)));
+    ['all','bookmarks','schedule','textbooks','calculator','degreecalc','glossary','flashcards','creator'].forEach(k => sb.appendChild(makeNavBtn(k)));
     const subjLabel = document.createElement('div');
     subjLabel.className = 'nav-label'; subjLabel.textContent = 'Предметы';
     sb.appendChild(subjLabel);
@@ -1203,12 +1184,13 @@ function makeNavBtn(key) {
     else if (key === 'schedule') count = scheduleData.reduce((s,d) => s + d.lessons.length, 0);
     else if (key === 'textbooks') count = textbooksData.length;
     else if (key === 'calculator') count = '±×÷';
+    else if (key === 'degreecalc') count = 'xⁿ';
     else if (key === 'glossary') count = glossaryData.length;
     else if (key === 'flashcards') count = flashcardsData.length;
     else if (key === 'creator') count = (creativeWorks.note||[]).length + (creativeWorks.reportage||[]).length;
     else if (key === 'geometry') count = geometryQA.length;
     else count = homeworkData.filter(i => i.subject === key).length;
-    const colors = { all:'var(--gold)', bookmarks:'var(--gold)', schedule:'var(--blue)', textbooks:'var(--purple)', calculator:'var(--gold)', glossary:'var(--purple)', flashcards:'var(--green)', creator:'var(--creator)', geometry:'var(--geometry)' };
+    const colors = { all:'var(--gold)', bookmarks:'var(--gold)', schedule:'var(--blue)', textbooks:'var(--purple)', calculator:'var(--gold)', degreecalc:'var(--creator)', glossary:'var(--purple)', flashcards:'var(--green)', creator:'var(--creator)', geometry:'var(--geometry)' };
     btn.style.setProperty('--c', colors[key] || `var(--${key})`);
     btn.innerHTML = `<span class="dot"></span>${SUBJECTS[key].name}<span class="count">${count}</span>`;
     btn.onclick = () => {
@@ -1220,9 +1202,7 @@ function makeNavBtn(key) {
     return btn;
 }
 
-/* ==========================================================
-   РЕНДЕР
-   ========================================================== */
+/* РЕНДЕР */
 function renderContent() {
     const root = document.getElementById('content');
     root.innerHTML = '';
@@ -1234,6 +1214,7 @@ function renderContent() {
     if (currentSubject === 'schedule') return renderSchedule(root);
     if (currentSubject === 'textbooks') return renderTextbooks(root);
     if (currentSubject === 'calculator') return renderCalculator(root);
+    if (currentSubject === 'degreecalc') return renderDegreeCalc(root);
     if (currentSubject === 'glossary') return renderGlossary(root);
     if (currentSubject === 'flashcards') return renderFlashcards(root);
     if (currentSubject === 'creator') return renderCreator(root);
@@ -1241,7 +1222,6 @@ function renderContent() {
     if (currentSubject === 'geometry') return renderGeometry(root);
 
     if (currentSubject === 'all') {
-        // Проверка обновлений ДЗ
         if (checkHwUpdates()) {
             showHwBanner();
             sendSystemNotification();
@@ -1443,7 +1423,6 @@ function renderBookmarks(root) {
     }
     items.forEach((it, i) => root.appendChild(buildCard(it, i)));
 }
-
 function renderSchedule(root) {
     const hero = document.createElement('div'); hero.className = 'hero';
     hero.innerHTML = `<p class="eyebrow">Расписание</p><h1>Уроки на неделю</h1>`;
@@ -1461,8 +1440,6 @@ function renderSchedule(root) {
         root.appendChild(div);
     });
 }
-
-/* УЧЕБНИКИ */
 function renderTextbooks(root) {
     const hero = document.createElement('div'); hero.className = 'hero';
     hero.innerHTML = `<p class="eyebrow">Учебники</p>
@@ -1490,7 +1467,6 @@ function renderTextbooks(root) {
 
 /* КАЛЬКУЛЯТОР ДРОБЕЙ */
 function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { [a, b] = [b, a % b]; } return a || 1; }
-
 function parseFractionStr(s) {
     s = s.trim();
     if (/^-?\d+$/.test(s)) return { num: parseInt(s, 10), den: 1 };
@@ -1502,17 +1478,7 @@ function parseFractionStr(s) {
     }
     return null;
 }
-
-function fractionToString(num, den) {
-    if (den === 1) return String(num);
-    return `${num}/${den}`;
-}
-
-function fracSpan(num, den) {
-    if (den === 1) return `<span>${num}</span>`;
-    const sign = (num < 0) ? '−' : '';
-    return `${sign}<span class="frac"><span class="num">${Math.abs(num)}</span><span class="den">${den}</span></span>`;
-}
+function fractionToString(num, den) { if (den === 1) return String(num); return `${num}/${den}`; }
 
 function renderCalculator(root) {
     const hero = document.createElement('div'); hero.className = 'hero';
@@ -1520,161 +1486,285 @@ function renderCalculator(root) {
         <h1>Калькулятор <em>дробей</em></h1>
         <p class="sub">Введите пример вида <code>1/5 + 2/3</code> и получите ответ с решением по шагам</p>`;
     root.appendChild(hero);
-
-    const panel = document.createElement('div');
-    panel.className = 'calc-panel';
+    const panel = document.createElement('div'); panel.className = 'calc-panel';
     panel.innerHTML = `
         <p class="calc-hint">Поддерживаются операции <b>+ − × ÷</b> и целые числа. Например: <code>-1/5 * 3/7</code>, <code>2 + 1/3</code>, <code>5/6 : 2/9</code>.</p>
-        <div class="calc-input-row">
-            <input type="text" class="calc-input" id="calcInput" placeholder="Например: 1/5 + 2/3" autocomplete="off" spellcheck="false">
-        </div>
+        <div class="calc-input-row"><input type="text" class="calc-input" id="calcInput" placeholder="Например: 1/5 + 2/3" autocomplete="off" spellcheck="false"></div>
         <div class="calc-buttons">
-            <button class="calc-op" data-op="+">+</button>
-            <button class="calc-op" data-op="-">−</button>
-            <button class="calc-op" data-op="*">×</button>
-            <button class="calc-op" data-op="/">÷</button>
-            <button class="calc-op" data-op="/">/</button>
-            <button class="calc-op" data-op="(">(</button>
-            <button class="calc-op" data-op=")">)</button>
+            <button class="calc-op" data-op="+">+</button><button class="calc-op" data-op="-">−</button>
+            <button class="calc-op" data-op="*">×</button><button class="calc-op" data-op="/">÷</button>
+            <button class="calc-op" data-op="/">/</button><button class="calc-op" data-op="(">(</button><button class="calc-op" data-op=")">)</button>
             <button class="calc-btn clear-btn" id="calcClear">Очистить</button>
         </div>
         <button class="calc-btn" id="calcGo" style="width:100%;">Посчитать</button>
-        <div class="calc-result" id="calcResult"></div>
-    `;
+        <div class="calc-result" id="calcResult"></div>`;
     root.appendChild(panel);
-
     setTimeout(() => {
         const input = document.getElementById('calcInput');
         const result = document.getElementById('calcResult');
-        const goBtn = document.getElementById('calcGo');
-        const clearBtn = document.getElementById('calcClear');
-
-        document.querySelectorAll('.calc-op').forEach(b => {
-            b.onclick = () => {
-                input.value += b.dataset.op;
-                input.focus();
-            };
-        });
-        clearBtn.onclick = () => { input.value = ''; result.classList.remove('visible', 'error'); input.focus(); };
-        goBtn.onclick = () => calculate(input.value);
+        document.querySelectorAll('.calc-op').forEach(b => { b.onclick = () => { input.value += b.dataset.op; input.focus(); }; });
+        document.getElementById('calcClear').onclick = () => { input.value = ''; result.classList.remove('visible', 'error'); input.focus(); };
+        document.getElementById('calcGo').onclick = () => calculate(input.value);
         input.addEventListener('keydown', e => { if (e.key === 'Enter') calculate(input.value); });
     }, 0);
-
     function calculate(expr) {
-        const result = document.getElementById('calcResult');
-        result.classList.remove('error');
-
-        if (!expr.trim()) {
-            result.classList.add('visible', 'error');
-            result.innerHTML = `<h3>Пустой ввод</h3><div class="calc-steps">Введите пример, например <b>1/5 + 2/3</b>.</div>`;
-            return;
-        }
-
-        // Простой парсер: a/b op c/d (одна операция)
-        // Регулярка: сначала дробь или число, потом оп, потом ещё
+        const result = document.getElementById('calcResult'); result.classList.remove('error');
+        if (!expr.trim()) { result.classList.add('visible', 'error'); result.innerHTML = `<h3>Пустой ввод</h3>`; return; }
         const cleaned = expr.replace(/×/g, '*').replace(/÷/g, '/').replace(/−/g, '-').replace(/\s+/g, ' ').trim();
         const m = cleaned.match(/^(-?\d+(?:\s*\/\s*\d+)?)\s*([+\-*\/])\s*(-?\d+(?:\s*\/\s*\d+)?)$/);
-
-        if (!m) {
-            result.classList.add('visible', 'error');
-            result.innerHTML = `<h3>Не понял пример</h3>
-                <div class="calc-steps">Попробуйте формат: <b>1/5 + 2/3</b>, <b>-2/7 * 3/5</b>, <b>4 - 1/2</b>.<br>Одна операция за раз.</div>`;
-            return;
-        }
-
-        const a = parseFractionStr(m[1]);
-        const c = parseFractionStr(m[3]);
-        const op = m[2];
-
-        if (!a || !c) {
-            result.classList.add('visible', 'error');
-            result.innerHTML = `<h3>Ошибка в дроби</h3><div class="calc-steps">Знаменатель не может быть нулём.</div>`;
-            return;
-        }
-
-        const steps = [];
-        steps.push(`<div class="step">Дано: <b>${fractionToString(a.num, a.den)}</b> ${opHtml(op)} <b>${fractionToString(c.num, c.den)}</b></div>`);
-
+        if (!m) { result.classList.add('visible', 'error'); result.innerHTML = `<h3>Не понял пример</h3><div class="calc-steps">Примеры: <b>1/5 + 2/3</b>, <b>-2/7 * 3/5</b>.</div>`; return; }
+        const a = parseFractionStr(m[1]), c = parseFractionStr(m[3]), op = m[2];
+        if (!a || !c) { result.classList.add('visible', 'error'); result.innerHTML = `<h3>Ошибка в дроби</h3>`; return; }
+        const steps = [`<div class="step">Дано: <b>${fractionToString(a.num, a.den)}</b> ${opHtml(op)} <b>${fractionToString(c.num, c.den)}</b></div>`];
         let num, den;
-        if (op === '+') {
-            num = a.num * c.den + c.num * a.den;
-            den = a.den * c.den;
-            steps.push(`<div class="step">Общий знаменатель: <b>${a.den} · ${c.den} = ${den}</b></div>`);
-            steps.push(`<div class="step">Числитель: <b>${a.num} · ${c.den} + ${c.num} · ${a.den} = ${num}</b></div>`);
-        } else if (op === '-') {
-            num = a.num * c.den - c.num * a.den;
-            den = a.den * c.den;
-            steps.push(`<div class="step">Общий знаменатель: <b>${a.den} · ${c.den} = ${den}</b></div>`);
-            steps.push(`<div class="step">Числитель: <b>${a.num} · ${c.den} − ${c.num} · ${a.den} = ${num}</b></div>`);
-        } else if (op === '*') {
-            num = a.num * c.num;
-            den = a.den * c.den;
-            steps.push(`<div class="step">Числители: <b>${a.num} · ${c.num} = ${num}</b></div>`);
-            steps.push(`<div class="step">Знаменатели: <b>${a.den} · ${c.den} = ${den}</b></div>`);
-        } else if (op === '/') {
-            if (c.num === 0) {
-                result.classList.add('visible', 'error');
-                result.innerHTML = `<h3>Деление на ноль</h3><div class="calc-steps">На ноль делить нельзя.</div>`;
-                return;
-            }
-            num = a.num * c.den;
-            den = a.den * c.num;
-            steps.push(`<div class="step">Умножаем на обратную дробь: <b>${fractionToString(a.num, a.den)} · ${fractionToString(c.den, c.num)}</b></div>`);
-            steps.push(`<div class="step">Числитель: <b>${a.num} · ${c.den} = ${num}</b></div>`);
-            steps.push(`<div class="step">Знаменатель: <b>${a.den} · ${c.num} = ${den}</b></div>`);
-        }
-
+        if (op === '+') { num = a.num * c.den + c.num * a.den; den = a.den * c.den; steps.push(`<div class="step">Знаменатель: <b>${den}</b></div>`); steps.push(`<div class="step">Числитель: <b>${num}</b></div>`); }
+        else if (op === '-') { num = a.num * c.den - c.num * a.den; den = a.den * c.den; steps.push(`<div class="step">Знаменатель: <b>${den}</b></div>`); steps.push(`<div class="step">Числитель: <b>${num}</b></div>`); }
+        else if (op === '*') { num = a.num * c.num; den = a.den * c.den; steps.push(`<div class="step">Числители: <b>${num}</b></div>`); steps.push(`<div class="step">Знаменатели: <b>${den}</b></div>`); }
+        else if (op === '/') { if (c.num === 0) { result.classList.add('visible', 'error'); result.innerHTML = `<h3>Деление на ноль</h3>`; return; } num = a.num * c.den; den = a.den * c.num; steps.push(`<div class="step">Умножение на обратную: <b>${num}/${den}</b></div>`); }
         steps.push(`<div class="step">Получилось: <b>${num}/${den}</b></div>`);
-
-        // Сокращение
         const g = gcd(num, den);
-        if (g > 1) {
-            steps.push(`<div class="step">НОД(${Math.abs(num)}, ${den}) = <b>${g}</b> — сокращаем:</div>`);
-            num = num / g; den = den / g;
-            steps.push(`<div class="step">После сокращения: <b>${num}/${den}</b></div>`);
-        } else {
-            steps.push(`<div class="step">Дробь несократима (НОД = 1).</div>`);
-        }
-
+        if (g > 1) { num /= g; den /= g; steps.push(`<div class="step">Сокращаем на ${g}: <b>${num}/${den}</b></div>`); }
         if (den < 0) { num = -num; den = -den; }
-
-        // Выделение целой части
         let mixed = '';
         if (Math.abs(num) >= den && den !== 1) {
-            const sign = num < 0 ? '−' : '';
-            const absNum = Math.abs(num);
-            const whole = Math.floor(absNum / den);
-            const rem = absNum % den;
-            if (rem === 0) {
-                mixed = `${sign}${whole}`;
-            } else {
-                mixed = `${sign}${whole} ${rem}/${den}`;
-            }
-            steps.push(`<div class="step">Смешанное число: <b>${mixed}</b></div>`);
+            const sign = num < 0 ? '−' : '', absNum = Math.abs(num), whole = Math.floor(absNum / den), rem = absNum % den;
+            mixed = rem === 0 ? `${sign}${whole}` : `${sign}${whole} ${rem}/${den}`;
+            steps.push(`<div class="step">Смешанное: <b>${mixed}</b></div>`);
         }
-
-        const decimal = (num / den).toFixed(6).replace(/\.?0+$/, '');
-
         const finalStr = den === 1 ? String(num) : `${num}/${den}`;
-        const finalHTML = den === 1
-            ? `<div class="final">Ответ: ${num}</div>`
-            : `<div class="final">Ответ: ${finalStr}${mixed && mixed !== finalStr ? ' (или ' + mixed + ')' : ''}</div>
-               <div class="final" style="font-size:16px;color:var(--muted);font-weight:500;">≈ ${decimal}</div>`;
-
+        const finalHTML = den === 1 ? `<div class="final">Ответ: ${num}</div>` : `<div class="final">Ответ: ${finalStr}${mixed && mixed !== finalStr ? ' (или ' + mixed + ')' : ''}</div>`;
         result.classList.add('visible');
-        result.innerHTML = `
-            <h3>Решение по шагам</h3>
-            <div class="calc-steps">${steps.join('')}</div>
-            ${finalHTML}
-        `;
+        result.innerHTML = `<h3>Решение по шагам</h3><div class="calc-steps">${steps.join('')}</div>${finalHTML}`;
+    }
+    function opHtml(op) { return { '+':'+', '-':'−', '*':'×', '/':'÷' }[op] || op; }
+}
+
+/* КАЛЬКУЛЯТОР СТЕПЕНЕЙ */
+function parseExpStr(str) {
+    str = str.toLowerCase().trim().replace(/ё/g, 'е').replace(/-[а-я]+$/, '').trim(); // убираем -й, -ой и т.д.
+    if (/^\d+$/.test(str)) return parseInt(str, 10);
+    let numMatch = str.match(/\d+/);
+    if (numMatch) return parseInt(numMatch[0], 10);
+
+    const tens = { 'двадцать': 20, 'тридцать': 30, 'сорок': 40, 'пятьдесят': 50, 'шестьдесят': 60, 'семьдесят': 70, 'восемьдесят': 80, 'девяносто': 90 };
+    const units = { 'перв': 1, 'втор': 2, 'трет': 3, 'четверт': 4, 'пят': 5, 'шест': 6, 'седьм': 7, 'восьм': 8, 'девят': 9 };
+
+    let tenVal = 0;
+    for (let [tWord, tVal] of Object.entries(tens)) {
+        if (str.includes(tWord)) { tenVal = tVal; break; }
+    }
+    for (let [uWord, uVal] of Object.entries(units)) {
+        if (str.includes(uWord)) {
+            if (uVal === 1 && str.includes('одиннадцат')) return 11;
+            if (uVal === 2 && str.includes('двенадцат')) return 12;
+            if (uVal === 3 && str.includes('тринадцат')) return 13;
+            if (uVal === 4 && str.includes('четырнадцат')) return 14;
+            if (uVal === 5 && str.includes('пятнадцат')) return 15;
+            if (uVal === 6 && str.includes('шестнадцат')) return 16;
+            if (uVal === 7 && str.includes('семнадцат')) return 17;
+            if (uVal === 8 && str.includes('восемнадцат')) return 18;
+            if (uVal === 9 && str.includes('девятнадцат')) return 19;
+            if (tenVal) return tenVal + uVal;
+            return uVal;
+        }
+    }
+    for (let [tWord, tVal] of Object.entries(tens)) {
+        if (str.includes(tWord) || str.includes(tWord + 'ов') || str.includes(tWord + 'ой')) return tVal;
+    }
+    if (str.includes('одиннадцат')) return 11;
+    if (str.includes('двенадцат')) return 12;
+    if (str.includes('тринадцат')) return 13;
+    if (str.includes('четырнадцат')) return 14;
+    if (str.includes('пятнадцат')) return 15;
+    if (str.includes('шестнадцат')) return 16;
+    if (str.includes('семнадцат')) return 17;
+    if (str.includes('восемнадцат')) return 18;
+    if (str.includes('девятнадцат')) return 19;
+    if (str.includes('десят')) return 10;
+    return null;
+}
+
+function parseRussianDegree(input) {
+    let s = input.toLowerCase().trim().replace(/ё/g, 'е').replace(/\s+/g, ' ');
+
+    let squareMatch = s.match(/^(.*?)\s+(?:в|во)\s+квадрате$/);
+    if (squareMatch) return { base: squareMatch[1].replace(/\s+/g, ''), exp: 2 };
+
+    let cubeMatch = s.match(/^(.*?)\s+(?:в|во)\s+кубе$/);
+    if (cubeMatch) return { base: cubeMatch[1].replace(/\s+/g, ''), exp: 3 };
+
+    let exp = null, base = null;
+
+    // 1. "в степени N"
+    let m1 = s.match(/^(.*?)\s+(?:в|во)\s+степени\s+(.+)$/);
+    if (m1) {
+        base = m1[1].trim();
+        exp = parseExpStr(m1[2].trim());
     }
 
-    function opHtml(op) {
-        if (op === '+') return '+';
-        if (op === '-') return '−';
-        if (op === '*') return '×';
-        if (op === '/') return '÷';
-        return op;
+    // 2. "в N степени"
+    if (exp === null) {
+        let m2 = s.match(/^(.*?)\s+(?:в|во)\s+(.+?)\s+степени$/);
+        if (m2) {
+            base = m2[1].trim();
+            exp = parseExpStr(m2[2].trim());
+        }
+    }
+
+    // 3. "в N-ю" (без слова степени)
+    if (exp === null) {
+        let m3 = s.match(/^(.*?)\s+(?:в|во)\s+([а-я]+(?:ую|юю|ую|ий|ой|ый))\s*$/);
+        if (m3) {
+            let val = parseExpStr(m3[2]);
+            if (val !== null) { base = m3[1].trim(); exp = val; }
+        }
+    }
+
+    if (exp !== null && base !== null) {
+        return { base: base.replace(/\s+/g, ''), exp };
+    }
+    return null;
+}
+
+function renderDegreeCalc(root) {
+    const hero = document.createElement('div'); hero.className = 'hero';
+    hero.innerHTML = `<p class="eyebrow">Калькулятор</p>
+        <h1>Калькулятор <em>степеней</em></h1>
+        <p class="sub">Пиши как удобно: <code>2^3</code>, <code>2 во второй степени</code>, <code>67 во 40 степени</code>, <code>x в кубе</code></p>`;
+    root.appendChild(hero);
+
+    const panel = document.createElement('div'); panel.className = 'calc-panel';
+    panel.innerHTML = `
+        <p class="calc-hint">
+            Поддерживаются:<br>
+            • <code>2^3</code>, <code>2 во второй степени</code>, <code>2 во 2 степени</code><br>
+            • <code>x в кубе</code>, <code>a в квадрате</code>, <code>y в пятой степени</code><br>
+            • <code>3x^2y в кубе</code>, <code>(-2a) в степени 4</code>, <code>67 во 40 степени</code>
+        </p>
+        <div class="calc-input-row"><input type="text" class="calc-input" id="degInput" placeholder="Например: 67 во 40 степени" autocomplete="off" spellcheck="false"></div>
+        <div class="calc-buttons">
+            <button class="calc-op" onclick="fillDeg('2 во второй степени')">2²</button>
+            <button class="calc-op" onclick="fillDeg('2^10')">2¹⁰</button>
+            <button class="calc-op" onclick="fillDeg('x в кубе')">x³</button>
+            <button class="calc-op" onclick="fillDeg('(3x^2y) в кубе')">(3x²y)³</button>
+            <button class="calc-op" onclick="fillDeg('67 во 40 степени')">67⁴⁰</button>
+            <button class="calc-btn clear-btn" id="degClear">Очистить</button>
+        </div>
+        <button class="calc-btn" id="degGo" style="width:100%;">Возвести в степень</button>
+        <div class="calc-result" id="degResult"></div>`;
+    root.appendChild(panel);
+
+    setTimeout(() => {
+        const input = document.getElementById('degInput');
+        const clearBtn = document.getElementById('degClear');
+        window.fillDeg = (text) => { input.value = text; input.focus(); calculateDegree(); };
+        input.addEventListener('keydown', e => { if (e.key === 'Enter') calculateDegree(); });
+        document.getElementById('degGo').onclick = calculateDegree;
+        clearBtn.onclick = () => { input.value = ''; document.getElementById('degResult').classList.remove('visible', 'error'); input.focus(); };
+    }, 0);
+
+    function calculateDegree() {
+        const input = document.getElementById('degInput');
+        const result = document.getElementById('degResult');
+        result.classList.remove('error');
+
+        const raw = (input.value || '').trim();
+        if (!raw) { result.classList.add('visible', 'error'); result.innerHTML = `<h3>Пустой ввод</h3>`; return; }
+
+        let base = null, exp = null;
+
+        // 1. Русский парсер
+        const parsed = parseRussianDegree(raw);
+        if (parsed) { base = parsed.base; exp = parsed.exp; }
+        else {
+            // 2. Математический
+            let s = raw.replace(/×/g, '*').replace(/÷/g, '/').replace(/−/g, '-').trim();
+            let m = s.match(/^(.+?)\s*(?:\^|\*\*)\s*(\d+)$/);
+            if (m) { base = m[1].replace(/\s+/g, ''); exp = parseInt(m[2], 10); }
+        }
+
+        if (base === null || exp === null) {
+            result.classList.add('visible', 'error');
+            result.innerHTML = `<h3>Не понял</h3><div class="calc-steps">Попробуйте: <b>2^3</b>, <b>2 во второй степени</b>, <b>67 во 40 степени</b>, <b>x в кубе</b>.</div>`;
+            return;
+        }
+
+        if (isNaN(exp) || exp < 0 || exp > 1000) {
+            result.classList.add('visible', 'error');
+            result.innerHTML = `<h3>Неверный показатель</h3><div class="calc-steps">Показатель от 0 до 1000.</div>`;
+            return;
+        }
+
+        // Число
+        const isNumber = /^-?\d+(\.\d+)?$/.test(base);
+        if (isNumber) {
+            const num = parseFloat(base);
+            const value = Math.pow(num, exp);
+            const steps = [`<div class="step">Распознано: <b>${num}</b> в степени <b>${exp}</b></div>`];
+            if (exp === 0) steps.push(`<div class="step">Любое число в степени 0 = <b>1</b></div>`);
+            else if (exp === 1) steps.push(`<div class="step">Любое число в степени 1 = само число</div>`);
+            else if (exp <= 8) {
+                steps.push(`<div class="step">= ${Array(exp).fill(num).join(' · ')}</div>`);
+                steps.push(`<div class="step">Перемножаем: = <b>${value}</b></div>`);
+            } else steps.push(`<div class="step">= <b>${value}</b></div>`);
+            if (exp % 2 === 0 && num < 0) steps.push(`<div class="step">Показатель чётный → результат <b>положительный</b></div>`);
+            else if (exp % 2 === 1 && num < 0) steps.push(`<div class="step">Показатель нечётный → результат <b>отрицательный</b></div>`);
+            const display = Number.isInteger(value) ? value : value.toFixed(6).replace(/\.?0+$/, '');
+            result.classList.add('visible');
+            result.innerHTML = `<h3>Решение</h3><div class="calc-steps">${steps.join('')}</div><div class="final">Ответ: ${display}</div>`;
+            return;
+        }
+
+        // Одночлен
+        let mono = base.replace(/^\(/, '').replace(/\)$/, '');
+        const m = mono.match(/^(-?\d*\.?\d*)([a-zA-Z].*)$/);
+        if (!m) {
+            result.classList.add('visible', 'error');
+            result.innerHTML = `<h3>Не понял одночлен</h3><div class="calc-steps">Примеры: <b>3x^2y</b>, <b>-2a</b>, <b>x</b>.</div>`;
+            return;
+        }
+
+        const coeffStr = m[1], varsStr = m[2];
+        let coeff = coeffStr === '' || coeffStr === '+' ? 1 : coeffStr === '-' ? -1 : parseFloat(coeffStr);
+        const varRegex = /([a-zA-Z])(?:\^(\d+))?/g;
+        const vars = [];
+        let vm;
+        while ((vm = varRegex.exec(varsStr)) !== null) {
+            const letter = vm[1], power = vm[2] ? parseInt(vm[2], 10) : 1;
+            const ex = vars.find(v => v.letter === letter);
+            if (ex) ex.power += power;
+            else vars.push({ letter, power });
+        }
+        if (!vars.length) { result.classList.add('visible', 'error'); result.innerHTML = `<h3>Не понял одночлен</h3>`; return; }
+
+        const newCoeff = Math.pow(coeff, exp);
+        const newVars = vars.map(v => ({ letter: v.letter, power: v.power * exp }));
+        const baseReadable = (coeff === 1 ? '' : coeff === -1 ? '−' : coeff) + vars.map(v => v.letter + (v.power === 1 ? '' : '<sup>' + v.power + '</sup>')).join('');
+
+        const steps = [
+            `<div class="step">Распознано: <b>(${baseReadable})<sup>${exp}</sup></b></div>`,
+            `<div class="step">Правило: <b>(a · b)<sup>n</sup> = a<sup>n</sup> · b<sup>n</sup></b></div>`
+        ];
+
+        if (exp === 0) steps.push(`<div class="step">Любой одночлен в степени 0 = <b>1</b></div>`);
+        else {
+            if (coeff !== 1 || vars.length === 0) steps.push(`<div class="step">Коэффициент: <b>${coeff}<sup>${exp}</sup> = ${newCoeff}</b></div>`);
+            vars.forEach(v => {
+                const newPow = v.power * exp;
+                steps.push(`<div class="step">Переменная: <b>(${v.letter}<sup>${v.power}</sup>)<sup>${exp}</sup> = ${v.letter}<sup>${v.power} · ${exp}</sup> = ${v.letter}<sup>${newPow}</sup></b></div>`);
+            });
+            steps.push(`<div class="step">Правило: при возведении степени в степень <b>показатели перемножаются</b></div>`);
+        }
+
+        let resultStr = '';
+        const varsHTML = newVars.map(v => v.letter + (v.power === 1 ? '' : '<sup>' + v.power + '</sup>')).join('');
+        if (exp === 0) resultStr = '1';
+        else if (newCoeff === 1) resultStr = varsHTML || '1';
+        else if (newCoeff === -1) resultStr = '−' + varsHTML;
+        else resultStr = newCoeff + varsHTML;
+
+        result.classList.add('visible');
+        result.innerHTML = `<h3>Решение по шагам</h3><div class="calc-steps">${steps.join('')}</div><div class="final">Ответ: ${resultStr}</div>`;
     }
 }
 
@@ -1704,8 +1794,7 @@ function renderGlossary(root) {
 }
 function renderFlashcards(root) {
     const hero = document.createElement('div'); hero.className = 'hero';
-    hero.innerHTML = `<p class="eyebrow">Флеш-карточки</p><h1>Английский язык</h1>
-        <p class="sub">Нажми на карточку, чтобы увидеть перевод</p>`;
+    hero.innerHTML = `<p class="eyebrow">Флеш-карточки</p><h1>Английский язык</h1><p class="sub">Нажми на карточку, чтобы увидеть перевод</p>`;
     root.appendChild(hero);
     let items = flashcardsData;
     if (searchQuery) {
@@ -1716,18 +1805,14 @@ function renderFlashcards(root) {
     const grid = document.createElement('div'); grid.className = 'flashcards-grid';
     items.forEach(f => {
         const c = document.createElement('div'); c.className = 'flashcard'; c.onclick = () => c.classList.toggle('flipped');
-        c.innerHTML = `<div class="flashcard-inner">
-            <div class="flashcard-face front">${escapeHtml(f.word)}</div>
-            <div class="flashcard-face back">${escapeHtml(f.translation)}</div></div>`;
+        c.innerHTML = `<div class="flashcard-inner"><div class="flashcard-face front">${escapeHtml(f.word)}</div><div class="flashcard-face back">${escapeHtml(f.translation)}</div></div>`;
         grid.appendChild(c);
     });
     root.appendChild(grid);
 }
 function renderCreator(root) {
     const hero = document.createElement('div'); hero.className = 'hero';
-    hero.innerHTML = `<p class="eyebrow">Творческая мастерская</p>
-        <h1>Заметка или <em>репортаж</em>?</h1>
-        <p class="sub">Сгенерируйте уникальный текст для домашнего задания. Каждый вариант показывается только один раз.</p>`;
+    hero.innerHTML = `<p class="eyebrow">Творческая мастерская</p><h1>Заметка или <em>репортаж</em>?</h1><p class="sub">Сгенерируйте уникальный текст для домашнего задания. Каждый вариант показывается только один раз.</p>`;
     root.appendChild(hero);
     const panel = document.createElement('div'); panel.className = 'creator-panel';
     panel.innerHTML = `
@@ -1743,18 +1828,12 @@ function renderCreator(root) {
 }
 function renderGeometry(root) {
     const hero = document.createElement('div'); hero.className = 'hero';
-    hero.innerHTML = `<p class="eyebrow">Геометрия</p>
-        <h1>Определения и <em>вопросы</em></h1>
-        <p class="sub">${geometryQA.length} ${plural(geometryQA.length,'вопрос','вопроса','вопросов')} · нажми на вопрос, чтобы увидеть ответ</p>`;
+    hero.innerHTML = `<p class="eyebrow">Геометрия</p><h1>Определения и <em>вопросы</em></h1><p class="sub">${geometryQA.length} ${plural(geometryQA.length,'вопрос','вопроса','вопросов')} · нажми на вопрос, чтобы увидеть ответ</p>`;
     root.appendChild(hero);
-    const searchWrap = document.createElement('div');
-    searchWrap.className = 'search-wrap';
-    searchWrap.innerHTML = `<input type="text" class="search-input" id="geoSearch" placeholder="Поиск по вопросам…">
-        <button class="search-clear" id="geoSearchClear" aria-label="Очистить">✕</button>`;
+    const searchWrap = document.createElement('div'); searchWrap.className = 'search-wrap';
+    searchWrap.innerHTML = `<input type="text" class="search-input" id="geoSearch" placeholder="Поиск по вопросам…"><button class="search-clear" id="geoSearchClear" aria-label="Очистить">✕</button>`;
     root.appendChild(searchWrap);
-    const list = document.createElement('div');
-    list.className = 'qa-list';
-    list.id = 'qaList';
+    const list = document.createElement('div'); list.className = 'qa-list'; list.id = 'qaList';
     root.appendChild(list);
     function renderList(query) {
         list.innerHTML = '';
@@ -1763,48 +1842,24 @@ function renderGeometry(root) {
         geometryQA.forEach((item, i) => {
             if (q && !(item.q.toLowerCase().includes(q) || item.a.toLowerCase().includes(q))) return;
             shown++;
-            const det = document.createElement('details');
-            det.className = 'qa-item';
-            const sum = document.createElement('summary');
-            sum.textContent = item.q;
-            const ans = document.createElement('div');
-            ans.className = 'qa-answer';
-            ans.innerHTML = item.a;
-            det.append(sum, ans);
-            det.addEventListener('toggle', () => { if (det.open) playClick(); });
+            const det = document.createElement('details'); det.className = 'qa-item';
+            const sum = document.createElement('summary'); sum.textContent = item.q;
+            const ans = document.createElement('div'); ans.className = 'qa-answer'; ans.innerHTML = item.a;
+            det.append(sum, ans); det.addEventListener('toggle', () => { if (det.open) playClick(); });
             list.appendChild(det);
         });
-        if (!shown) {
-            const p = document.createElement('p');
-            p.className = 'empty-text';
-            p.textContent = 'Ничего не найдено по запросу.';
-            list.appendChild(p);
-        }
+        if (!shown) { const p = document.createElement('p'); p.className = 'empty-text'; p.textContent = 'Ничего не найдено.'; list.appendChild(p); }
     }
     renderList('');
     setTimeout(() => {
-        const inp = document.getElementById('geoSearch');
-        const clr = document.getElementById('geoSearchClear');
-        if (inp) {
-            inp.addEventListener('input', e => {
-                clr.classList.toggle('visible', !!e.target.value);
-                renderList(e.target.value);
-            });
-        }
-        if (clr) clr.onclick = () => {
-            inp.value = '';
-            clr.classList.remove('visible');
-            renderList('');
-            inp.focus();
-        };
+        const inp = document.getElementById('geoSearch'), clr = document.getElementById('geoSearchClear');
+        if (inp) inp.addEventListener('input', e => { clr.classList.toggle('visible', !!e.target.value); renderList(e.target.value); });
+        if (clr) clr.onclick = () => { inp.value = ''; clr.classList.remove('visible'); renderList(''); inp.focus(); };
     }, 0);
 }
 
 const lb = document.getElementById('lightbox');
-function openLightbox(src) {
-    lb.querySelector('img').src = src; lb.classList.add('open');
-    document.body.style.overflow = 'hidden';
-}
+function openLightbox(src) { lb.querySelector('img').src = src; lb.classList.add('open'); document.body.style.overflow = 'hidden'; }
 function closeLightbox() { lb.classList.remove('open'); document.body.style.overflow = ''; }
 lb.onclick = e => { if (e.target === lb || e.target.classList.contains('lightbox-close')) closeLightbox(); };
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
