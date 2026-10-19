@@ -14,6 +14,7 @@
     --border: #2d323b; --text: #e9e6e0; --muted: #979ba5; --gold: #d9a55b;
     --algebra: #7aa7e0; --russian: #e08a8a; --history: #d9a55b; --geography: #86bf97;
     --english: #c9a3e6; --geometry: #6ec2d9; --physics: #e6c47c; --biology: #8fd18f;
+    --literature: #d1a76f; /* Новый цвет для литературы */
     --orange: #eb9a5c; --green: #7cc596; --purple: #bba3e6; --red: #e47c7c;
     --blue: #6ec2d9; --creator: #e8b96a;
     --serif: 'Playfair Display', Georgia, serif;
@@ -27,7 +28,7 @@
     --orange: #d17a2d; --green: #4a9c6a; --purple: #8b6bc0; --red: #c95a5a;
     --blue: #3b9bb5; --creator: #c48d2e; --algebra: #4a7fc0; --russian: #c46a6a;
     --history: #b8832f; --geography: #5c9c72; --english: #a37fc4; --geometry: #3b9bb5;
-    --physics: #b89b3e; --biology: #4a9c6a;
+    --physics: #b89b3e; --biology: #4a9c6a; --literature: #b8832f;
 }
 [data-theme="light"] body {
     background-image:
@@ -192,6 +193,7 @@ body.cursor-ready .cursor-dot, body.cursor-ready .cursor-ring { opacity: 1; }
 .card[data-subject="geometry"]  { --c: var(--geometry); }
 .card[data-subject="physics"]   { --c: var(--physics); }
 .card[data-subject="biology"]   { --c: var(--biology); }
+.card[data-subject="literature"]{ --c: var(--literature); }
 .card[data-subject="creator"]   { --c: var(--creator); }
 .card-head { margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
 .tag { display: inline-flex; align-items: center; gap: 7px; font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.3px; color: var(--c); flex-wrap: wrap; }
@@ -433,6 +435,7 @@ body.cursor-ready .cursor-dot, body.cursor-ready .cursor-ring { opacity: 1; }
 .glossary-item[data-subject="geometry"] { --c: var(--geometry); }
 .glossary-item[data-subject="physics"] { --c: var(--physics); }
 .glossary-item[data-subject="biology"] { --c: var(--biology); }
+.glossary-item[data-subject="literature"] { --c: var(--literature); }
 .glossary-item h4 { margin: 0 0 6px; font-family: var(--serif); font-size: 17px; color: var(--c); }
 .glossary-item p { margin: 0; font-size: 14.5px; color: var(--text); }
 
@@ -554,6 +557,41 @@ body.cursor-ready .cursor-dot, body.cursor-ready .cursor-ring { opacity: 1; }
    ДАННЫЕ
    ========================================================== */
 const homeworkData = [
+    // --- ВТОРНИК, 20 ОКТЯБРЯ ---
+    {
+        date: '2026-10-20', subject: 'literature', title: 'Стр. 57-80 (пересказ, стих на выбор)', type: 'task',
+        content: `<ul style="padding-left:20px; line-height:1.8;">
+            <li>Стр. 57–60 — <b>ознакомиться</b>.</li>
+            <li>Стр. 63–64 — <b>подробный пересказ</b>.</li>
+            <li>Стих на выбор — <b>учить наизусть</b>.</li>
+            <li>Стр. 69–71 — <b>знать содержание</b>.</li>
+            <li>Стр. 71–80 — <b>прочитать, понять содержание</b>.</li>
+        </ul>`
+    },
+    {
+        date: '2026-10-20', subject: 'geometry', title: '№ 66 (б) (или № 70 в др. учебнике) + вопросы 1-26', type: 'task',
+        content: `<p style="margin-bottom:10px;font-weight:600;">Письменно: № 66 (б)</p>
+        <p>На рисунке (две пересекающиеся прямые) найдите углы 1, 2, 3, 4, если:</p>
+        <p style="margin: 10px 0; font-family: var(--mono); background: var(--panel-2); padding: 8px; border-radius: 6px; font-size: 16px;">3(∠1 + ∠3) = ∠2 + ∠4</p>
+        <p style="margin-bottom:10px;font-weight:600;">Решение:</p>
+        <ol style="padding-left:20px;line-height:1.9;">
+            <li>Углы 1 и 3 — вертикальные, значит <b>∠1 = ∠3</b>.<br>Углы 2 и 4 — вертикальные, значит <b>∠2 = ∠4</b>.</li>
+            <li>Подставим это в исходное условие:<br><b>3(∠1 + ∠1) = ∠2 + ∠2</b><br><b>6∠1 = 2∠2</b></li>
+            <li>Разделим обе части на 2:<br><b>3∠1 = ∠2</b></li>
+            <li>Углы 1 и 2 — смежные, их сумма равна 180°:<br><b>∠1 + ∠2 = 180°</b></li>
+            <li>Заменим ∠2 на 3∠1:<br>∠1 + 3∠1 = 180°<br>4∠1 = 180°<br><b>∠1 = 45°</b></li>
+            <li>Найдем остальные углы:<br>∠2 = 3 · 45° = <b>135°</b><br>∠3 = ∠1 = <b>45°</b><br>∠4 = ∠2 = <b>135°</b></li>
+        </ol>
+        <p style="margin-top:10px;font-weight:600;">Ответ: ∠1 = 45°, ∠2 = 135°, ∠3 = 45°, ∠4 = 135°.</p>
+        <hr style="border:none; border-top:1px dashed var(--border); margin:16px 0;">
+        <p><b>Устно:</b> Повторить все вопросы с 1 по 26 (завтра будут спрашивать!).</p>`
+    },
+    {
+        date: '2026-10-20', subject: 'russian', title: 'Материал про причастие', type: 'task',
+        content: `<p>Выучить теоретический материал про <b>причастие</b>.</p>
+        <p style="margin-top:10px; font-size:13px; color:var(--muted); font-style:italic;">* Задание с фото появится здесь, как только ты его пришлёшь.</p>`
+    },
+    // --- ПОНЕДЕЛЬНИК, 19 ОКТЯБРЯ ---
     { date: '2026-10-19', subject: 'english', title: 'Vocabulary (стр. 13) — Категории и пропуски', type: 'task',
       content: `<p style="margin-bottom:10px;font-weight:600;">1. a) Распределение слов по категориям:</p>
       <ul style="padding-left:20px;line-height:1.8;margin-bottom:16px;">
@@ -828,15 +866,16 @@ const SUBJECTS = {
     degreecalc: { name: 'Калькулятор степеней' },
     glossary: { name: 'Словарь' },
     flashcards: { name: 'Флеш-карточки' }, creator: { name: 'Мастерская' },
-    algebra: { name: 'Алгебра' }, geometry: { name: 'Геометрия — определения' },
+    algebra: { name: 'Алгебра' }, geometry: { name: 'Геометрия' },
     russian: { name: 'Русский язык' }, history: { name: 'История' },
     geography: { name: 'География' }, english: { name: 'Английский язык' },
-    physics: { name: 'Физика' }, biology: { name: 'Биология' }
+    physics: { name: 'Физика' }, biology: { name: 'Биология' },
+    literature: { name: 'Литература' }
 };
 const MONTHS = ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];
 
 let currentSubject = 'all';
-let selectedDate = '2026-10-19';
+let selectedDate = '2026-10-20'; // По умолчанию открывается 20 октября
 let currentMonth = 9;
 let currentYear = 2026;
 let searchQuery = '';
@@ -946,7 +985,6 @@ function matchesSearch(item, q) {
     return hay.includes(lower);
 }
 
-/* УВЕДОМЛЕНИЯ О НОВОМ ДЗ */
 function hashCode(str) {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
@@ -960,337 +998,140 @@ const CURRENT_HW_HASH = hashCode(JSON.stringify(homeworkData));
 
 function checkHwUpdates() {
     const stored = LS.get(HW_HASH_KEY, null);
-    if (stored === null) {
-        LS.set(HW_HASH_KEY, CURRENT_HW_HASH);
-        LS.set(HW_NOTIF_DISMISSED, false);
-        return false;
-    }
-    if (stored !== CURRENT_HW_HASH) {
-        LS.set(HW_HASH_KEY, CURRENT_HW_HASH);
-        LS.set(HW_NOTIF_DISMISSED, false);
-        return true;
-    }
+    if (stored === null) { LS.set(HW_HASH_KEY, CURRENT_HW_HASH); LS.set(HW_NOTIF_DISMISSED, false); return false; }
+    if (stored !== CURRENT_HW_HASH) { LS.set(HW_HASH_KEY, CURRENT_HW_HASH); LS.set(HW_NOTIF_DISMISSED, false); return true; }
     return false;
 }
-
 function showHwBanner() {
     const dismissed = LS.get(HW_NOTIF_DISMISSED, false);
     if (dismissed) return;
     const root = document.getElementById('content');
     const banner = document.createElement('div');
     banner.className = 'notif-banner';
-    banner.innerHTML = `
-        <span class="n-icon">🔔</span>
-        <div class="n-body">
-            <div class="n-title">Появилось новое домашнее задание!</div>
-            <div class="n-text">Автор добавил свежие решения. Загляните в раздел «Все предметы».</div>
-        </div>
-        <button class="n-close" aria-label="Закрыть">✕</button>
-    `;
+    banner.innerHTML = `<span class="n-icon">🔔</span><div class="n-body"><div class="n-title">Появилось новое домашнее задание!</div><div class="n-text">Автор добавил свежие решения. Загляните в раздел «Все предметы».</div></div><button class="n-close" aria-label="Закрыть">✕</button>`;
     banner.querySelector('.n-close').onclick = () => {
-        banner.style.transition = 'opacity .25s ease, transform .25s ease';
-        banner.style.opacity = '0';
-        banner.style.transform = 'translateY(-10px)';
-        setTimeout(() => banner.remove(), 250);
-        LS.set(HW_NOTIF_DISMISSED, true);
+        banner.style.transition = 'opacity .25s ease, transform .25s ease'; banner.style.opacity = '0'; banner.style.transform = 'translateY(-10px)';
+        setTimeout(() => banner.remove(), 250); LS.set(HW_NOTIF_DISMISSED, true);
     };
     root.insertBefore(banner, root.firstChild);
 }
-
 function sendSystemNotification() {
-    if (!('Notification' in window)) return;
-    if (Notification.permission !== 'granted') return;
+    if (!('Notification' in window) || Notification.permission !== 'granted') return;
     try {
-        new Notification('РДЗ — новое ДЗ', {
-            body: 'Появилось новое решение домашней работы. Открой сайт, чтобы посмотреть.',
-            icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">📚</text></svg>',
-            tag: 'rdz-hw-update'
-        });
+        new Notification('РДЗ — новое ДЗ', { body: 'Появилось новое решение домашней работы. Открой сайт, чтобы посмотреть.', icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">📚</text></svg>', tag: 'rdz-hw-update' });
     } catch (e) { console.warn('Notification error:', e); }
 }
-
 async function toggleNotifications() {
-    if (!('Notification' in window)) {
-        showToast('❌ Браузер не поддерживает уведомления');
-        return;
-    }
-    if (Notification.permission === 'granted') {
-        showToast('🔔 Уведомления включены. Проверить можно в настройках браузера.');
-        return;
-    }
-    if (Notification.permission === 'denied') {
-        showToast('🚫 Уведомления заблокированы. Разрешите их в настройках браузера для этого сайта.');
-        return;
-    }
+    if (!('Notification' in window)) { showToast('❌ Браузер не поддерживает уведомления'); return; }
+    if (Notification.permission === 'granted') { showToast('🔔 Уведомления включены.'); return; }
+    if (Notification.permission === 'denied') { showToast('🚫 Уведомления заблокированы.'); return; }
     try {
         const perm = await Notification.requestPermission();
-        if (perm === 'granted') {
-            showToast('✅ Уведомления включены!');
-            updateNotifBtn();
-            new Notification('РДЗ — уведомления включены', {
-                body: 'Теперь вы узнаете о новых решениях домашней работы.',
-                icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">📚</text></svg>'
-            });
-        } else {
-            showToast('Уведомления не разрешены');
-        }
+        if (perm === 'granted') { showToast('✅ Уведомления включены!'); updateNotifBtn(); new Notification('РДЗ — уведомления включены', { body: 'Теперь вы узнаете о новых решениях домашней работы.', icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">📚</text></svg>' }); }
+        else showToast('Уведомления не разрешены');
     } catch (e) { showToast('Не удалось запросить разрешение'); }
 }
-
 function updateNotifBtn() {
-    const btn = document.getElementById('notifBtn');
-    if (!btn) return;
-    if (!('Notification' in window)) { btn.classList.add('off'); btn.title = 'Уведомления не поддерживаются'; return; }
-    if (Notification.permission === 'granted') {
-        btn.classList.remove('off'); btn.classList.add('active');
-        btn.title = 'Уведомления включены';
-        btn.textContent = '🔔';
-    } else if (Notification.permission === 'denied') {
-        btn.classList.add('off'); btn.classList.remove('active');
-        btn.title = 'Уведомления заблокированы';
-        btn.textContent = '🔕';
-    } else {
-        btn.classList.remove('off', 'active');
-        btn.title = 'Включить уведомления о новом ДЗ';
-        btn.textContent = '🔔';
-    }
+    const btn = document.getElementById('notifBtn'); if (!btn) return;
+    if (!('Notification' in window)) { btn.classList.add('off'); return; }
+    if (Notification.permission === 'granted') { btn.classList.remove('off'); btn.classList.add('active'); btn.textContent = '🔔'; }
+    else if (Notification.permission === 'denied') { btn.classList.add('off'); btn.classList.remove('active'); btn.textContent = '🔕'; }
+    else { btn.classList.remove('off', 'active'); btn.textContent = '🔔'; }
 }
 
-/* ТВОРЧЕСКАЯ МАСТЕРСКАЯ */
 const GIST_URL = 'https://gist.githubusercontent.com/netpuzyaka/4f05e09a64a8a6fc5de6555019d390d5/raw/ddb1f90ea2c7c9d73515065a57057155973ac477/creative-works.json';
 let creativeWorks = { note: [], reportage: [] };
 async function loadCreativeWorks() {
     try {
-        const r = await fetch(GIST_URL, { cache: 'no-store' });
-        if (!r.ok) throw new Error('HTTP ' + r.status);
-        const d = await r.json();
-        if (d && Array.isArray(d.note) && Array.isArray(d.reportage)) creativeWorks = d;
+        const r = await fetch(GIST_URL, { cache: 'no-store' }); if (!r.ok) throw new Error('HTTP ' + r.status);
+        const d = await r.json(); if (d && Array.isArray(d.note) && Array.isArray(d.reportage)) creativeWorks = d;
         else throw new Error('Неверная структура JSON');
     } catch (e) {
         console.error('Ошибка загрузки Gist:', e);
-        creativeWorks = {
-            note: [{ title: '⚠️ Ошибка загрузки', text: 'Не удалось загрузить заметки. ' + e.message }],
-            reportage: [{ title: '⚠️ Ошибка загрузки', text: 'Не удалось загрузить репортажи. ' + e.message }]
-        };
+        creativeWorks = { note: [{ title: '⚠️ Ошибка загрузки', text: 'Не удалось загрузить заметки. ' + e.message }], reportage: [{ title: '⚠️ Ошибка загрузки', text: 'Не удалось загрузить репортажи. ' + e.message }] };
     }
 }
 function getViewed(type) { return LS.get(type === 'note' ? STORAGE_KEY_NOTE : STORAGE_KEY_REPORTAGE, []); }
-function saveViewed(type, title) {
-    const key = type === 'note' ? STORAGE_KEY_NOTE : STORAGE_KEY_REPORTAGE;
-    const cur = getViewed(type);
-    if (!cur.includes(title)) { cur.push(title); LS.set(key, cur); }
-}
+function saveViewed(type, title) { const key = type === 'note' ? STORAGE_KEY_NOTE : STORAGE_KEY_REPORTAGE; const cur = getViewed(type); if (!cur.includes(title)) { cur.push(title); LS.set(key, cur); } }
 function resetViewed() { LS.del(STORAGE_KEY_NOTE); LS.del(STORAGE_KEY_REPORTAGE); }
-function getAvailable(type) {
-    const all = creativeWorks[type] || [];
-    const viewed = getViewed(type);
-    return all.filter(i => !viewed.includes(i.title));
-}
+function getAvailable(type) { const all = creativeWorks[type] || []; const viewed = getViewed(type); return all.filter(i => !viewed.includes(i.title)); }
 function generateWork(type) {
-    const all = creativeWorks[type] || [];
-    const available = getAvailable(type);
-    const out = document.getElementById('creator-output');
+    const all = creativeWorks[type] || []; const available = getAvailable(type); const out = document.getElementById('creator-output');
     if (!out) return;
-    if (!available.length) {
-        out.classList.add('visible');
-        out.innerHTML = `<div class="creator-all-done"><div class="icon">🎉</div>
-            <p>Вы просмотрели все ${all.length} ${type === 'note' ? 'заметки' : 'репортажа'}!</p>
-            <button class="creator-btn reset-btn" onclick="resetViewedAndRefresh()" style="margin-top:12px;">🔄 Сбросить историю</button></div>`;
-        updateCreatorStats(); return;
-    }
-    const item = available[Math.floor(Math.random() * available.length)];
-    saveViewed(type, item.title);
-    const viewedCount = getViewed(type).length;
-    const icon = type === 'note' ? '📰' : '🎙️', label = type === 'note' ? 'Заметка' : 'Репортаж';
+    if (!available.length) { out.classList.add('visible'); out.innerHTML = `<div class="creator-all-done"><div class="icon">🎉</div><p>Вы просмотрели все ${all.length} ${type === 'note' ? 'заметки' : 'репортажа'}!</p><button class="creator-btn reset-btn" onclick="resetViewedAndRefresh()" style="margin-top:12px;">🔄 Сбросить историю</button></div>`; updateCreatorStats(); return; }
+    const item = available[Math.floor(Math.random() * available.length)]; saveViewed(type, item.title); const viewedCount = getViewed(type).length; const icon = type === 'note' ? '📰' : '🎙️', label = type === 'note' ? 'Заметка' : 'Репортаж';
     out.classList.add('visible');
-    out.innerHTML = `
-        <div class="output-header">
-            <span class="output-type"><i></i>${icon} ${label}</span>
-            <span class="output-index">${viewedCount} из ${all.length}</span>
-        </div>
-        <h3>${escapeHtml(item.title)}</h3>
-        <div class="output-text">${escapeHtml(item.text).replace(/\n/g, '<br>')}</div>
-        <div class="output-actions">
-            <button class="dislike-btn" onclick="dislikeWork()">👎 Мне не понравилась тема</button>
-            <a href="https://t.me/siegapilat" target="_blank" rel="noopener">💬 Написать @siegapilat</a>
-        </div>`;
+    out.innerHTML = `<div class="output-header"><span class="output-type"><i></i>${icon} ${label}</span><span class="output-index">${viewedCount} из ${all.length}</span></div><h3>${escapeHtml(item.title)}</h3><div class="output-text">${escapeHtml(item.text).replace(/\n/g, '<br>')}</div><div class="output-actions"><button class="dislike-btn" onclick="dislikeWork()">👎 Мне не понравилась тема</button><a href="https://t.me/siegapilat" target="_blank" rel="noopener">💬 Написать @siegapilat</a></div>`;
     updateCreatorStats();
 }
-function dislikeWork() {
-    const out = document.getElementById('creator-output');
-    if (!out) return;
-    const b = out.querySelector('.dislike-btn');
-    if (b) { b.textContent = '✅ Спасибо!'; b.disabled = true; b.style.opacity = .6; }
-    const a = out.querySelector('.output-actions');
-    if (a && !a.querySelector('.dislike-message')) {
-        const m = document.createElement('span');
-        m.className = 'dislike-message';
-        m.style.cssText = 'font-size:12.5px;color:var(--muted);width:100%;margin-top:4px;';
-        m.textContent = 'Напишите @siegapilat, какая тема интересна — добавим!';
-        a.appendChild(m);
-    }
-}
-function resetViewedAndRefresh() {
-    resetViewed();
-    const out = document.getElementById('creator-output');
-    if (out) { out.classList.remove('visible'); out.innerHTML = ''; }
-    updateCreatorStats();
-}
-function updateCreatorStats() {
-    const el = document.getElementById('creator-stats');
-    if (!el) return;
-    const nT = (creativeWorks.note||[]).length, rT = (creativeWorks.reportage||[]).length;
-    const nV = getViewed('note').length, rV = getViewed('reportage').length;
-    el.innerHTML = `<span><span class="dot-gold"></span> Заметки: ${nV} / ${nT}</span>
-        <span><span class="dot-green"></span> Репортажи: ${rV} / ${rT}</span>`;
-}
+function dislikeWork() { const out = document.getElementById('creator-output'); if (!out) return; const b = out.querySelector('.dislike-btn'); if (b) { b.textContent = '✅ Спасибо!'; b.disabled = true; b.style.opacity = .6; } const a = out.querySelector('.output-actions'); if (a && !a.querySelector('.dislike-message')) { const m = document.createElement('span'); m.className = 'dislike-message'; m.style.cssText = 'font-size:12.5px;color:var(--muted);width:100%;margin-top:4px;'; m.textContent = 'Напишите @siegapilat, какая тема интересна — добавим!'; a.appendChild(m); } }
+function resetViewedAndRefresh() { resetViewed(); const out = document.getElementById('creator-output'); if (out) { out.classList.remove('visible'); out.innerHTML = ''; } updateCreatorStats(); }
+function updateCreatorStats() { const el = document.getElementById('creator-stats'); if (!el) return; const nT = (creativeWorks.note||[]).length, rT = (creativeWorks.reportage||[]).length; const nV = getViewed('note').length, rV = getViewed('reportage').length; el.innerHTML = `<span><span class="dot-gold"></span> Заметки: ${nV} / ${nT}</span><span><span class="dot-green"></span> Репортажи: ${rV} / ${rT}</span>`; }
 
-/* САЙДБАР */
 function buildSidebar() {
     const sb = document.getElementById('sidebar');
     Array.from(sb.children).forEach(c => { if (!c.classList.contains('brand')) c.remove(); });
-    const mainLabel = document.createElement('div');
-    mainLabel.className = 'nav-label'; mainLabel.textContent = 'Разделы';
-    sb.appendChild(mainLabel);
+    const mainLabel = document.createElement('div'); mainLabel.className = 'nav-label'; mainLabel.textContent = 'Разделы'; sb.appendChild(mainLabel);
     ['all','bookmarks','schedule','textbooks','calculator','degreecalc','glossary','flashcards','creator'].forEach(k => sb.appendChild(makeNavBtn(k)));
-    const subjLabel = document.createElement('div');
-    subjLabel.className = 'nav-label'; subjLabel.textContent = 'Предметы';
-    sb.appendChild(subjLabel);
-    ['algebra','geometry','russian','history','geography','english','physics','biology'].forEach(k => sb.appendChild(makeNavBtn(k)));
-    const foot = document.createElement('div');
-    foot.className = 'sidebar-foot';
-    foot.innerHTML = `
-        <button class="icon-btn" id="themeBtn" title="Сменить тему">${document.body.dataset.theme === 'light' ? '🌙' : '☀️'}</button>
-        <button class="icon-btn" id="notifBtn" title="Уведомления">🔔</button>
-        <button class="icon-btn sound ${soundEnabled ? '' : 'off'}" id="soundBtn" title="Звук кликов">🔊</button>`;
+    const subjLabel = document.createElement('div'); subjLabel.className = 'nav-label'; subjLabel.textContent = 'Предметы'; sb.appendChild(subjLabel);
+    ['algebra','geometry','russian','literature','history','geography','english','physics','biology'].forEach(k => sb.appendChild(makeNavBtn(k)));
+    const foot = document.createElement('div'); foot.className = 'sidebar-foot';
+    foot.innerHTML = `<button class="icon-btn" id="themeBtn" title="Сменить тему">${document.body.dataset.theme === 'light' ? '🌙' : '☀️'}</button><button class="icon-btn" id="notifBtn" title="Уведомления">🔔</button><button class="icon-btn sound ${soundEnabled ? '' : 'off'}" id="soundBtn" title="Звук кликов">🔊</button>`;
     sb.appendChild(foot);
     document.getElementById('themeBtn').onclick = toggleTheme;
     document.getElementById('notifBtn').onclick = toggleNotifications;
-    document.getElementById('soundBtn').onclick = () => {
-        soundEnabled = !soundEnabled; LS.set(SOUND_KEY, soundEnabled);
-        document.getElementById('soundBtn').classList.toggle('off', !soundEnabled);
-        if (soundEnabled) playClick();
-        showToast(soundEnabled ? '🔊 Звук включён' : '🔇 Звук выключен');
-    };
+    document.getElementById('soundBtn').onclick = () => { soundEnabled = !soundEnabled; LS.set(SOUND_KEY, soundEnabled); document.getElementById('soundBtn').classList.toggle('off', !soundEnabled); if (soundEnabled) playClick(); showToast(soundEnabled ? '🔊 Звук включён' : '🔇 Звук выключен'); };
     updateNotifBtn();
 }
 function makeNavBtn(key) {
-    const btn = document.createElement('button');
-    btn.className = 'nav-btn' + (key === currentSubject ? ' active' : '');
-    btn.dataset.subject = key;
+    const btn = document.createElement('button'); btn.className = 'nav-btn' + (key === currentSubject ? ' active' : ''); btn.dataset.subject = key;
     let count = 0;
-    if (key === 'all') count = homeworkData.length;
-    else if (key === 'bookmarks') count = bookmarks.length;
+    if (key === 'all') count = homeworkData.length; else if (key === 'bookmarks') count = bookmarks.length;
     else if (key === 'schedule') count = scheduleData.reduce((s,d) => s + d.lessons.length, 0);
-    else if (key === 'textbooks') count = textbooksData.length;
-    else if (key === 'calculator') count = '±×÷';
-    else if (key === 'degreecalc') count = 'xⁿ';
-    else if (key === 'glossary') count = glossaryData.length;
+    else if (key === 'textbooks') count = textbooksData.length; else if (key === 'calculator') count = '±×÷';
+    else if (key === 'degreecalc') count = 'xⁿ'; else if (key === 'glossary') count = glossaryData.length;
     else if (key === 'flashcards') count = flashcardsData.length;
     else if (key === 'creator') count = (creativeWorks.note||[]).length + (creativeWorks.reportage||[]).length;
-    else if (key === 'geometry') count = geometryQA.length;
+    else if (key === 'geometry') count = homeworkData.filter(i => i.subject === 'geometry').length;
     else count = homeworkData.filter(i => i.subject === key).length;
     const colors = { all:'var(--gold)', bookmarks:'var(--gold)', schedule:'var(--blue)', textbooks:'var(--purple)', calculator:'var(--gold)', degreecalc:'var(--creator)', glossary:'var(--purple)', flashcards:'var(--green)', creator:'var(--creator)', geometry:'var(--geometry)' };
     btn.style.setProperty('--c', colors[key] || `var(--${key})`);
     btn.innerHTML = `<span class="dot"></span>${SUBJECTS[key].name}<span class="count">${count}</span>`;
-    btn.onclick = () => {
-        if (currentSubject === key) return;
-        currentSubject = key;
-        document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b === btn));
-        renderContent(); window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
+    btn.onclick = () => { if (currentSubject === key) return; currentSubject = key; document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b === btn)); renderContent(); window.scrollTo({ top: 0, behavior: 'smooth' }); };
     return btn;
 }
 
-/* РЕНДЕР */
 function renderContent() {
-    const root = document.getElementById('content');
-    root.innerHTML = '';
-    root.classList.remove('page-enter'); void root.offsetWidth; root.classList.add('page-enter');
-
-    if (['all','bookmarks','algebra','russian','history','geography','english','physics','biology'].includes(currentSubject)) {
-        root.appendChild(buildSearchBar());
-    }
-    if (currentSubject === 'schedule') return renderSchedule(root);
-    if (currentSubject === 'textbooks') return renderTextbooks(root);
-    if (currentSubject === 'calculator') return renderCalculator(root);
-    if (currentSubject === 'degreecalc') return renderDegreeCalc(root);
-    if (currentSubject === 'glossary') return renderGlossary(root);
-    if (currentSubject === 'flashcards') return renderFlashcards(root);
-    if (currentSubject === 'creator') return renderCreator(root);
-    if (currentSubject === 'bookmarks') return renderBookmarks(root);
-    if (currentSubject === 'geometry') return renderGeometry(root);
+    const root = document.getElementById('content'); root.innerHTML = ''; root.classList.remove('page-enter'); void root.offsetWidth; root.classList.add('page-enter');
+    if (['all','bookmarks','algebra','russian','history','geography','english','physics','biology','geometry','literature'].includes(currentSubject)) root.appendChild(buildSearchBar());
+    if (currentSubject === 'schedule') return renderSchedule(root); if (currentSubject === 'textbooks') return renderTextbooks(root);
+    if (currentSubject === 'calculator') return renderCalculator(root); if (currentSubject === 'degreecalc') return renderDegreeCalc(root);
+    if (currentSubject === 'glossary') return renderGlossary(root); if (currentSubject === 'flashcards') return renderFlashcards(root);
+    if (currentSubject === 'creator') return renderCreator(root); if (currentSubject === 'bookmarks') return renderBookmarks(root);
 
     if (currentSubject === 'all') {
-        if (checkHwUpdates()) {
-            showHwBanner();
-            sendSystemNotification();
-        }
-        root.appendChild(renderCalendar());
-        renderDateTasks(root);
+        if (checkHwUpdates()) { showHwBanner(); sendSystemNotification(); }
+        root.appendChild(renderCalendar()); renderDateTasks(root);
     } else {
         const items = homeworkData.filter(i => i.subject === currentSubject && matchesSearch(i, searchQuery));
         root.appendChild(buildSubjectHero(currentSubject, items.length));
-        if (!items.length) {
-            const p = document.createElement('p'); p.className = 'empty-text';
-            p.textContent = searchQuery ? 'Ничего не найдено по запросу.' : 'По этому предмету заданий пока нет.';
-            root.appendChild(p); return;
-        }
+        if (!items.length) { const p = document.createElement('p'); p.className = 'empty-text'; p.textContent = searchQuery ? 'Ничего не найдено по запросу.' : 'По этому предмету заданий пока нет.'; root.appendChild(p); return; }
         items.forEach((it, i) => root.appendChild(buildCard(it, i)));
     }
 }
-function buildSearchBar() {
-    const wrap = document.createElement('div');
-    wrap.className = 'search-wrap';
-    wrap.innerHTML = `<input type="text" class="search-input" id="searchInput" placeholder="Поиск по заданиям…" value="${escapeHtml(searchQuery)}">
-        <button class="search-clear ${searchQuery ? 'visible' : ''}" id="searchClear" aria-label="Очистить">✕</button>`;
-    setTimeout(() => {
-        const inp = document.getElementById('searchInput'), clr = document.getElementById('searchClear');
-        if (inp) {
-            inp.addEventListener('input', e => {
-                searchQuery = e.target.value;
-                clr.classList.toggle('visible', !!searchQuery);
-                clearTimeout(buildSearchBar._t);
-                buildSearchBar._t = setTimeout(() => {
-                    const pos = inp.selectionStart;
-                    renderContent();
-                    const ni = document.getElementById('searchInput');
-                    if (ni) { ni.focus(); ni.setSelectionRange(pos, pos); }
-                }, 250);
-            });
-            if (searchQuery) inp.focus();
-        }
-        if (clr) clr.onclick = () => { searchQuery = ''; renderContent(); };
-    }, 0);
-    return wrap;
-}
-function buildSubjectHero(subjKey, count) {
-    const hero = document.createElement('div'); hero.className = 'hero';
-    hero.innerHTML = `<p class="eyebrow">Предмет</p><h1>${SUBJECTS[subjKey].name}</h1>
-        <p class="sub">${count} ${plural(count,'задание','задания','заданий')}</p>`;
-    return hero;
-}
+function buildSearchBar() { const wrap = document.createElement('div'); wrap.className = 'search-wrap'; wrap.innerHTML = `<input type="text" class="search-input" id="searchInput" placeholder="Поиск по заданиям…" value="${escapeHtml(searchQuery)}"><button class="search-clear ${searchQuery ? 'visible' : ''}" id="searchClear" aria-label="Очистить">✕</button>`; setTimeout(() => { const inp = document.getElementById('searchInput'), clr = document.getElementById('searchClear'); if (inp) { inp.addEventListener('input', e => { searchQuery = e.target.value; clr.classList.toggle('visible', !!searchQuery); clearTimeout(buildSearchBar._t); buildSearchBar._t = setTimeout(() => { const pos = inp.selectionStart; renderContent(); const ni = document.getElementById('searchInput'); if (ni) { ni.focus(); ni.setSelectionRange(pos, pos); } }, 250); }); if (searchQuery) inp.focus(); } if (clr) clr.onclick = () => { searchQuery = ''; renderContent(); }; }, 0); return wrap; }
+function buildSubjectHero(subjKey, count) { const hero = document.createElement('div'); hero.className = 'hero'; hero.innerHTML = `<p class="eyebrow">Предмет</p><h1>${SUBJECTS[subjKey].name}</h1><p class="sub">${count} ${plural(count,'задание','задания','заданий')}</p>`; return hero; }
 function renderDateTasks(root) {
-    let items = homeworkData.filter(i => i.date === selectedDate);
-    if (searchQuery) items = items.filter(i => matchesSearch(i, searchQuery));
-    const d = keyToDate(selectedDate);
-    const weekday = cap(d.toLocaleDateString('ru-RU', { weekday: 'long' }));
-    const dm = d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
-    const hero = document.createElement('div'); hero.className = 'hero';
-    const subjCount = new Set(items.map(i => i.subject)).size;
-    hero.innerHTML = `<p class="eyebrow">Домашнее задание</p>
-        <h1>${weekday}, <em>${dm}</em></h1>
-        <p class="sub">${items.length
-            ? `${subjCount} ${plural(subjCount,'предмет','предмета','предметов')} · ${items.length} ${plural(items.length,'задание','задания','заданий')}`
-            : (searchQuery ? 'Ничего не найдено' : 'На этот день заданий нет')}</p>`;
-    root.appendChild(hero);
-    items.forEach((it, i) => root.appendChild(buildCard(it, i)));
+    let items = homeworkData.filter(i => i.date === selectedDate); if (searchQuery) items = items.filter(i => matchesSearch(i, searchQuery));
+    const d = keyToDate(selectedDate); const weekday = cap(d.toLocaleDateString('ru-RU', { weekday: 'long' })); const dm = d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
+    const hero = document.createElement('div'); hero.className = 'hero'; const subjCount = new Set(items.map(i => i.subject)).size;
+    hero.innerHTML = `<p class="eyebrow">Домашнее задание</p><h1>${weekday}, <em>${dm}</em></h1><p class="sub">${items.length ? `${subjCount} ${plural(subjCount,'предмет','предмета','предметов')} · ${items.length} ${plural(items.length,'задание','задания','заданий')}` : (searchQuery ? 'Ничего не найдено' : 'На этот день заданий нет')}</p>`;
+    root.appendChild(hero); items.forEach((it, i) => root.appendChild(buildCard(it, i)));
 }
 function renderCalendar() {
     const cal = document.createElement('div'); cal.className = 'calendar';
     cal.innerHTML = `<div class="cal-head"><button aria-label="Предыдущий месяц">←</button><h2>${MONTHS[currentMonth]} ${currentYear}</h2><button aria-label="Следующий месяц">→</button></div>`;
-    const [prev, next] = cal.querySelectorAll('button');
-    prev.onclick = () => changeMonth(-1); next.onclick = () => changeMonth(1);
+    const [prev, next] = cal.querySelectorAll('button'); prev.onclick = () => changeMonth(-1); next.onclick = () => changeMonth(1);
     const grid = document.createElement('div'); grid.className = 'cal-grid';
     ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].forEach(n => { const el = document.createElement('div'); el.className='day-name'; el.textContent = n; grid.appendChild(el); });
     let start = new Date(currentYear, currentMonth, 1).getDay(); if (start === 0) start = 7;
@@ -1300,39 +1141,23 @@ function renderCalendar() {
         const el = document.createElement('div'); el.className = 'day'; el.textContent = d;
         const key = `${currentYear}-${pad(currentMonth+1)}-${pad(d)}`;
         const dow = new Date(currentYear, currentMonth, d).getDay();
-        if (dow === 0 || dow === 6) el.classList.add('disabled');
-        else el.onclick = () => { selectedDate = key; renderContent(); };
-        if (key === selectedDate) el.classList.add('selected');
-        if (key === todayKey) el.classList.add('today');
-        if (datesWithHw.has(key)) el.classList.add('has-hw');
+        if (dow === 0 || dow === 6) el.classList.add('disabled'); else el.onclick = () => { selectedDate = key; renderContent(); };
+        if (key === selectedDate) el.classList.add('selected'); if (key === todayKey) el.classList.add('today'); if (datesWithHw.has(key)) el.classList.add('has-hw');
         grid.appendChild(el);
     }
     cal.appendChild(grid);
-    const legend = document.createElement('div'); legend.className = 'legend'; legend.innerHTML = '<i></i>Есть задания';
-    cal.appendChild(legend);
-    return cal;
+    const legend = document.createElement('div'); legend.className = 'legend'; legend.innerHTML = '<i></i>Есть задания'; cal.appendChild(legend); return cal;
 }
-function changeMonth(delta) {
-    currentMonth += delta;
-    if (currentMonth < 0) { currentMonth = 11; currentYear--; } else if (currentMonth > 11) { currentMonth = 0; currentYear++; }
-    renderContent();
-}
+function changeMonth(delta) { currentMonth += delta; if (currentMonth < 0) { currentMonth = 11; currentYear--; } else if (currentMonth > 11) { currentMonth = 0; currentYear++; } renderContent(); }
 
 function buildCard(item, index) {
-    const card = document.createElement('article');
-    card.className = 'card'; card.dataset.subject = item.subject; card.dataset.id = index; card.dataset.title = item.title;
+    const card = document.createElement('article'); card.className = 'card'; card.dataset.subject = item.subject; card.dataset.id = index; card.dataset.title = item.title;
     const head = document.createElement('div'); head.className = 'card-head';
-    const dateNote = currentSubject !== 'all'
-        ? `<small>· ${keyToDate(item.date).toLocaleDateString('ru-RU', { day:'numeric', month:'long', weekday:'long' })}</small>` : '';
+    const dateNote = currentSubject !== 'all' ? `<small>· ${keyToDate(item.date).toLocaleDateString('ru-RU', { day:'numeric', month:'long', weekday:'long' })}</small>` : '';
     head.innerHTML = `<span class="tag"><i></i>${SUBJECTS[item.subject].name}${dateNote}</span>`;
-    const h3 = document.createElement('h3'); h3.textContent = item.title;
-    head.appendChild(h3); card.appendChild(head);
+    const h3 = document.createElement('h3'); h3.textContent = item.title; head.appendChild(h3); card.appendChild(head);
     const imgs = item.images || (item.image ? [item.image] : []);
-    imgs.forEach(url => {
-        const img = document.createElement('img'); img.src = url; img.alt = item.title; img.className = 'task-image'; img.loading = 'lazy';
-        img.onclick = () => openLightbox(url); img.onerror = () => { img.style.display = 'none'; };
-        card.appendChild(img);
-    });
+    imgs.forEach(url => { const img = document.createElement('img'); img.src = url; img.alt = item.title; img.className = 'task-image'; img.loading = 'lazy'; img.onclick = () => openLightbox(url); img.onerror = () => { img.style.display = 'none'; }; card.appendChild(img); });
     if (imgs.length && item.imageCaption) { const c = document.createElement('p'); c.className = 'image-caption'; c.textContent = item.imageCaption; card.appendChild(c); }
     if (item.content) {
         if (item.type === 'math') {
@@ -1342,8 +1167,7 @@ function buildCard(item, index) {
                 const problem = document.createElement('div'); problem.className = 'problem';
                 const num = document.createElement('div'); num.className = 'problem-num'; num.textContent = lines[0]; problem.appendChild(num);
                 lines.slice(1).forEach(line => {
-                    const m = line.match(/^([а-яё])\)\s*(.*)$/i);
-                    const row = document.createElement('div'); row.className = 'problem-row';
+                    const m = line.match(/^([а-яё])\)\s*(.*)$/i); const row = document.createElement('div'); row.className = 'problem-row';
                     const p = document.createElement('span'); p.className = 'part'; p.textContent = m ? m[1] : '•';
                     const e = document.createElement('span'); e.className = 'expr'; e.innerHTML = fracify(m ? m[2] : line);
                     row.append(p, e); problem.appendChild(row);
@@ -1353,15 +1177,11 @@ function buildCard(item, index) {
             card.appendChild(w);
         } else if (item.type === 'rus') {
             const legend = document.createElement('div'); legend.className = 'legend-rus';
-            legend.innerHTML = '<span>Приставка — <span class="prefix" style="color:var(--blue)">¬</span></span>' +
-                '<span>Корень — <span class="root-arc" style="color:var(--red)">∩</span></span>' +
-                '<span>Суффикс — <span class="suffix" style="color:var(--green)">^</span></span>' +
-                '<span>Окончание — <span class="ending" style="color:var(--purple)">☐</span></span>';
+            legend.innerHTML = '<span>Приставка — <span class="prefix" style="color:var(--blue)">¬</span></span><span>Корень — <span class="root-arc" style="color:var(--red)">∩</span></span><span>Суффикс — <span class="suffix" style="color:var(--green)">^</span></span><span>Окончание — <span class="ending" style="color:var(--purple)">☐</span></span>';
             card.appendChild(legend);
             const w = document.createElement('div'); w.className = 'inset';
             item.content.split('\n').map(l => l.trim()).filter(Boolean).forEach(line => {
-                const m = line.match(/^(\d+)\)\s*(.*)$/s);
-                const s = document.createElement('div'); s.className = 'sentence';
+                const m = line.match(/^(\d+)\)\s*(.*)$/s); const s = document.createElement('div'); s.className = 'sentence';
                 const n = document.createElement('span'); n.className = 'n'; n.textContent = m ? m[1] : '';
                 const t = document.createElement('span'); t.className = 't'; t.innerHTML = m ? m[2] : line;
                 s.append(n, t); w.appendChild(s);
@@ -1380,132 +1200,33 @@ function buildCard(item, index) {
     }
     const actions = document.createElement('div'); actions.className = 'card-actions';
     const starred = isBookmarked(item.title);
-    actions.innerHTML = `
-        <button class="card-btn bookmark-btn ${starred ? 'active' : ''}" data-title="${escapeHtml(item.title)}">
-            ${starred ? '★' : '☆'} ${starred ? 'В избранном' : 'В избранное'}
-        </button>
-        <button class="card-btn copy-btn">📋 Копировать</button>
-        <button class="card-btn pdf-btn">🖨️ PDF</button>`;
+    actions.innerHTML = `<button class="card-btn bookmark-btn ${starred ? 'active' : ''}" data-title="${escapeHtml(item.title)}">${starred ? '★' : '☆'} ${starred ? 'В избранном' : 'В избранное'}</button><button class="card-btn copy-btn">📋 Копировать</button><button class="card-btn pdf-btn">🖨️ PDF</button>`;
     card.appendChild(actions);
     actions.querySelector('.bookmark-btn').onclick = (e) => { e.stopPropagation(); toggleBookmark(item.title); };
     actions.querySelector('.copy-btn').onclick = (e) => { e.stopPropagation(); copyCardText(item); };
     actions.querySelector('.pdf-btn').onclick = (e) => { e.stopPropagation(); exportPDF(card); };
     return card;
 }
-function copyCardText(item) {
-    const parts = [item.title, ''];
-    if (item.content) parts.push(item.content.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim());
-    const text = parts.join('\n');
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(() => showToast('✅ Скопировано!'));
-    } else {
-        const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select();
-        try { document.execCommand('copy'); showToast('✅ Скопировано!'); } catch(e){ showToast('Не удалось'); }
-        document.body.removeChild(ta);
-    }
-}
-function exportPDF(cardEl) {
-    cardEl.classList.add('printing');
-    setTimeout(() => { window.print(); setTimeout(() => cardEl.classList.remove('printing'), 500); }, 100);
-}
+function copyCardText(item) { const parts = [item.title, '']; if (item.content) parts.push(item.content.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()); const text = parts.join('\n'); if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).then(() => showToast('✅ Скопировано!')); } else { const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); showToast('✅ Скопировано!'); } catch(e){ showToast('Не удалось'); } document.body.removeChild(ta); } }
+function exportPDF(cardEl) { cardEl.classList.add('printing'); setTimeout(() => { window.print(); setTimeout(() => cardEl.classList.remove('printing'), 500); }, 100); }
 
-function renderBookmarks(root) {
-    const hero = document.createElement('div'); hero.className = 'hero';
-    hero.innerHTML = `<p class="eyebrow">Избранное</p><h1>Сохранённые задания</h1>
-        <p class="sub">${bookmarks.length} ${plural(bookmarks.length,'задание','задания','заданий')}</p>`;
-    root.appendChild(hero);
-    let items = homeworkData.filter(i => bookmarks.includes(i.title));
-    if (searchQuery) items = items.filter(i => matchesSearch(i, searchQuery));
-    if (!items.length) {
-        const p = document.createElement('p'); p.className = 'empty-text';
-        p.textContent = 'Вы пока ничего не добавили в избранное. Нажмите ☆ на карточке задания.';
-        root.appendChild(p); return;
-    }
-    items.forEach((it, i) => root.appendChild(buildCard(it, i)));
-}
-function renderSchedule(root) {
-    const hero = document.createElement('div'); hero.className = 'hero';
-    hero.innerHTML = `<p class="eyebrow">Расписание</p><h1>Уроки на неделю</h1>`;
-    root.appendChild(hero);
-    const todayDow = new Date().getDay();
-    scheduleData.forEach(day => {
-        if (!day.lessons.length) return;
-        const div = document.createElement('div');
-        div.className = 'schedule-day' + (day.index === todayDow ? ' today' : '');
-        div.innerHTML = `<h3>${day.day}</h3>
-            <table class="schedule-table">
-                <thead><tr><th style="width:50px">№</th><th>Предмет</th></tr></thead>
-                <tbody>${day.lessons.map((l, i) => `<tr><td class="num">${i+1}</td><td>${l.subject}</td></tr>`).join('')}</tbody>
-            </table>`;
-        root.appendChild(div);
-    });
-}
-function renderTextbooks(root) {
-    const hero = document.createElement('div'); hero.className = 'hero';
-    hero.innerHTML = `<p class="eyebrow">Учебники</p>
-        <h1>Онлайн-учебники и <em>уроки</em></h1>
-        <p class="sub">Ссылки на бесплатные материалы по всем предметам · ${textbooksData.length} ресурсов</p>`;
-    root.appendChild(hero);
-    textbooksData.forEach(t => {
-        const a = document.createElement('a');
-        a.className = 'textbook-item';
-        a.dataset.subject = t.subject;
-        a.href = t.url;
-        a.target = '_blank';
-        a.rel = 'noopener';
-        a.innerHTML = `
-            <span class="tb-icon">${t.icon}</span>
-            <span class="tb-body">
-                <div class="tb-title">${escapeHtml(t.title)}</div>
-                <div class="tb-subject">${escapeHtml(t.sub)}</div>
-            </span>
-            <span class="tb-arrow">↗</span>
-        `;
-        root.appendChild(a);
-    });
-}
+function renderBookmarks(root) { const hero = document.createElement('div'); hero.className = 'hero'; hero.innerHTML = `<p class="eyebrow">Избранное</p><h1>Сохранённые задания</h1><p class="sub">${bookmarks.length} ${plural(bookmarks.length,'задание','задания','заданий')}</p>`; root.appendChild(hero); let items = homeworkData.filter(i => bookmarks.includes(i.title)); if (searchQuery) items = items.filter(i => matchesSearch(i, searchQuery)); if (!items.length) { const p = document.createElement('p'); p.className = 'empty-text'; p.textContent = 'Вы пока ничего не добавили в избранное.'; root.appendChild(p); return; } items.forEach((it, i) => root.appendChild(buildCard(it, i))); }
+function renderSchedule(root) { const hero = document.createElement('div'); hero.className = 'hero'; hero.innerHTML = `<p class="eyebrow">Расписание</p><h1>Уроки на неделю</h1>`; root.appendChild(hero); const todayDow = new Date().getDay(); scheduleData.forEach(day => { if (!day.lessons.length) return; const div = document.createElement('div'); div.className = 'schedule-day' + (day.index === todayDow ? ' today' : ''); div.innerHTML = `<h3>${day.day}</h3><table class="schedule-table"><thead><tr><th style="width:50px">№</th><th>Предмет</th></tr></thead><tbody>${day.lessons.map((l, i) => `<tr><td class="num">${i+1}</td><td>${l.subject}</td></tr>`).join('')}</tbody></table>`; root.appendChild(div); }); }
+function renderTextbooks(root) { const hero = document.createElement('div'); hero.className = 'hero'; hero.innerHTML = `<p class="eyebrow">Учебники</p><h1>Онлайн-учебники и <em>уроки</em></h1><p class="sub">Ссылки на бесплатные материалы по всем предметам · ${textbooksData.length} ресурсов</p>`; root.appendChild(hero); textbooksData.forEach(t => { const a = document.createElement('a'); a.className = 'textbook-item'; a.dataset.subject = t.subject; a.href = t.url; a.target = '_blank'; a.rel = 'noopener'; a.innerHTML = `<span class="tb-icon">${t.icon}</span><span class="tb-body"><div class="tb-title">${escapeHtml(t.title)}</div><div class="tb-subject">${escapeHtml(t.sub)}</div></span><span class="tb-arrow">↗</span>`; root.appendChild(a); }); }
 
-/* КАЛЬКУЛЯТОР ДРОБЕЙ */
 function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { [a, b] = [b, a % b]; } return a || 1; }
-function parseFractionStr(s) {
-    s = s.trim();
-    if (/^-?\d+$/.test(s)) return { num: parseInt(s, 10), den: 1 };
-    const m = s.match(/^(-?\d+)\s*\/\s*(\d+)$/);
-    if (m) {
-        const num = parseInt(m[1], 10), den = parseInt(m[2], 10);
-        if (den === 0) return null;
-        return { num, den };
-    }
-    return null;
-}
+function parseFractionStr(s) { s = s.trim(); if (/^-?\d+$/.test(s)) return { num: parseInt(s, 10), den: 1 }; const m = s.match(/^(-?\d+)\s*\/\s*(\d+)$/); if (m) { const num = parseInt(m[1], 10), den = parseInt(m[2], 10); if (den === 0) return null; return { num, den }; } return null; }
 function fractionToString(num, den) { if (den === 1) return String(num); return `${num}/${den}`; }
-
 function renderCalculator(root) {
-    const hero = document.createElement('div'); hero.className = 'hero';
-    hero.innerHTML = `<p class="eyebrow">Калькулятор</p>
-        <h1>Калькулятор <em>дробей</em></h1>
-        <p class="sub">Введите пример вида <code>1/5 + 2/3</code> и получите ответ с решением по шагам</p>`;
-    root.appendChild(hero);
+    const hero = document.createElement('div'); hero.className = 'hero'; hero.innerHTML = `<p class="eyebrow">Калькулятор</p><h1>Калькулятор <em>дробей</em></h1><p class="sub">Введите пример вида <code>1/5 + 2/3</code> и получите ответ с решением по шагам</p>`; root.appendChild(hero);
     const panel = document.createElement('div'); panel.className = 'calc-panel';
-    panel.innerHTML = `
-        <p class="calc-hint">Поддерживаются операции <b>+ − × ÷</b> и целые числа. Например: <code>-1/5 * 3/7</code>, <code>2 + 1/3</code>, <code>5/6 : 2/9</code>.</p>
-        <div class="calc-input-row"><input type="text" class="calc-input" id="calcInput" placeholder="Например: 1/5 + 2/3" autocomplete="off" spellcheck="false"></div>
-        <div class="calc-buttons">
-            <button class="calc-op" data-op="+">+</button><button class="calc-op" data-op="-">−</button>
-            <button class="calc-op" data-op="*">×</button><button class="calc-op" data-op="/">÷</button>
-            <button class="calc-op" data-op="/">/</button><button class="calc-op" data-op="(">(</button><button class="calc-op" data-op=")">)</button>
-            <button class="calc-btn clear-btn" id="calcClear">Очистить</button>
-        </div>
-        <button class="calc-btn" id="calcGo" style="width:100%;">Посчитать</button>
-        <div class="calc-result" id="calcResult"></div>`;
+    panel.innerHTML = `<p class="calc-hint">Поддерживаются операции <b>+ − × ÷</b> и целые числа. Например: <code>-1/5 * 3/7</code>, <code>2 + 1/3</code>, <code>5/6 : 2/9</code>.</p><div class="calc-input-row"><input type="text" class="calc-input" id="calcInput" placeholder="Например: 1/5 + 2/3" autocomplete="off" spellcheck="false"></div><div class="calc-buttons"><button class="calc-op" data-op="+">+</button><button class="calc-op" data-op="-">−</button><button class="calc-op" data-op="*">×</button><button class="calc-op" data-op="/">÷</button><button class="calc-op" data-op="/">/</button><button class="calc-op" data-op="(">(</button><button class="calc-op" data-op=")">)</button><button class="calc-btn clear-btn" id="calcClear">Очистить</button></div><button class="calc-btn" id="calcGo" style="width:100%;">Посчитать</button><div class="calc-result" id="calcResult"></div>`;
     root.appendChild(panel);
     setTimeout(() => {
-        const input = document.getElementById('calcInput');
-        const result = document.getElementById('calcResult');
+        const input = document.getElementById('calcInput'), result = document.getElementById('calcResult');
         document.querySelectorAll('.calc-op').forEach(b => { b.onclick = () => { input.value += b.dataset.op; input.focus(); }; });
         document.getElementById('calcClear').onclick = () => { input.value = ''; result.classList.remove('visible', 'error'); input.focus(); };
-        document.getElementById('calcGo').onclick = () => calculate(input.value);
-        input.addEventListener('keydown', e => { if (e.key === 'Enter') calculate(input.value); });
+        document.getElementById('calcGo').onclick = () => calculate(input.value); input.addEventListener('keydown', e => { if (e.key === 'Enter') calculate(input.value); });
     }, 0);
     function calculate(expr) {
         const result = document.getElementById('calcResult'); result.classList.remove('error');
@@ -1539,20 +1260,14 @@ function renderCalculator(root) {
     function opHtml(op) { return { '+':'+', '-':'−', '*':'×', '/':'÷' }[op] || op; }
 }
 
-/* КАЛЬКУЛЯТОР СТЕПЕНЕЙ */
 function parseExpStr(str) {
-    str = str.toLowerCase().trim().replace(/ё/g, 'е').replace(/-[а-я]+$/, '').trim(); // убираем -й, -ой и т.д.
+    str = str.toLowerCase().trim().replace(/ё/g, 'е').replace(/-[а-я]+$/, '').trim();
     if (/^\d+$/.test(str)) return parseInt(str, 10);
-    let numMatch = str.match(/\d+/);
-    if (numMatch) return parseInt(numMatch[0], 10);
-
+    let numMatch = str.match(/\d+/); if (numMatch) return parseInt(numMatch[0], 10);
     const tens = { 'двадцать': 20, 'тридцать': 30, 'сорок': 40, 'пятьдесят': 50, 'шестьдесят': 60, 'семьдесят': 70, 'восемьдесят': 80, 'девяносто': 90 };
     const units = { 'перв': 1, 'втор': 2, 'трет': 3, 'четверт': 4, 'пят': 5, 'шест': 6, 'седьм': 7, 'восьм': 8, 'девят': 9 };
-
     let tenVal = 0;
-    for (let [tWord, tVal] of Object.entries(tens)) {
-        if (str.includes(tWord)) { tenVal = tVal; break; }
-    }
+    for (let [tWord, tVal] of Object.entries(tens)) { if (str.includes(tWord)) { tenVal = tVal; break; } }
     for (let [uWord, uVal] of Object.entries(units)) {
         if (str.includes(uWord)) {
             if (uVal === 1 && str.includes('одиннадцат')) return 11;
@@ -1564,299 +1279,84 @@ function parseExpStr(str) {
             if (uVal === 7 && str.includes('семнадцат')) return 17;
             if (uVal === 8 && str.includes('восемнадцат')) return 18;
             if (uVal === 9 && str.includes('девятнадцат')) return 19;
-            if (tenVal) return tenVal + uVal;
-            return uVal;
+            if (tenVal) return tenVal + uVal; return uVal;
         }
     }
-    for (let [tWord, tVal] of Object.entries(tens)) {
-        if (str.includes(tWord) || str.includes(tWord + 'ов') || str.includes(tWord + 'ой')) return tVal;
-    }
-    if (str.includes('одиннадцат')) return 11;
-    if (str.includes('двенадцат')) return 12;
-    if (str.includes('тринадцат')) return 13;
-    if (str.includes('четырнадцат')) return 14;
-    if (str.includes('пятнадцат')) return 15;
-    if (str.includes('шестнадцат')) return 16;
-    if (str.includes('семнадцат')) return 17;
-    if (str.includes('восемнадцат')) return 18;
-    if (str.includes('девятнадцат')) return 19;
-    if (str.includes('десят')) return 10;
-    return null;
+    for (let [tWord, tVal] of Object.entries(tens)) { if (str.includes(tWord) || str.includes(tWord + 'ов') || str.includes(tWord + 'ой')) return tVal; }
+    if (str.includes('одиннадцат')) return 11; if (str.includes('двенадцат')) return 12; if (str.includes('тринадцат')) return 13;
+    if (str.includes('четырнадцат')) return 14; if (str.includes('пятнадцат')) return 15; if (str.includes('шестнадцат')) return 16;
+    if (str.includes('семнадцат')) return 17; if (str.includes('восемнадцат')) return 18; if (str.includes('девятнадцат')) return 19;
+    if (str.includes('десят')) return 10; return null;
 }
-
 function parseRussianDegree(input) {
     let s = input.toLowerCase().trim().replace(/ё/g, 'е').replace(/\s+/g, ' ');
-
-    let squareMatch = s.match(/^(.*?)\s+(?:в|во)\s+квадрате$/);
-    if (squareMatch) return { base: squareMatch[1].replace(/\s+/g, ''), exp: 2 };
-
-    let cubeMatch = s.match(/^(.*?)\s+(?:в|во)\s+кубе$/);
-    if (cubeMatch) return { base: cubeMatch[1].replace(/\s+/g, ''), exp: 3 };
-
+    let squareMatch = s.match(/^(.*?)\s+(?:в|во)\s+квадрате$/); if (squareMatch) return { base: squareMatch[1].replace(/\s+/g, ''), exp: 2 };
+    let cubeMatch = s.match(/^(.*?)\s+(?:в|во)\s+кубе$/); if (cubeMatch) return { base: cubeMatch[1].replace(/\s+/g, ''), exp: 3 };
     let exp = null, base = null;
-
-    // 1. "в степени N"
-    let m1 = s.match(/^(.*?)\s+(?:в|во)\s+степени\s+(.+)$/);
-    if (m1) {
-        base = m1[1].trim();
-        exp = parseExpStr(m1[2].trim());
-    }
-
-    // 2. "в N степени"
-    if (exp === null) {
-        let m2 = s.match(/^(.*?)\s+(?:в|во)\s+(.+?)\s+степени$/);
-        if (m2) {
-            base = m2[1].trim();
-            exp = parseExpStr(m2[2].trim());
-        }
-    }
-
-    // 3. "в N-ю" (без слова степени)
-    if (exp === null) {
-        let m3 = s.match(/^(.*?)\s+(?:в|во)\s+([а-я]+(?:ую|юю|ую|ий|ой|ый))\s*$/);
-        if (m3) {
-            let val = parseExpStr(m3[2]);
-            if (val !== null) { base = m3[1].trim(); exp = val; }
-        }
-    }
-
-    if (exp !== null && base !== null) {
-        return { base: base.replace(/\s+/g, ''), exp };
-    }
-    return null;
+    let m1 = s.match(/^(.*?)\s+(?:в|во)\s+степени\s+(.+)$/); if (m1) { base = m1[1].trim(); exp = parseExpStr(m1[2].trim()); }
+    if (exp === null) { let m2 = s.match(/^(.*?)\s+(?:в|во)\s+(.+?)\s+степени$/); if (m2) { base = m2[1].trim(); exp = parseExpStr(m2[2].trim()); } }
+    if (exp === null) { let m3 = s.match(/^(.*?)\s+(?:в|во)\s+([а-я]+(?:ую|юю|ую|ий|ой|ый))\s*$/); if (m3) { let val = parseExpStr(m3[2]); if (val !== null) { base = m3[1].trim(); exp = val; } } }
+    if (exp !== null && base !== null) return { base: base.replace(/\s+/g, ''), exp }; return null;
 }
-
 function renderDegreeCalc(root) {
-    const hero = document.createElement('div'); hero.className = 'hero';
-    hero.innerHTML = `<p class="eyebrow">Калькулятор</p>
-        <h1>Калькулятор <em>степеней</em></h1>
-        <p class="sub">Пиши как удобно: <code>2^3</code>, <code>2 во второй степени</code>, <code>67 во 40 степени</code>, <code>x в кубе</code></p>`;
-    root.appendChild(hero);
-
+    const hero = document.createElement('div'); hero.className = 'hero'; hero.innerHTML = `<p class="eyebrow">Калькулятор</p><h1>Калькулятор <em>степеней</em></h1><p class="sub">Пиши как удобно: <code>2^3</code>, <code>2 во второй степени</code>, <code>67 во 40 степени</code>, <code>x в кубе</code></p>`; root.appendChild(hero);
     const panel = document.createElement('div'); panel.className = 'calc-panel';
-    panel.innerHTML = `
-        <p class="calc-hint">
-            Поддерживаются:<br>
-            • <code>2^3</code>, <code>2 во второй степени</code>, <code>2 во 2 степени</code><br>
-            • <code>x в кубе</code>, <code>a в квадрате</code>, <code>y в пятой степени</code><br>
-            • <code>3x^2y в кубе</code>, <code>(-2a) в степени 4</code>, <code>67 во 40 степени</code>
-        </p>
-        <div class="calc-input-row"><input type="text" class="calc-input" id="degInput" placeholder="Например: 67 во 40 степени" autocomplete="off" spellcheck="false"></div>
-        <div class="calc-buttons">
-            <button class="calc-op" onclick="fillDeg('2 во второй степени')">2²</button>
-            <button class="calc-op" onclick="fillDeg('2^10')">2¹⁰</button>
-            <button class="calc-op" onclick="fillDeg('x в кубе')">x³</button>
-            <button class="calc-op" onclick="fillDeg('(3x^2y) в кубе')">(3x²y)³</button>
-            <button class="calc-op" onclick="fillDeg('67 во 40 степени')">67⁴⁰</button>
-            <button class="calc-btn clear-btn" id="degClear">Очистить</button>
-        </div>
-        <button class="calc-btn" id="degGo" style="width:100%;">Возвести в степень</button>
-        <div class="calc-result" id="degResult"></div>`;
+    panel.innerHTML = `<p class="calc-hint">Поддерживаются:<br>• <code>2^3</code>, <code>2 во второй степени</code>, <code>2 во 2 степени</code><br>• <code>x в кубе</code>, <code>a в квадрате</code>, <code>y в пятой степени</code><br>• <code>3x^2y в кубе</code>, <code>(-2a) в степени 4</code>, <code>67 во 40 степени</code></p><div class="calc-input-row"><input type="text" class="calc-input" id="degInput" placeholder="Например: 67 во 40 степени" autocomplete="off" spellcheck="false"></div><div class="calc-buttons"><button class="calc-op" onclick="fillDeg('2 во второй степени')">2²</button><button class="calc-op" onclick="fillDeg('2^10')">2¹⁰</button><button class="calc-op" onclick="fillDeg('x в кубе')">x³</button><button class="calc-op" onclick="fillDeg('(3x^2y) в кубе')">(3x²y)³</button><button class="calc-op" onclick="fillDeg('67 во 40 степени')">67⁴⁰</button><button class="calc-btn clear-btn" id="degClear">Очистить</button></div><button class="calc-btn" id="degGo" style="width:100%;">Возвести в степень</button><div class="calc-result" id="degResult"></div>`;
     root.appendChild(panel);
-
     setTimeout(() => {
-        const input = document.getElementById('degInput');
-        const clearBtn = document.getElementById('degClear');
+        const input = document.getElementById('degInput'), clearBtn = document.getElementById('degClear');
         window.fillDeg = (text) => { input.value = text; input.focus(); calculateDegree(); };
         input.addEventListener('keydown', e => { if (e.key === 'Enter') calculateDegree(); });
         document.getElementById('degGo').onclick = calculateDegree;
         clearBtn.onclick = () => { input.value = ''; document.getElementById('degResult').classList.remove('visible', 'error'); input.focus(); };
     }, 0);
-
     function calculateDegree() {
-        const input = document.getElementById('degInput');
-        const result = document.getElementById('degResult');
-        result.classList.remove('error');
-
-        const raw = (input.value || '').trim();
-        if (!raw) { result.classList.add('visible', 'error'); result.innerHTML = `<h3>Пустой ввод</h3>`; return; }
-
+        const input = document.getElementById('degInput'), result = document.getElementById('degResult'); result.classList.remove('error');
+        const raw = (input.value || '').trim(); if (!raw) { result.classList.add('visible', 'error'); result.innerHTML = `<h3>Пустой ввод</h3>`; return; }
         let base = null, exp = null;
-
-        // 1. Русский парсер
-        const parsed = parseRussianDegree(raw);
-        if (parsed) { base = parsed.base; exp = parsed.exp; }
-        else {
-            // 2. Математический
-            let s = raw.replace(/×/g, '*').replace(/÷/g, '/').replace(/−/g, '-').trim();
-            let m = s.match(/^(.+?)\s*(?:\^|\*\*)\s*(\d+)$/);
-            if (m) { base = m[1].replace(/\s+/g, ''); exp = parseInt(m[2], 10); }
-        }
-
-        if (base === null || exp === null) {
-            result.classList.add('visible', 'error');
-            result.innerHTML = `<h3>Не понял</h3><div class="calc-steps">Попробуйте: <b>2^3</b>, <b>2 во второй степени</b>, <b>67 во 40 степени</b>, <b>x в кубе</b>.</div>`;
-            return;
-        }
-
-        if (isNaN(exp) || exp < 0 || exp > 1000) {
-            result.classList.add('visible', 'error');
-            result.innerHTML = `<h3>Неверный показатель</h3><div class="calc-steps">Показатель от 0 до 1000.</div>`;
-            return;
-        }
-
-        // Число
+        const parsed = parseRussianDegree(raw); if (parsed) { base = parsed.base; exp = parsed.exp; }
+        else { let s = raw.replace(/×/g, '*').replace(/÷/g, '/').replace(/−/g, '-').trim(); let m = s.match(/^(.+?)\s*(?:\^|\*\*)\s*(\d+)$/); if (m) { base = m[1].replace(/\s+/g, ''); exp = parseInt(m[2], 10); } }
+        if (base === null || exp === null) { result.classList.add('visible', 'error'); result.innerHTML = `<h3>Не понял</h3><div class="calc-steps">Попробуйте: <b>2^3</b>, <b>2 во второй степени</b>, <b>67 во 40 степени</b>, <b>x в кубе</b>.</div>`; return; }
+        if (isNaN(exp) || exp < 0 || exp > 1000) { result.classList.add('visible', 'error'); result.innerHTML = `<h3>Неверный показатель</h3><div class="calc-steps">Показатель от 0 до 1000.</div>`; return; }
         const isNumber = /^-?\d+(\.\d+)?$/.test(base);
         if (isNumber) {
-            const num = parseFloat(base);
-            const value = Math.pow(num, exp);
+            const num = parseFloat(base); const value = Math.pow(num, exp);
             const steps = [`<div class="step">Распознано: <b>${num}</b> в степени <b>${exp}</b></div>`];
             if (exp === 0) steps.push(`<div class="step">Любое число в степени 0 = <b>1</b></div>`);
             else if (exp === 1) steps.push(`<div class="step">Любое число в степени 1 = само число</div>`);
-            else if (exp <= 8) {
-                steps.push(`<div class="step">= ${Array(exp).fill(num).join(' · ')}</div>`);
-                steps.push(`<div class="step">Перемножаем: = <b>${value}</b></div>`);
-            } else steps.push(`<div class="step">= <b>${value}</b></div>`);
+            else if (exp <= 8) { steps.push(`<div class="step">= ${Array(exp).fill(num).join(' · ')}</div>`); steps.push(`<div class="step">Перемножаем: = <b>${value}</b></div>`); }
+            else steps.push(`<div class="step">= <b>${value}</b></div>`);
             if (exp % 2 === 0 && num < 0) steps.push(`<div class="step">Показатель чётный → результат <b>положительный</b></div>`);
             else if (exp % 2 === 1 && num < 0) steps.push(`<div class="step">Показатель нечётный → результат <b>отрицательный</b></div>`);
             const display = Number.isInteger(value) ? value : value.toFixed(6).replace(/\.?0+$/, '');
-            result.classList.add('visible');
-            result.innerHTML = `<h3>Решение</h3><div class="calc-steps">${steps.join('')}</div><div class="final">Ответ: ${display}</div>`;
-            return;
+            result.classList.add('visible'); result.innerHTML = `<h3>Решение</h3><div class="calc-steps">${steps.join('')}</div><div class="final">Ответ: ${display}</div>`; return;
         }
-
-        // Одночлен
         let mono = base.replace(/^\(/, '').replace(/\)$/, '');
         const m = mono.match(/^(-?\d*\.?\d*)([a-zA-Z].*)$/);
-        if (!m) {
-            result.classList.add('visible', 'error');
-            result.innerHTML = `<h3>Не понял одночлен</h3><div class="calc-steps">Примеры: <b>3x^2y</b>, <b>-2a</b>, <b>x</b>.</div>`;
-            return;
-        }
-
+        if (!m) { result.classList.add('visible', 'error'); result.innerHTML = `<h3>Не понял одночлен</h3><div class="calc-steps">Примеры: <b>3x^2y</b>, <b>-2a</b>, <b>x</b>.</div>`; return; }
         const coeffStr = m[1], varsStr = m[2];
         let coeff = coeffStr === '' || coeffStr === '+' ? 1 : coeffStr === '-' ? -1 : parseFloat(coeffStr);
-        const varRegex = /([a-zA-Z])(?:\^(\d+))?/g;
-        const vars = [];
-        let vm;
-        while ((vm = varRegex.exec(varsStr)) !== null) {
-            const letter = vm[1], power = vm[2] ? parseInt(vm[2], 10) : 1;
-            const ex = vars.find(v => v.letter === letter);
-            if (ex) ex.power += power;
-            else vars.push({ letter, power });
-        }
+        const varRegex = /([a-zA-Z])(?:\^(\d+))?/g; const vars = []; let vm;
+        while ((vm = varRegex.exec(varsStr)) !== null) { const letter = vm[1], power = vm[2] ? parseInt(vm[2], 10) : 1; const ex = vars.find(v => v.letter === letter); if (ex) ex.power += power; else vars.push({ letter, power }); }
         if (!vars.length) { result.classList.add('visible', 'error'); result.innerHTML = `<h3>Не понял одночлен</h3>`; return; }
-
-        const newCoeff = Math.pow(coeff, exp);
-        const newVars = vars.map(v => ({ letter: v.letter, power: v.power * exp }));
+        const newCoeff = Math.pow(coeff, exp); const newVars = vars.map(v => ({ letter: v.letter, power: v.power * exp }));
         const baseReadable = (coeff === 1 ? '' : coeff === -1 ? '−' : coeff) + vars.map(v => v.letter + (v.power === 1 ? '' : '<sup>' + v.power + '</sup>')).join('');
-
-        const steps = [
-            `<div class="step">Распознано: <b>(${baseReadable})<sup>${exp}</sup></b></div>`,
-            `<div class="step">Правило: <b>(a · b)<sup>n</sup> = a<sup>n</sup> · b<sup>n</sup></b></div>`
-        ];
-
+        const steps = [`<div class="step">Распознано: <b>(${baseReadable})<sup>${exp}</sup></b></div>`, `<div class="step">Правило: <b>(a · b)<sup>n</sup> = a<sup>n</sup> · b<sup>n</sup></b></div>`];
         if (exp === 0) steps.push(`<div class="step">Любой одночлен в степени 0 = <b>1</b></div>`);
         else {
             if (coeff !== 1 || vars.length === 0) steps.push(`<div class="step">Коэффициент: <b>${coeff}<sup>${exp}</sup> = ${newCoeff}</b></div>`);
-            vars.forEach(v => {
-                const newPow = v.power * exp;
-                steps.push(`<div class="step">Переменная: <b>(${v.letter}<sup>${v.power}</sup>)<sup>${exp}</sup> = ${v.letter}<sup>${v.power} · ${exp}</sup> = ${v.letter}<sup>${newPow}</sup></b></div>`);
-            });
+            vars.forEach(v => { const newPow = v.power * exp; steps.push(`<div class="step">Переменная: <b>(${v.letter}<sup>${v.power}</sup>)<sup>${exp}</sup> = ${v.letter}<sup>${v.power} · ${exp}</sup> = ${v.letter}<sup>${newPow}</sup></b></div>`); });
             steps.push(`<div class="step">Правило: при возведении степени в степень <b>показатели перемножаются</b></div>`);
         }
-
-        let resultStr = '';
-        const varsHTML = newVars.map(v => v.letter + (v.power === 1 ? '' : '<sup>' + v.power + '</sup>')).join('');
-        if (exp === 0) resultStr = '1';
-        else if (newCoeff === 1) resultStr = varsHTML || '1';
-        else if (newCoeff === -1) resultStr = '−' + varsHTML;
-        else resultStr = newCoeff + varsHTML;
-
-        result.classList.add('visible');
-        result.innerHTML = `<h3>Решение по шагам</h3><div class="calc-steps">${steps.join('')}</div><div class="final">Ответ: ${resultStr}</div>`;
+        let resultStr = ''; const varsHTML = newVars.map(v => v.letter + (v.power === 1 ? '' : '<sup>' + v.power + '</sup>')).join('');
+        if (exp === 0) resultStr = '1'; else if (newCoeff === 1) resultStr = varsHTML || '1'; else if (newCoeff === -1) resultStr = '−' + varsHTML; else resultStr = newCoeff + varsHTML;
+        result.classList.add('visible'); result.innerHTML = `<h3>Решение по шагам</h3><div class="calc-steps">${steps.join('')}</div><div class="final">Ответ: ${resultStr}</div>`;
     }
 }
 
-function renderGlossary(root) {
-    const hero = document.createElement('div'); hero.className = 'hero';
-    hero.innerHTML = `<p class="eyebrow">Словарь</p><h1>Термины по предметам</h1>
-        <p class="sub">${glossaryData.length} ${plural(glossaryData.length,'термин','термина','терминов')}</p>`;
-    root.appendChild(hero);
-    let items = glossaryData;
-    if (searchQuery) {
-        const q = searchQuery.toLowerCase();
-        items = items.filter(g => g.term.toLowerCase().includes(q) || g.definition.toLowerCase().includes(q));
-    }
-    if (!items.length) { const p = document.createElement('p'); p.className = 'empty-text'; p.textContent = 'Ничего не найдено.'; root.appendChild(p); return; }
-    const groups = {};
-    items.forEach(g => { (groups[g.subject] = groups[g.subject] || []).push(g); });
-    Object.keys(groups).forEach(subj => {
-        const label = document.createElement('p'); label.className = 'eyebrow'; label.style.marginTop = '20px';
-        label.textContent = SUBJECTS[subj] ? SUBJECTS[subj].name : subj;
-        root.appendChild(label);
-        groups[subj].forEach(g => {
-            const div = document.createElement('div'); div.className = 'glossary-item'; div.dataset.subject = g.subject;
-            div.innerHTML = `<h4>${escapeHtml(g.term)}</h4><p>${escapeHtml(g.definition)}</p>`;
-            root.appendChild(div);
-        });
-    });
-}
-function renderFlashcards(root) {
-    const hero = document.createElement('div'); hero.className = 'hero';
-    hero.innerHTML = `<p class="eyebrow">Флеш-карточки</p><h1>Английский язык</h1><p class="sub">Нажми на карточку, чтобы увидеть перевод</p>`;
-    root.appendChild(hero);
-    let items = flashcardsData;
-    if (searchQuery) {
-        const q = searchQuery.toLowerCase();
-        items = items.filter(f => f.word.toLowerCase().includes(q) || f.translation.toLowerCase().includes(q));
-    }
-    if (!items.length) { const p = document.createElement('p'); p.className = 'empty-text'; p.textContent = 'Ничего не найдено.'; root.appendChild(p); return; }
-    const grid = document.createElement('div'); grid.className = 'flashcards-grid';
-    items.forEach(f => {
-        const c = document.createElement('div'); c.className = 'flashcard'; c.onclick = () => c.classList.toggle('flipped');
-        c.innerHTML = `<div class="flashcard-inner"><div class="flashcard-face front">${escapeHtml(f.word)}</div><div class="flashcard-face back">${escapeHtml(f.translation)}</div></div>`;
-        grid.appendChild(c);
-    });
-    root.appendChild(grid);
-}
-function renderCreator(root) {
-    const hero = document.createElement('div'); hero.className = 'hero';
-    hero.innerHTML = `<p class="eyebrow">Творческая мастерская</p><h1>Заметка или <em>репортаж</em>?</h1><p class="sub">Сгенерируйте уникальный текст для домашнего задания. Каждый вариант показывается только один раз.</p>`;
-    root.appendChild(hero);
-    const panel = document.createElement('div'); panel.className = 'creator-panel';
-    panel.innerHTML = `
-        <div class="creator-buttons">
-            <button class="creator-btn note" onclick="generateWork('note')">📰 Сгенерировать заметку</button>
-            <button class="creator-btn reportage" onclick="generateWork('reportage')">🎙️ Сгенерировать репортаж</button>
-            <button class="creator-btn reset-btn" onclick="resetViewedAndRefresh()">🔄 Сбросить историю</button>
-        </div>
-        <div class="creator-output" id="creator-output"></div>
-        <div class="creator-stats" id="creator-stats"></div>`;
-    root.appendChild(panel);
-    updateCreatorStats();
-}
-function renderGeometry(root) {
-    const hero = document.createElement('div'); hero.className = 'hero';
-    hero.innerHTML = `<p class="eyebrow">Геометрия</p><h1>Определения и <em>вопросы</em></h1><p class="sub">${geometryQA.length} ${plural(geometryQA.length,'вопрос','вопроса','вопросов')} · нажми на вопрос, чтобы увидеть ответ</p>`;
-    root.appendChild(hero);
-    const searchWrap = document.createElement('div'); searchWrap.className = 'search-wrap';
-    searchWrap.innerHTML = `<input type="text" class="search-input" id="geoSearch" placeholder="Поиск по вопросам…"><button class="search-clear" id="geoSearchClear" aria-label="Очистить">✕</button>`;
-    root.appendChild(searchWrap);
-    const list = document.createElement('div'); list.className = 'qa-list'; list.id = 'qaList';
-    root.appendChild(list);
-    function renderList(query) {
-        list.innerHTML = '';
-        const q = (query || '').toLowerCase().trim();
-        let shown = 0;
-        geometryQA.forEach((item, i) => {
-            if (q && !(item.q.toLowerCase().includes(q) || item.a.toLowerCase().includes(q))) return;
-            shown++;
-            const det = document.createElement('details'); det.className = 'qa-item';
-            const sum = document.createElement('summary'); sum.textContent = item.q;
-            const ans = document.createElement('div'); ans.className = 'qa-answer'; ans.innerHTML = item.a;
-            det.append(sum, ans); det.addEventListener('toggle', () => { if (det.open) playClick(); });
-            list.appendChild(det);
-        });
-        if (!shown) { const p = document.createElement('p'); p.className = 'empty-text'; p.textContent = 'Ничего не найдено.'; list.appendChild(p); }
-    }
-    renderList('');
-    setTimeout(() => {
-        const inp = document.getElementById('geoSearch'), clr = document.getElementById('geoSearchClear');
-        if (inp) inp.addEventListener('input', e => { clr.classList.toggle('visible', !!e.target.value); renderList(e.target.value); });
-        if (clr) clr.onclick = () => { inp.value = ''; clr.classList.remove('visible'); renderList(''); inp.focus(); };
-    }, 0);
-}
+function renderGlossary(root) { const hero = document.createElement('div'); hero.className = 'hero'; hero.innerHTML = `<p class="eyebrow">Словарь</p><h1>Термины по предметам</h1><p class="sub">${glossaryData.length} ${plural(glossaryData.length,'термин','термина','терминов')}</p>`; root.appendChild(hero); let items = glossaryData; if (searchQuery) { const q = searchQuery.toLowerCase(); items = items.filter(g => g.term.toLowerCase().includes(q) || g.definition.toLowerCase().includes(q)); } if (!items.length) { const p = document.createElement('p'); p.className = 'empty-text'; p.textContent = 'Ничего не найдено.'; root.appendChild(p); return; } const groups = {}; items.forEach(g => { (groups[g.subject] = groups[g.subject] || []).push(g); }); Object.keys(groups).forEach(subj => { const label = document.createElement('p'); label.className = 'eyebrow'; label.style.marginTop = '20px'; label.textContent = SUBJECTS[subj] ? SUBJECTS[subj].name : subj; root.appendChild(label); groups[subj].forEach(g => { const div = document.createElement('div'); div.className = 'glossary-item'; div.dataset.subject = g.subject; div.innerHTML = `<h4>${escapeHtml(g.term)}</h4><p>${escapeHtml(g.definition)}</p>`; root.appendChild(div); }); }); }
+function renderFlashcards(root) { const hero = document.createElement('div'); hero.className = 'hero'; hero.innerHTML = `<p class="eyebrow">Флеш-карточки</p><h1>Английский язык</h1><p class="sub">Нажми на карточку, чтобы увидеть перевод</p>`; root.appendChild(hero); let items = flashcardsData; if (searchQuery) { const q = searchQuery.toLowerCase(); items = items.filter(f => f.word.toLowerCase().includes(q) || f.translation.toLowerCase().includes(q)); } if (!items.length) { const p = document.createElement('p'); p.className = 'empty-text'; p.textContent = 'Ничего не найдено.'; root.appendChild(p); return; } const grid = document.createElement('div'); grid.className = 'flashcards-grid'; items.forEach(f => { const c = document.createElement('div'); c.className = 'flashcard'; c.onclick = () => c.classList.toggle('flipped'); c.innerHTML = `<div class="flashcard-inner"><div class="flashcard-face front">${escapeHtml(f.word)}</div><div class="flashcard-face back">${escapeHtml(f.translation)}</div></div>`; grid.appendChild(c); }); root.appendChild(grid); }
+function renderCreator(root) { const hero = document.createElement('div'); hero.className = 'hero'; hero.innerHTML = `<p class="eyebrow">Творческая мастерская</p><h1>Заметка или <em>репортаж</em>?</h1><p class="sub">Сгенерируйте уникальный текст для домашнего задания. Каждый вариант показывается только один раз.</p>`; root.appendChild(hero); const panel = document.createElement('div'); panel.className = 'creator-panel'; panel.innerHTML = `<div class="creator-buttons"><button class="creator-btn note" onclick="generateWork('note')">📰 Сгенерировать заметку</button><button class="creator-btn reportage" onclick="generateWork('reportage')">🎙️ Сгенерировать репортаж</button><button class="creator-btn reset-btn" onclick="resetViewedAndRefresh()">🔄 Сбросить историю</button></div><div class="creator-output" id="creator-output"></div><div class="creator-stats" id="creator-stats"></div>`; root.appendChild(panel); updateCreatorStats(); }
 
 const lb = document.getElementById('lightbox');
 function openLightbox(src) { lb.querySelector('img').src = src; lb.classList.add('open'); document.body.style.overflow = 'hidden'; }
