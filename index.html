@@ -1244,68 +1244,8 @@ function parseExpStr(str) {
     for (let [tWord, tVal] of Object.entries(tens)) { if (str.includes(tWord)) { tenVal = tVal; break; } }
     for (let [uWord, uVal] of Object.entries(units)) {
         if (str.includes(uWord)) {
-            if (uVal === 1 && str.includes('одиннадцат')) return 11;
-            if (uVal === 2 && str.includes('двенадцат')) return 12;
-            if (uVal === 3 && str.includes('тринадцат')) return 13;
-            if (uVal === 4 && str.includes('четырнадцат')) return 14;
-            if (uVal === 5 && str.includes('пятнадцат')) return 15;
-            if (uVal === 6 && str.includes('шестнадцат')) return 16;
-            if (uVal === 7 && str.includes('семнадцат')) return 17;
-            if (uVal === 8 && str.includes('восемнадцат')) return 18;
-            if (uVal === 9 && str.includes('девятнадцат')) return 19;
-            if (tenVal) return tenVal + uVal; return uVal;
-        }
-    }
-    for (let [tWord, tVal] of Object.entries(tens)) { if (str.includes(tWord) || str.includes(tWord + 'ов') || str.includes(tWord + 'ой')) return tVal; }
-    if (str.includes('одиннадцат')) return 11; if (str.includes('двенадцат')) return 12; if (str.includes('тринадцат')) return 13;
-    if (str.includes('четырнадцат')) return 14; if (str.includes('пятнадцат')) return 15; if (str.includes('шестнадцат')) return 16;
-    if (str.includes('семнадцат')) return 17; if (str.includes('восемнадцат')) return 18; if (str.includes('девятнадцат')) return 19;
-    if (str.includes('десят')) return 10; return null;
-}
-function parseRussianDegree(input) {
-    let s = input.toLowerCase().trim().replace(/ё/g, 'е').replace(/\s+/g, ' ');
-    let squareMatch = s.match(/^(.*?)\s+(?:в|во)\s+квадрате$/); if (squareMatch) return { base: squareMatch[1].replace(/\s+/g, ''), exp: 2 };
-    let cubeMatch = s.match(/^(.*?)\s+(?:в|во)\s+кубе$/); if (cubeMatch) return { base: cubeMatch[1].replace(/\s+/g, ''), exp: 3 };
-    let exp = null, base = null;
-    let m1 = s.match(/^(.*?)\s+(?:в|во)\s+степени\s+(.+)$/); if (m1) { base = m1[1].trim(); exp = parseExpStr(m1[2].trim()); }
-    if (exp === null) { let m2 = s.match(/^(.*?)\s+(?:в|во)\s+(.+?)\s+степени$/); if (m2) { base = m2[1].trim(); exp = parseExpStr(m2[2].trim()); } }
-    if (exp === null) { let m3 = s.match(/^(.*?)\s+(?:в|во)\s+([а-я]+(?:ую|юю|ую|ий|ой|ый))\s*$/); if (m3) { let val = parseExpStr(m3[2]); if (val !== null) { base = m3[1].trim(); exp = val; } } }
-    if (exp !== null && base !== null) return { base: base.replace(/\s+/g, ''), exp }; return null;
-}
-function renderDegreeCalc(root) {
-    const hero = document.createElement('div'); hero.className = 'hero'; hero.innerHTML = `<p class="eyebrow">Калькулятор</p><h1>Калькулятор <em>степеней</em></h1><p class="sub">Пиши как удобно: <code>2^3</code>, <code>2 во второй степени</code>, <code>67 во 40 степени</code>, <code>x в кубе</code></p>`; root.appendChild(hero);
-    const panel = document.createElement('div'); panel.className = 'calc-panel';
-    panel.innerHTML = `<p class="calc-hint">Поддерживаются:<br>• <code>2^3</code>, <code>2 во второй степени</code>, <code>2 во 2 степени</code><br>• <code>x в кубе</code>, <code>a в квадрате</code>, <code>y в пятой степени</code><br>• <code>3x^2y в кубе</code>, <code>(-2a) в степени 4</code>, <code>67 во 40 степени</code></p><div class="calc-input-row"><input type="text" class="calc-input" id="degInput" placeholder="Например: 67 во 40 степени" autocomplete="off" spellcheck="false"></div><div class="calc-buttons"><button class="calc-op" onclick="fillDeg('2 во второй степени')">2²</button><button class="calc-op" onclick="fillDeg('2^10')">2¹⁰</button><button class="calc-op" onclick="fillDeg('x в кубе')">x³</button><button class="calc-op" onclick="fillDeg('(3x^2y) в кубе')">(3x²y)³</button><button class="calc-op" onclick="fillDeg('67 во 40 степени')">67⁴⁰</button><button class="calc-btn clear-btn" id="degClear">Очистить</button></div><button class="calc-btn" id="degGo" style="width:100%;">Возвести в степень</button><div class="calc-result" id="degResult"></div>`;
-    root.appendChild(panel);
-    setTimeout(() => {
-        const input = document.getElementById('degInput'), clearBtn = document.getElementById('degClear');
-        window.fillDeg = (text) => { input.value = text; input.focus(); calculateDegree(); };
-        input.addEventListener('keydown', e => { if (e.key === 'Enter') calculateDegree(); });
-        document.getElementById('degGo').onclick = calculateDegree;
-        clearBtn.onclick = () => { input.value = ''; document.getElementById('degResult').classList.remove('visible', 'error'); input.focus(); };
-    }, 0);
-    function calculateDegree() {
-        const input = document.getElementById('degInput'), result = document.getElementById('degResult'); result.classList.remove('error');
-        const raw = (input.value || '').trim(); if (!raw) { result.classList.add('visible', 'error'); result.innerHTML = `<h3>Пустой ввод</h3>`; return; }
-        let base = null, exp = null;
-        const parsed = parseRussianDegree(raw); if (parsed) { base = parsed.base; exp = parsed.exp; }
-        else { let s = raw.replace(/×/g, '*').replace(/÷/g, '/').replace(/−/g, '-').trim(); let m = s.match(/^(.+?)\s*(?:\^|\*\*)\s*(\d+)$/); if (m) { base = m[1].replace(/\s+/g, ''); exp = parseInt(m[2], 10); } }
-        if (base === null || exp === null) { result.classList.add('visible', 'error'); result.innerHTML = `<h3>Не понял</h3><div class="calc-steps">Попробуйте: <b>2^3</b>, <b>2 во второй степени</b>, <b>67 во 40 степени</b>, <b>x в кубе</b>.</div>`; return; }
-        if (isNaN(exp) || exp < 0 || exp > 1000) { result.classList.add('visible', 'error'); result.innerHTML = `<h3>Неверный показатель</h3><div class="calc-steps">Показатель от 0 до 1000.</div>`; return; }
-        const isNumber = /^-?\d+(\.\d+)?$/.test(base);
-        if (isNumber) {
-            const num = parseFloat(base); const value = Math.pow(num, exp);
-            const steps = [`<div class="step">Распознано: <b>${num}</b> в степени <b>${exp}</b></div>`];
-            if (exp === 0) steps.push(`<div class="step">Любое число в степени 0 = <b>1</b></div>`);
-            else if (exp === 1) steps.push(`<div class="step">Любое число в степени 1 = само число</div>`);
-            else if (exp <= 8) { steps.push(`<div class="step">= ${Array(exp).fill(num).join(' · ')}</div>`); steps.push(`<div class="step">Перемножаем: = <b>${value}</b></div>`); }
-            else steps.push(`<div class="step">= <b>${value}</b></div>`);
-            if (exp % 2 === 0 && num < 0) steps.push(`<div class="step">Показатель чётный → результат <b>положительный</b></div>`);
-            else if (exp % 2 === 1 && num < 0) steps.push(`<div class="step">Показатель нечётный → результат <b>отрицательный</b></div>`);
-            const display = Number.isInteger(value) ? value : value.toFixed(6).replace(/\.?0+$/, '');
-            result.classList.add('visible'); result.innerHTML = `<h3>Решение</h3><div class="calc-steps">${steps.join('')}</div><div class="final">Ответ: ${display}</div>`; return;
-        }
-        let mono = base.replace(/^\(/, '').replace(/\)$/, '');
+267998
+(/^\(/, '').replace(/\)$/, '');
         const m = mono.match(/^(-?\d*\.?\d*)([a-zA-Z].*)$/);
         if (!m) { result.classList.add('visible', 'error'); result.innerHTML = `<h3>Не понял одночлен</h3><div class="calc-steps">Примеры: <b>3x^2y</b>, <b>-2a</b>, <b>x</b>.</div>`; return; }
         const coeffStr = m[1], varsStr = m[2];
