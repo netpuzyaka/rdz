@@ -476,6 +476,47 @@ body.cursor-ready .cursor-dot, body.cursor-ready .cursor-ring { opacity: 1; }
    ДАННЫЕ
    ========================================================== */
 const homeworkData = [
+    // --- СРЕДА, 21 ОКТЯБРЯ ---
+    {
+        date: '2026-10-21', subject: 'geometry', title: 'Задача (фото) — решение будет позже', type: 'task',
+        image: 'https://allwebs.ru/images/2026/10/20/0d2fb682c7c3fa098524cf329eda6156.jpg',
+        imageCaption: 'Фото задания по геометрии',
+        content: `<p style="font-size:14px; color:var(--muted); font-style:italic;">Решение будет добавлено после предоставления фото.</p>`
+    },
+    {
+        date: '2026-10-21', subject: 'algebra', title: '№ 494, 495 + свойства степеней', type: 'task',
+        content: `<p><b>Письменно:</b> № 494, № 495.</p>
+        <p style="margin-top:10px;"><b>Повторить:</b> свойства степеней:</p>
+        <ul style="padding-left:20px; line-height:1.8;">
+            <li><b>aⁿ · aᵐ = aⁿ⁺ᵐ</b> (при умножении показатели складываются)</li>
+            <li><b>aⁿ : aᵐ = aⁿ⁻ᵐ</b> (при делении показатели вычитаются)</li>
+            <li><b>(aⁿ)ᵐ = aⁿᵐ</b> (при возведении степени в степень показатели перемножаются)</li>
+            <li><b>(ab)ⁿ = aⁿbⁿ</b></li>
+        </ul>
+        <p style="margin-top:10px; font-size:13px; color:var(--muted); font-style:italic;">* Решение будет добавлено после предоставления фото.</p>`
+    },
+    {
+        date: '2026-10-21', subject: 'probability', title: '№ 31, 35', type: 'task',
+        content: `<p>Выполнить задания <b>№ 31</b> и <b>№ 35</b>.</p>
+        <p style="margin-top:10px; font-size:13px; color:var(--muted); font-style:italic;">* Решение будет добавлено после предоставления фото.</p>`
+    },
+    {
+        date: '2026-10-21', subject: 'physics', title: 'Упражнение 6 (3, 4, 5)', type: 'task',
+        content: `<p>Выполнить <b>упражнение 6</b>, задания <b>3, 4, 5</b>.</p>
+        <p style="margin-top:10px; font-size:13px; color:var(--muted); font-style:italic;">* Решение будет добавлено после предоставления фото.</p>`
+    },
+    {
+        date: '2026-10-21', subject: 'geography', title: '§ 15 — читать, записи знать', type: 'task',
+        content: `<p>Прочитать параграф <b>§ 15</b>, знать записи в тетради.</p>`
+    },
+    {
+        date: '2026-10-21', subject: 'literature', title: 'Ответы (те, кто не отвечал)', type: 'task',
+        content: `<p>Те, кто не отвечал, будут отвечать.</p>`
+    },
+    {
+        date: '2026-10-21', subject: 'russian', title: 'Повторить причастия', type: 'task',
+        content: `<p>Повторить материал о <b>причастиях</b>.</p>`
+    },
     // --- ВТОРНИК, 20 ОКТЯБРЯ ---
     {
         date: '2026-10-20', subject: 'english', title: 'Стр. 21 — The Gift of Storytelling (перевод)', type: 'task',
@@ -510,15 +551,15 @@ const homeworkData = [
         </ul>`
     },
     {
-        date: '2026-10-20', subject: 'geometry', title: '№ 66 (б) (или № 70 в др. учебнике) + вопросы 1-26', type: 'task',
+        date: '2026-10-20', subject: 'geometry', title: '№ 70 (б) + вопросы 1-26', type: 'task',
         content: `
         <div class="geo-grid">
             <div class="geo-box given">
-                <span class="geo-title">Дано:</span>
+                <span class="geo-title">Дано (б):</span>
                 <ul>
-                    <li>Две пересекающиеся прямые</li>
-                    <li>∠1 и ∠3 — вертикальные</li>
-                    <li>∠2 и ∠4 — вертикальные</li>
+                    <li>∠1 и ∠2 — смежные</li>
+                    <li>∠3 и ∠4 — смежные</li>
+                    <li>∠1 = ∠3; ∠2 = ∠4</li>
                     <li><b>3(∠1 + ∠3) = ∠2 + ∠4</b></li>
                 </ul>
             </div>
@@ -529,17 +570,16 @@ const homeworkData = [
         </div>
         
         <div class="geo-box solve" style="margin-bottom:16px;">
-            <span class="geo-title">Решение:</span>
+            <span class="geo-title">Решение (б):</span>
             <ol>
-                <li>Так как ∠1 и ∠3 вертикальные, то <b>∠1 = ∠3</b>.<br>Так как ∠2 и ∠4 вертикальные, то <b>∠2 = ∠4</b>.</li>
-                <li>Подставим это в исходное условие:<br>
+                <li>Так как ∠1 = ∠3 и ∠2 = ∠4, подставим это в исходное условие:<br>
                     <b>3(∠1 + ∠1) = ∠2 + ∠2</b><br>
                     <b>6∠1 = 2∠2</b>
                 </li>
-                <li>Сократим обе части на 2, получим:<br>
+                <li>Разделим обе части на 2:<br>
                     <b>3∠1 = ∠2</b>
                 </li>
-                <li>Углы 1 и 2 — смежные (образуют развёрнутый угол), значит их сумма равна 180°:<br>
+                <li>Углы 1 и 2 — смежные, их сумма 180°:<br>
                     <b>∠1 + ∠2 = 180°</b>
                 </li>
                 <li>Заменим ∠2 на 3∠1:<br>
@@ -844,12 +884,12 @@ const SUBJECTS = {
     russian: { name: 'Русский язык' }, history: { name: 'История' },
     geography: { name: 'География' }, english: { name: 'Английский язык' },
     physics: { name: 'Физика' }, biology: { name: 'Биология' },
-    literature: { name: 'Литература' }
+    literature: { name: 'Литература' }, probability: { name: 'Вероятность и статистика' }
 };
 const MONTHS = ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"];
 
 let currentSubject = 'all';
-let selectedDate = '2026-10-20';
+let selectedDate = '2026-10-21'; // По умолчанию открывается 21 октября
 let currentMonth = 9;
 let currentYear = 2026;
 let searchQuery = '';
@@ -1048,7 +1088,7 @@ function buildSidebar() {
     const mainLabel = document.createElement('div'); mainLabel.className = 'nav-label'; mainLabel.textContent = 'Разделы'; sb.appendChild(mainLabel);
     ['all','bookmarks','schedule','textbooks','calculator','degreecalc','glossary','flashcards','creator'].forEach(k => sb.appendChild(makeNavBtn(k)));
     const subjLabel = document.createElement('div'); subjLabel.className = 'nav-label'; subjLabel.textContent = 'Предметы'; sb.appendChild(subjLabel);
-    ['algebra','geometry','russian','literature','history','geography','english','physics','biology'].forEach(k => sb.appendChild(makeNavBtn(k)));
+    ['algebra','geometry','russian','literature','history','geography','english','physics','biology','probability'].forEach(k => sb.appendChild(makeNavBtn(k)));
     const foot = document.createElement('div'); foot.className = 'sidebar-foot';
     foot.innerHTML = `<button class="icon-btn" id="themeBtn" title="Сменить тему">${document.body.dataset.theme === 'light' ? '🌙' : '☀️'}</button><button class="icon-btn" id="notifBtn" title="Уведомления">🔔</button><button class="icon-btn sound ${soundEnabled ? '' : 'off'}" id="soundBtn" title="Звук кликов">🔊</button>`;
     sb.appendChild(foot);
@@ -1077,7 +1117,7 @@ function makeNavBtn(key) {
 
 function renderContent() {
     const root = document.getElementById('content'); root.innerHTML = ''; root.classList.remove('page-enter'); void root.offsetWidth; root.classList.add('page-enter');
-    if (['all','bookmarks','algebra','russian','history','geography','english','physics','biology','geometry','literature'].includes(currentSubject)) root.appendChild(buildSearchBar());
+    if (['all','bookmarks','algebra','russian','history','geography','english','physics','biology','geometry','literature','probability'].includes(currentSubject)) root.appendChild(buildSearchBar());
     if (currentSubject === 'schedule') return renderSchedule(root); if (currentSubject === 'textbooks') return renderTextbooks(root);
     if (currentSubject === 'calculator') return renderCalculator(root); if (currentSubject === 'degreecalc') return renderDegreeCalc(root);
     if (currentSubject === 'glossary') return renderGlossary(root); if (currentSubject === 'flashcards') return renderFlashcards(root);
@@ -1244,8 +1284,68 @@ function parseExpStr(str) {
     for (let [tWord, tVal] of Object.entries(tens)) { if (str.includes(tWord)) { tenVal = tVal; break; } }
     for (let [uWord, uVal] of Object.entries(units)) {
         if (str.includes(uWord)) {
-267998
-(/^\(/, '').replace(/\)$/, '');
+            if (uVal === 1 && str.includes('одиннадцат')) return 11;
+            if (uVal === 2 && str.includes('двенадцат')) return 12;
+            if (uVal === 3 && str.includes('тринадцат')) return 13;
+            if (uVal === 4 && str.includes('четырнадцат')) return 14;
+            if (uVal === 5 && str.includes('пятнадцат')) return 15;
+            if (uVal === 6 && str.includes('шестнадцат')) return 16;
+            if (uVal === 7 && str.includes('семнадцат')) return 17;
+            if (uVal === 8 && str.includes('восемнадцат')) return 18;
+            if (uVal === 9 && str.includes('девятнадцат')) return 19;
+            if (tenVal) return tenVal + uVal; return uVal;
+        }
+    }
+    for (let [tWord, tVal] of Object.entries(tens)) { if (str.includes(tWord) || str.includes(tWord + 'ов') || str.includes(tWord + 'ой')) return tVal; }
+    if (str.includes('одиннадцат')) return 11; if (str.includes('двенадцат')) return 12; if (str.includes('тринадцат')) return 13;
+    if (str.includes('четырнадцат')) return 14; if (str.includes('пятнадцат')) return 15; if (str.includes('шестнадцат')) return 16;
+    if (str.includes('семнадцат')) return 17; if (str.includes('восемнадцат')) return 18; if (str.includes('девятнадцат')) return 19;
+    if (str.includes('десят')) return 10; return null;
+}
+function parseRussianDegree(input) {
+    let s = input.toLowerCase().trim().replace(/ё/g, 'е').replace(/\s+/g, ' ');
+    let squareMatch = s.match(/^(.*?)\s+(?:в|во)\s+квадрате$/); if (squareMatch) return { base: squareMatch[1].replace(/\s+/g, ''), exp: 2 };
+    let cubeMatch = s.match(/^(.*?)\s+(?:в|во)\s+кубе$/); if (cubeMatch) return { base: cubeMatch[1].replace(/\s+/g, ''), exp: 3 };
+    let exp = null, base = null;
+    let m1 = s.match(/^(.*?)\s+(?:в|во)\s+степени\s+(.+)$/); if (m1) { base = m1[1].trim(); exp = parseExpStr(m1[2].trim()); }
+    if (exp === null) { let m2 = s.match(/^(.*?)\s+(?:в|во)\s+(.+?)\s+степени$/); if (m2) { base = m2[1].trim(); exp = parseExpStr(m2[2].trim()); } }
+    if (exp === null) { let m3 = s.match(/^(.*?)\s+(?:в|во)\s+([а-я]+(?:ую|юю|ую|ий|ой|ый))\s*$/); if (m3) { let val = parseExpStr(m3[2]); if (val !== null) { base = m3[1].trim(); exp = val; } } }
+    if (exp !== null && base !== null) return { base: base.replace(/\s+/g, ''), exp }; return null;
+}
+function renderDegreeCalc(root) {
+    const hero = document.createElement('div'); hero.className = 'hero'; hero.innerHTML = `<p class="eyebrow">Калькулятор</p><h1>Калькулятор <em>степеней</em></h1><p class="sub">Пиши как удобно: <code>2^3</code>, <code>2 во второй степени</code>, <code>67 во 40 степени</code>, <code>x в кубе</code></p>`; root.appendChild(hero);
+    const panel = document.createElement('div'); panel.className = 'calc-panel';
+    panel.innerHTML = `<p class="calc-hint">Поддерживаются:<br>• <code>2^3</code>, <code>2 во второй степени</code>, <code>2 во 2 степени</code><br>• <code>x в кубе</code>, <code>a в квадрате</code>, <code>y в пятой степени</code><br>• <code>3x^2y в кубе</code>, <code>(-2a) в степени 4</code>, <code>67 во 40 степени</code></p><div class="calc-input-row"><input type="text" class="calc-input" id="degInput" placeholder="Например: 67 во 40 степени" autocomplete="off" spellcheck="false"></div><div class="calc-buttons"><button class="calc-op" onclick="fillDeg('2 во второй степени')">2²</button><button class="calc-op" onclick="fillDeg('2^10')">2¹⁰</button><button class="calc-op" onclick="fillDeg('x в кубе')">x³</button><button class="calc-op" onclick="fillDeg('(3x^2y) в кубе')">(3x²y)³</button><button class="calc-op" onclick="fillDeg('67 во 40 степени')">67⁴⁰</button><button class="calc-btn clear-btn" id="degClear">Очистить</button></div><button class="calc-btn" id="degGo" style="width:100%;">Возвести в степень</button><div class="calc-result" id="degResult"></div>`;
+    root.appendChild(panel);
+    setTimeout(() => {
+        const input = document.getElementById('degInput'), clearBtn = document.getElementById('degClear');
+        window.fillDeg = (text) => { input.value = text; input.focus(); calculateDegree(); };
+        input.addEventListener('keydown', e => { if (e.key === 'Enter') calculateDegree(); });
+        document.getElementById('degGo').onclick = calculateDegree;
+        clearBtn.onclick = () => { input.value = ''; document.getElementById('degResult').classList.remove('visible', 'error'); input.focus(); };
+    }, 0);
+    function calculateDegree() {
+        const input = document.getElementById('degInput'), result = document.getElementById('degResult'); result.classList.remove('error');
+        const raw = (input.value || '').trim(); if (!raw) { result.classList.add('visible', 'error'); result.innerHTML = `<h3>Пустой ввод</h3>`; return; }
+        let base = null, exp = null;
+        const parsed = parseRussianDegree(raw); if (parsed) { base = parsed.base; exp = parsed.exp; }
+        else { let s = raw.replace(/×/g, '*').replace(/÷/g, '/').replace(/−/g, '-').trim(); let m = s.match(/^(.+?)\s*(?:\^|\*\*)\s*(\d+)$/); if (m) { base = m[1].replace(/\s+/g, ''); exp = parseInt(m[2], 10); } }
+        if (base === null || exp === null) { result.classList.add('visible', 'error'); result.innerHTML = `<h3>Не понял</h3><div class="calc-steps">Попробуйте: <b>2^3</b>, <b>2 во второй степени</b>, <b>67 во 40 степени</b>, <b>x в кубе</b>.</div>`; return; }
+        if (isNaN(exp) || exp < 0 || exp > 1000) { result.classList.add('visible', 'error'); result.innerHTML = `<h3>Неверный показатель</h3><div class="calc-steps">Показатель от 0 до 1000.</div>`; return; }
+        const isNumber = /^-?\d+(\.\d+)?$/.test(base);
+        if (isNumber) {
+            const num = parseFloat(base); const value = Math.pow(num, exp);
+            const steps = [`<div class="step">Распознано: <b>${num}</b> в степени <b>${exp}</b></div>`];
+            if (exp === 0) steps.push(`<div class="step">Любое число в степени 0 = <b>1</b></div>`);
+            else if (exp === 1) steps.push(`<div class="step">Любое число в степени 1 = само число</div>`);
+            else if (exp <= 8) { steps.push(`<div class="step">= ${Array(exp).fill(num).join(' · ')}</div>`); steps.push(`<div class="step">Перемножаем: = <b>${value}</b></div>`); }
+            else steps.push(`<div class="step">= <b>${value}</b></div>`);
+            if (exp % 2 === 0 && num < 0) steps.push(`<div class="step">Показатель чётный → результат <b>положительный</b></div>`);
+            else if (exp % 2 === 1 && num < 0) steps.push(`<div class="step">Показатель нечётный → результат <b>отрицательный</b></div>`);
+            const display = Number.isInteger(value) ? value : value.toFixed(6).replace(/\.?0+$/, '');
+            result.classList.add('visible'); result.innerHTML = `<h3>Решение</h3><div class="calc-steps">${steps.join('')}</div><div class="final">Ответ: ${display}</div>`; return;
+        }
+        let mono = base.replace(/^\(/, '').replace(/\)$/, '');
         const m = mono.match(/^(-?\d*\.?\d*)([a-zA-Z].*)$/);
         if (!m) { result.classList.add('visible', 'error'); result.innerHTML = `<h3>Не понял одночлен</h3><div class="calc-steps">Примеры: <b>3x^2y</b>, <b>-2a</b>, <b>x</b>.</div>`; return; }
         const coeffStr = m[1], varsStr = m[2];
