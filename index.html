@@ -241,6 +241,7 @@ body.cursor-ready .cursor-dot, body.cursor-ready .cursor-ring { opacity: 1; }
 .eng-table th { background: var(--panel-2); color: var(--gold); font-size: 11.5px; text-transform: uppercase; letter-spacing: 1px; }
 .eng-table td:first-child { color: var(--english); font-weight: 600; }
 .task-image { display: block; max-width: 100%; height: auto; margin: 0 auto 12px; cursor: zoom-in; border-radius: 10px; border: 1px solid var(--border); }
+.task-image.small-img { max-width: 450px; width: 100%; } /* Новый стиль для уменьшения фото */
 .image-caption { text-align: center; color: var(--muted); font-size: 12px; margin: 0 0 12px; font-style: italic; }
 .note { margin: 8px 0 0; font-size: 12.5px; color: var(--muted); word-break: break-all; }
 .note a { color: var(--gold); }
@@ -480,10 +481,7 @@ const homeworkData = [
     // --- СРЕДА, 21 ОКТЯБРЯ ---
     {
         date: '2026-10-21', subject: 'physics', title: 'Упражнение 6 (3, 4, 5)', type: 'task',
-        images: [
-            'https://allwebs.ru/images/2026/10/20/0d2fb682c7c3fa098524cf329eda6156.jpg' // Используем картинку с задачами (условно)
-        ],
-        imageCaption: 'Фото задания по физике',
+        // Убрал фото, которое было по ошибке
         content: `
         <p><b>Задание 3.</b><br>
         Возраст 12 лет. 1 год = 365 дней, каждый 4-й — високосный.<br>
@@ -510,9 +508,7 @@ const homeworkData = [
     },
     {
         date: '2026-10-21', subject: 'probability', title: '№ 31, 35', type: 'task',
-        images: [
-            'https://allwebs.ru/images/2026/10/20/254e6644f5cfa7830a25e464801b9e73.png' // Условное фото, если пришлешь новые - заменю
-        ],
+        image: 'https://allwebs.ru/images/2026/10/20/254e6644f5cfa7830a25e464801b9e73.png',
         imageCaption: 'Фото заданий по статистике',
         content: `
         <p><b>№ 31.</b><br>
@@ -576,29 +572,29 @@ const homeworkData = [
         imageCaption: 'Фото заданий № 494 и 495',
         content: `
         <p><b>№ 494. Какой одночлен надо возвести в квадрат (в куб), чтобы получить одночлен:</b></p>
-        <p><b>а)</b> \(x^6y^{12}\)<br>
-        В квадрат: <b>(\(x^3y^6\))²</b><br>
-        В куб: <b>(\(x^2y^4\))³</b></p>
-        <p><b>б)</b> \(1000000m^{18}\)<br>
-        В квадрат: <b>(\(1000m^9\))²</b><br>
-        В куб: <b>(\(100m^6\))³</b></p>
+        <p><b>а)</b> x<sup>6</sup>y<sup>12</sup><br>
+        В квадрат: <b>(x<sup>3</sup>y<sup>6</sup>)<sup>2</sup></b><br>
+        В куб: <b>(x<sup>2</sup>y<sup>4</sup>)<sup>3</sup></b></p>
+        <p><b>б)</b> 1000000m<sup>18</sup><br>
+        В квадрат: <b>(1000m<sup>9</sup>)<sup>2</sup></b><br>
+        В куб: <b>(100m<sup>6</sup>)<sup>3</sup></b></p>
         
         <p style="margin-top:16px;"><b>№ 495. Представьте выражение в виде одночлена стандартного вида:</b></p>
         <ul style="padding-left:20px; line-height:1.9;">
-            <li><b>а)</b> \(25a^4 \cdot (3a^3)^2 = 25a^4 \cdot 9a^6 = \mathbf{225a^{10}}\)</li>
-            <li><b>б)</b> \((-3b^6)^4 \cdot b = 81b^{24} \cdot b = \mathbf{81b^{25}}\)</li>
-            <li><b>в)</b> \(8p^{15} \cdot (-p)^4 = 8p^{15} \cdot p^4 = \mathbf{8p^{19}}\)</li>
-            <li><b>г)</b> \((-c^2)^3 \cdot 0,15c^4 = -c^6 \cdot 0,15c^4 = \mathbf{-0,15c^{10}}\)</li>
-            <li><b>д)</b> \((-10c^2)^4 \cdot 0,0001c^{11} = 10000c^8 \cdot 0,0001c^{11} = \mathbf{c^{19}}\)</li>
-            <li><b>е)</b> \((-3b^5)^2 \cdot \frac{2}{9}b^3 = 9b^{10} \cdot \frac{2}{9}b^3 = \mathbf{2b^{13}}\)</li>
-            <li><b>ж)</b> \((-2x^3)^2 \cdot (-\frac{1}{4}x^4) = 4x^6 \cdot (-\frac{1}{4}x^4) = \mathbf{-x^{10}}\)</li>
-            <li><b>з)</b> \((-\frac{1}{2}y^4)^3 \cdot (-16y^2) = -\frac{1}{8}y^{12} \cdot (-16y^2) = \mathbf{2y^{14}}\)</li>
+            <li><b>а)</b> 25a<sup>4</sup> &middot; (3a<sup>3</sup>)<sup>2</sup> = 25a<sup>4</sup> &middot; 9a<sup>6</sup> = <b>225a<sup>10</sup></b></li>
+            <li><b>б)</b> (-3b<sup>6</sup>)<sup>4</sup> &middot; b = 81b<sup>24</sup> &middot; b = <b>81b<sup>25</sup></b></li>
+            <li><b>в)</b> 8p<sup>15</sup> &middot; (-p)<sup>4</sup> = 8p<sup>15</sup> &middot; p<sup>4</sup> = <b>8p<sup>19</sup></b></li>
+            <li><b>г)</b> (-c<sup>2</sup>)<sup>3</sup> &middot; 0,15c<sup>4</sup> = -c<sup>6</sup> &middot; 0,15c<sup>4</sup> = <b>-0,15c<sup>10</sup></b></li>
+            <li><b>д)</b> (-10c<sup>2</sup>)<sup>4</sup> &middot; 0,0001c<sup>11</sup> = 10000c<sup>8</sup> &middot; 0,0001c<sup>11</sup> = <b>c<sup>19</sup></b></li>
+            <li><b>е)</b> (-3b<sup>5</sup>)<sup>2</sup> &middot; (2/9)b<sup>3</sup> = 9b<sup>10</sup> &middot; (2/9)b<sup>3</sup> = <b>2b<sup>13</sup></b></li>
+            <li><b>ж)</b> (-2x<sup>3</sup>)<sup>2</sup> &middot; (-1/4 x<sup>4</sup>) = 4x<sup>6</sup> &middot; (-1/4 x<sup>4</sup>) = <b>-x<sup>10</sup></b></li>
+            <li><b>з)</b> (-1/2 y<sup>4</sup>)<sup>3</sup> &middot; (-16y<sup>2</sup>) = -1/8 y<sup>12</sup> &middot; (-16y<sup>2</sup>) = <b>2y<sup>14</sup></b></li>
         </ul>
         <p style="margin-top:14px; font-size:13.5px; color:var(--muted);">
             <b>Повторить свойства степеней:</b><br>
-            • \(a^n \cdot a^m = a^{n+m}\)<br>
-            • \(a^n : a^m = a^{n-m}\)<br>
-            • \((a^n)^m = a^{n \cdot m}\)
+            • a<sup>n</sup> &middot; a<sup>m</sup> = a<sup>n+m</sup><br>
+            • a<sup>n</sup> : a<sup>m</sup> = a<sup>n-m</sup><br>
+            • (a<sup>n</sup>)<sup>m</sup> = a<sup>n&middot;m</sup>
         </p>`
     },
     {
@@ -1267,7 +1263,17 @@ function buildCard(item, index) {
     head.innerHTML = `<span class="tag"><i></i>${SUBJECTS[item.subject].name}${dateNote}</span>`;
     const h3 = document.createElement('h3'); h3.textContent = item.title; head.appendChild(h3); card.appendChild(head);
     const imgs = item.images || (item.image ? [item.image] : []);
-    imgs.forEach(url => { const img = document.createElement('img'); img.src = url; img.alt = item.title; img.className = 'task-image'; img.loading = 'lazy'; img.onclick = () => openLightbox(url); img.onerror = () => { img.style.display = 'none'; }; card.appendChild(img); });
+    imgs.forEach(url => { 
+        const img = document.createElement('img'); 
+        img.src = url; 
+        img.alt = item.title; 
+        img.className = 'task-image'; 
+        if (item.subject === 'geometry') img.classList.add('small-img'); // Ограничиваем размер для геометрии
+        img.loading = 'lazy'; 
+        img.onclick = () => openLightbox(url); 
+        img.onerror = () => { img.style.display = 'none'; }; 
+        card.appendChild(img); 
+    });
     if (imgs.length && item.imageCaption) { const c = document.createElement('p'); c.className = 'image-caption'; c.textContent = item.imageCaption; card.appendChild(c); }
     if (item.content) {
         if (item.type === 'math') {
