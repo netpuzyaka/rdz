@@ -14,8 +14,8 @@
     --border: #2d323b; --text: #e9e6e0; --muted: #979ba5; --gold: #d9a55b;
     --algebra: #7aa7e0; --russian: #e08a8a; --history: #d9a55b; --geography: #86bf97;
     --english: #c9a3e6; --geometry: #6ec2d9; --physics: #e6c47c; --biology: #8fd18f;
-    --literature: #d1a76f; --orange: #eb9a5c; --green: #7cc596; --purple: #bba3e6;
-    --red: #e47c7c; --blue: #6ec2d9; --creator: #e8b96a;
+    --literature: #d1a76f; --probability: #a3a3a3; --orange: #eb9a5c; --green: #7cc596;
+    --purple: #bba3e6; --red: #e47c7c; --blue: #6ec2d9; --creator: #e8b96a;
     --serif: 'Playfair Display', Georgia, serif;
     --text-serif: 'Lora', Georgia, serif;
     --ui: 'Golos Text', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
@@ -27,7 +27,7 @@
     --orange: #d17a2d; --green: #4a9c6a; --purple: #8b6bc0; --red: #c95a5a;
     --blue: #3b9bb5; --creator: #c48d2e; --algebra: #4a7fc0; --russian: #c46a6a;
     --history: #b8832f; --geography: #5c9c72; --english: #a37fc4; --geometry: #3b9bb5;
-    --physics: #b89b3e; --biology: #4a9c6a; --literature: #b8832f;
+    --physics: #b89b3e; --biology: #4a9c6a; --literature: #b8832f; --probability: #7a7466;
 }
 [data-theme="light"] body {
     background-image:
@@ -193,6 +193,7 @@ body.cursor-ready .cursor-dot, body.cursor-ready .cursor-ring { opacity: 1; }
 .card[data-subject="physics"]   { --c: var(--physics); }
 .card[data-subject="biology"]   { --c: var(--biology); }
 .card[data-subject="literature"]{ --c: var(--literature); }
+.card[data-subject="probability"]{ --c: var(--probability); }
 .card[data-subject="creator"]   { --c: var(--creator); }
 .card-head { margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
 .tag { display: inline-flex; align-items: center; gap: 7px; font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.3px; color: var(--c); flex-wrap: wrap; }
@@ -478,32 +479,127 @@ body.cursor-ready .cursor-dot, body.cursor-ready .cursor-ring { opacity: 1; }
 const homeworkData = [
     // --- СРЕДА, 21 ОКТЯБРЯ ---
     {
-        date: '2026-10-21', subject: 'geometry', title: 'Задача (фото) — решение будет позже', type: 'task',
-        image: 'https://allwebs.ru/images/2026/10/20/0d2fb682c7c3fa098524cf329eda6156.jpg',
-        imageCaption: 'Фото задания по геометрии',
-        content: `<p style="font-size:14px; color:var(--muted); font-style:italic;">Решение будет добавлено после предоставления фото.</p>`
-    },
-    {
-        date: '2026-10-21', subject: 'algebra', title: '№ 494, 495 + свойства степеней', type: 'task',
-        content: `<p><b>Письменно:</b> № 494, № 495.</p>
-        <p style="margin-top:10px;"><b>Повторить:</b> свойства степеней:</p>
-        <ul style="padding-left:20px; line-height:1.8;">
-            <li><b>aⁿ · aᵐ = aⁿ⁺ᵐ</b> (при умножении показатели складываются)</li>
-            <li><b>aⁿ : aᵐ = aⁿ⁻ᵐ</b> (при делении показатели вычитаются)</li>
-            <li><b>(aⁿ)ᵐ = aⁿᵐ</b> (при возведении степени в степень показатели перемножаются)</li>
-            <li><b>(ab)ⁿ = aⁿbⁿ</b></li>
-        </ul>
-        <p style="margin-top:10px; font-size:13px; color:var(--muted); font-style:italic;">* Решение будет добавлено после предоставления фото.</p>`
+        date: '2026-10-21', subject: 'physics', title: 'Упражнение 6 (3, 4, 5)', type: 'task',
+        images: [
+            'https://allwebs.ru/images/2026/10/20/0d2fb682c7c3fa098524cf329eda6156.jpg' // Используем картинку с задачами (условно)
+        ],
+        imageCaption: 'Фото задания по физике',
+        content: `
+        <p><b>Задание 3.</b><br>
+        Возраст 12 лет. 1 год = 365 дней, каждый 4-й — високосный.<br>
+        В 12 годах 3 високосных года (12 / 4 = 3).<br>
+        Дней: 12 × 365 + 3 = <b>4383 дня</b>.<br>
+        В СИ время измеряется в секундах.<br>
+        4383 × 24 × 60 × 60 = <b>378 691 200 с</b>.</p>
+
+        <p style="margin-top:16px;"><b>Задание 4.</b><br>
+        1 аршин = 28 дюймов = 16 вершков = 71,12 см.<br>
+        а) 30 дюймов в метрах:<br>
+        1 дюйм = 71,12 / 28 = 2,54 см = 0,0254 м.<br>
+        30 × 0,0254 = <b>0,762 м</b>.<br><br>
+        б) 2 аршина 16 дюймов 3 вершка в см:<br>
+        2 аршина = 2 × 71,12 = 142,24 см.<br>
+        16 дюймов = 16 × 2,54 = 40,64 см.<br>
+        3 вершка = 3 × (71,12 / 16) = 3 × 4,445 = 13,335 см.<br>
+        Сумма: 142,24 + 40,64 + 13,335 = <b>196,215 см</b>.</p>
+
+        <p style="margin-top:16px;"><b>Задание 5.</b><br>
+        Глубина Байкала 1642 м.<br>
+        1 км = 1000 м.<br>
+        1642 / 1000 = <b>1,642 км</b>.</p>`
     },
     {
         date: '2026-10-21', subject: 'probability', title: '№ 31, 35', type: 'task',
-        content: `<p>Выполнить задания <b>№ 31</b> и <b>№ 35</b>.</p>
-        <p style="margin-top:10px; font-size:13px; color:var(--muted); font-style:italic;">* Решение будет добавлено после предоставления фото.</p>`
+        images: [
+            'https://allwebs.ru/images/2026/10/20/254e6644f5cfa7830a25e464801b9e73.png' // Условное фото, если пришлешь новые - заменю
+        ],
+        imageCaption: 'Фото заданий по статистике',
+        content: `
+        <p><b>№ 31.</b><br>
+        По диаграмме нужно найти продукт, где содержание белков (светло-голубой сектор) превышает 25% (четверть круга).<br>
+        Сравнивая диаграммы, видно, что только у <b>грибов (4)</b> сектор «Белки» занимает больше четверти окружности.</p>
+
+        <p style="margin-top:16px;"><b>№ 35.</b><br>
+        Всего опрошено 30 семей. Животных в сумме: 18 + 10 + 5 + 2 + 7 = 42.<br><br>
+        <b>а)</b> Число животных больше числа семей, потому что <b>в некоторых семьях живет больше одного вида животных</b>.<br><br>
+        <b>б)</b> Семей без животных = 6.<br>
+        Семей с животными = 30 - 6 = 24.<br>
+        Пусть \(x\) — семей с 1 видом, \(y\) — с 2 видами.<br>
+        \(x + y = 24\)<br>
+        \(1 \cdot x + 2 \cdot y = 42\)<br>
+        Вычитаем первое из второго: \(y = 18\).<br>
+        Тогда \(x = 24 - 18 = 6\).<br>
+        <b>Ответ:</b> 6 семей имеют ровно один вид животных.<br>
+        <i>Для диаграммы: 6 семей без животных (72°), 6 семей с 1 видом (72°), 18 семей с 2 видами (216°).</i></p>`
     },
     {
-        date: '2026-10-21', subject: 'physics', title: 'Упражнение 6 (3, 4, 5)', type: 'task',
-        content: `<p>Выполнить <b>упражнение 6</b>, задания <b>3, 4, 5</b>.</p>
-        <p style="margin-top:10px; font-size:13px; color:var(--muted); font-style:italic;">* Решение будет добавлено после предоставления фото.</p>`
+        date: '2026-10-21', subject: 'geometry', title: 'Задача на готовом чертеже (угол KBN)', type: 'task',
+        image: 'https://allwebs.ru/images/2026/10/20/0d2fb682c7c3fa098524cf329eda6156.jpg',
+        imageCaption: 'Фото задания по геометрии',
+        content: `
+        <div class="geo-grid">
+            <div class="geo-box given">
+                <span class="geo-title">Дано:</span>
+                <ul>
+                    <li>∠ABC и ∠CBD — смежные</li>
+                    <li>∠CBD = 36°</li>
+                    <li>BH ⊥ AD</li>
+                    <li>BK — биссектриса ∠ABC</li>
+                </ul>
+            </div>
+            <div class="geo-box given">
+                <span class="geo-title">Найти:</span>
+                <p>∠KBN (или ∠KBH)</p>
+            </div>
+        </div>
+        
+        <div class="geo-box solve" style="margin-bottom:16px;">
+            <span class="geo-title">Решение:</span>
+            <ol>
+                <li>Так как углы ABC и CBD смежные, их сумма 180°:<br>
+                    ∠ABC = 180° - 36° = <b>144°</b>
+                </li>
+                <li>BK — биссектриса ∠ABC, значит:<br>
+                    ∠ABK = 144° / 2 = <b>72°</b>
+                </li>
+                <li>BH ⊥ AD, значит ∠ABH = <b>90°</b></li>
+                <li>Угол между перпендикуляром и биссектрисой:<br>
+                    ∠KBH = ∠ABH - ∠ABK = 90° - 72° = <b>18°</b>
+                </li>
+            </ol>
+            <p style="margin-top:12px; font-weight:600; color: var(--green);">Ответ: ∠KBN = 18°.</p>
+        </div>`
+    },
+    {
+        date: '2026-10-21', subject: 'algebra', title: '№ 494, 495 + свойства степеней', type: 'task',
+        image: 'https://allwebs.ru/images/2026/10/20/254e6644f5cfa7830a25e464801b9e73.png',
+        imageCaption: 'Фото заданий № 494 и 495',
+        content: `
+        <p><b>№ 494. Какой одночлен надо возвести в квадрат (в куб), чтобы получить одночлен:</b></p>
+        <p><b>а)</b> \(x^6y^{12}\)<br>
+        В квадрат: <b>(\(x^3y^6\))²</b><br>
+        В куб: <b>(\(x^2y^4\))³</b></p>
+        <p><b>б)</b> \(1000000m^{18}\)<br>
+        В квадрат: <b>(\(1000m^9\))²</b><br>
+        В куб: <b>(\(100m^6\))³</b></p>
+        
+        <p style="margin-top:16px;"><b>№ 495. Представьте выражение в виде одночлена стандартного вида:</b></p>
+        <ul style="padding-left:20px; line-height:1.9;">
+            <li><b>а)</b> \(25a^4 \cdot (3a^3)^2 = 25a^4 \cdot 9a^6 = \mathbf{225a^{10}}\)</li>
+            <li><b>б)</b> \((-3b^6)^4 \cdot b = 81b^{24} \cdot b = \mathbf{81b^{25}}\)</li>
+            <li><b>в)</b> \(8p^{15} \cdot (-p)^4 = 8p^{15} \cdot p^4 = \mathbf{8p^{19}}\)</li>
+            <li><b>г)</b> \((-c^2)^3 \cdot 0,15c^4 = -c^6 \cdot 0,15c^4 = \mathbf{-0,15c^{10}}\)</li>
+            <li><b>д)</b> \((-10c^2)^4 \cdot 0,0001c^{11} = 10000c^8 \cdot 0,0001c^{11} = \mathbf{c^{19}}\)</li>
+            <li><b>е)</b> \((-3b^5)^2 \cdot \frac{2}{9}b^3 = 9b^{10} \cdot \frac{2}{9}b^3 = \mathbf{2b^{13}}\)</li>
+            <li><b>ж)</b> \((-2x^3)^2 \cdot (-\frac{1}{4}x^4) = 4x^6 \cdot (-\frac{1}{4}x^4) = \mathbf{-x^{10}}\)</li>
+            <li><b>з)</b> \((-\frac{1}{2}y^4)^3 \cdot (-16y^2) = -\frac{1}{8}y^{12} \cdot (-16y^2) = \mathbf{2y^{14}}\)</li>
+        </ul>
+        <p style="margin-top:14px; font-size:13.5px; color:var(--muted);">
+            <b>Повторить свойства степеней:</b><br>
+            • \(a^n \cdot a^m = a^{n+m}\)<br>
+            • \(a^n : a^m = a^{n-m}\)<br>
+            • \((a^n)^m = a^{n \cdot m}\)
+        </p>`
     },
     {
         date: '2026-10-21', subject: 'geography', title: '§ 15 — читать, записи знать', type: 'task',
